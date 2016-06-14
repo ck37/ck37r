@@ -4,7 +4,7 @@
 #' By default it uses a multinode cluster if available, otherwise sets up multicore via doMC.
 #' Libraries required: parallel, doSNOW, doMC, RhpcBLASctl, foreach
 #' @export
-setup_parallelism = function(conf = NULL, type="either", allow_multinode = T,
+parallelize = function(conf = NULL, type="either", allow_multinode = T,
                              machine_list = Sys.getenv("SLURM_NODELIST"),
                              cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
                              outfile = "") {
