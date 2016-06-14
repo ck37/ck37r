@@ -39,21 +39,21 @@ setup_parallelism = function(conf = NULL, type="either", allow_multinode = T,
     # TODO: figure out how to suppress the output from makeCluster()
     #capture.output({ cl = parallel::makeCluster(cores, outfile = outfile) })
     cat("Starting multinode cluster with cores:", cores, "\n")
-    capture.output({ cl = parallel::makeCluster(cores, type="PSOCK", outfile = outfile) })
+    capture.output({ cl = snow::makeCluster(cores, type="SOCK", outfile = outfile) })
     # doParallel supports multicore and multinode parallelism, but may require
     # explicitly exporting functions and libraries across the cluster.
-    registerDoSNOW(cl)
-    setDefaultCluster(cl)
+    doSNOW::registerDoSNOW(cl)
+    parallel::setDefaultCluster(cl)
     parallel_type = "snow"
   } else if (type %in% c("doParallel")) {
     # Outfile = "" allows output from within foreach to be displayed.
     # TODO: figure out how to suppress the output from makeCluster()
     capture.output({ cl = parallel::makeCluster(cores, outfile = outfile) })
-    registerDoParallel(cl)
-    setDefaultCluster(cl)
+    doParallel::registerDoParallel(cl)
+    parallel::setDefaultCluster(cl)
   } else {
     # doMC only supports multicore parallelism, not multi-node.
-    registerDoMC(cores)
+    doMC::registerDoMC(cores)
     cl = NA
     # TODO: is this needed since we've already done registerDoMC()?
     options(mc.cores = cores)
@@ -61,30 +61,31 @@ setup_parallelism = function(conf = NULL, type="either", allow_multinode = T,
   }
 
   # Make sure the BLAS is not competing with the SL parallelism.
-  omp_threads = omp_get_max_threads()
+  omp_threads = RhpcBLASctl::omp_get_max_threads()
   if (!is.null(omp_threads) && omp_threads > 1) {
-    omp_set_num_threads(1)
+    RhpcBLASctl::omp_set_num_threads(1)
   }
 
   # TODO: need to figure out difference between get_max_threads and get_num_procs.
   # They are not always both consistently set to 1 (i.e. on Benten).
-  omp_threads = omp_get_num_procs()
+  omp_threads = RhpcBLASctl::omp_get_num_procs()
   # If omp_get_num_procs() returns NULL we can safely plan on using 1 thread.
   omp_threads = ifelse(is.null(omp_threads), 1, omp_threads)
-  cat("Our BLAS is setup for", blas_get_num_procs(), "threads and OMP is", omp_threads, "threads.\n")
+  cat("Our BLAS is setup for", RhpcBLASctl::blas_get_num_procs(), "threads and OMP is", omp_threads, "threads.\n")
   #cat("Multicore parallel is setup to use", getOption("mc.cores"), "cores.\n")
 
-  cat("doPar backend registered:", getDoParName(), "\n")
-  cat("Workers enabled:", getDoParWorkers(), "\n")
+  cat("doPar backend registered:", foreach::getDoParName(), "\n")
+  cat("Workers enabled:", foreach::getDoParWorkers(), "\n")
   # Return invisibily so that NA is not printed.
   return(invisible(cl))
 }
 
-# Stop the cluster if parallel:makeCluster() was used, but nothing needed if doMC was used.
+#' Stop the cluster if snow::makeCluster() was used, but nothing needed if doMC was used.
+#' @export
 stop_cluster = function(cluster_obj) {
   # Check if this cluster was created using parallel:makeCluster
   if (inherits(cluster_obj, "cluster")) {
-    stopCluster(cluster_obj)
+    parallel::stopCluster(cluster_obj)
   } else {
     #cat("No cluster shutdown required.\n")
     invisible()
