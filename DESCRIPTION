@@ -2,12 +2,13 @@ Package: ckTools
 Title: Various R functions
 Version: 1.0
 Authors@R: person("Chris", "Kennedy", email = "chrisken@gmail.com", role = c("aut", "cre"))
-Description: Supplies additional R functionality
+Description: Supplies additional R functionality.
 Depends:
     R (>= 3.1.0)
 Imports:
     doMC,
     doParallel,
+    doSNOW,
     foreach,
     parallel,
     RhpcBLASctl,
