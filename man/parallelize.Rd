@@ -4,13 +4,36 @@
 \alias{parallelize}
 \title{Setup parallel processing, either multinode or multicore.}
 \usage{
-parallelize(conf = NULL, type = "either", allow_multinode = T,
+parallelize(conf = NULL, type = "any", allow_multinode = T,
   machine_list = Sys.getenv("SLURM_NODELIST"),
   cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
   outfile = "")
 }
+\arguments{
+\item{conf}{List whose "cores" element can be used to specify the number of
+multicore workers used.}
+
+\item{type}{"any", "cluster"/"doSNOW", "doParallel", or "doMC"}
+
+\item{allow_multinode}{If T will use multiple nodes if detected. If F will
+not use multiple machines even if they are available.}
+
+\item{machine_list}{List of networked computers for multinode computation.}
+
+\item{cpus_per_node}{Number of processes to run on each node, if using
+multinode parallelization.}
+
+\item{outfile}{File to collect output across workers. IF "" then results are
+printed to the console.}
+}
+\value{
+obj Cluster object that can be passed to stop_cluster().
+}
 \description{
 By default it uses a multinode cluster if available, otherwise sets up multicore via doMC.
 Libraries required: parallel, doSNOW, doMC, RhpcBLASctl, foreach
+}
+\seealso{
+stop_cluster
 }
 
