@@ -5,6 +5,8 @@
 #' @param prefix String to add at the beginning of the name of each missingness
 #'   indicator.
 #' @param skip_vars List of variable names to exclude from the imputation.
+#'
+#' @export
 impute_missing_values = function(data, add_indicators = T, prefix = "miss_",
                                  skip_vars = c()) {
   # Loop over each feature.

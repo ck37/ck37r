@@ -1,3 +1,4 @@
+#' @export
 missingness_indicators = function(data, prefix = "miss_") {
   # Create indicators.
   indicators = sapply(data, FUN = function(col) as.numeric(is.na(col)) )
