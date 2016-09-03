@@ -1,5 +1,5 @@
 # ckTools
-Custom R functions for various things
+Custom R functions for various things that I use across multiple projects.
 
 ## Functions
 
@@ -8,6 +8,8 @@ Custom R functions for various things
 * `load_packages` - load a list of packages; for the ones that fail it will attempt to install them automatically from CRAN, then load them again.
 * `impute_missing_values` - impute missing values in a dataframe (median for numerics and mode for factors), add missingness indicators.
 * `missingness_indicators` - return a matrix of missingness indicators for a dataframe.
+* `load_all_code` - source() all R files in a given directory.
+* `import_csvs` - import all CSV files in a given directory.
 
 ## Examples
 
