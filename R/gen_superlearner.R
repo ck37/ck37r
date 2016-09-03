@@ -1,5 +1,6 @@
 #' Setup a SuperLearner() based on parallel configuration.
 #' @return A list with a SL and CV.SL function.
+#' @export
 gen_superlearner = function(parallel = "multicore",
                             cluster = NULL,
                             outer_cv_folds = NULL,
