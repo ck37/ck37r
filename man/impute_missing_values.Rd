@@ -5,7 +5,7 @@
 \title{Impute missing values in a dataframe and add missingness indicators.}
 \usage{
 impute_missing_values(data, add_indicators = T, prefix = "miss_",
-  skip_vars = c())
+  skip_vars = c(), verbose = F)
 }
 \arguments{
 \item{data}{Dataframe or matrix.}
@@ -16,6 +16,8 @@ impute_missing_values(data, add_indicators = T, prefix = "miss_",
 indicator.}
 
 \item{skip_vars}{List of variable names to exclude from the imputation.}
+
+\item{vebose}{If True display extra information during execution.}
 }
 \description{
 Impute missing values in a dataframe and add missingness indicators.

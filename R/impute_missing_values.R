@@ -5,10 +5,11 @@
 #' @param prefix String to add at the beginning of the name of each missingness
 #'   indicator.
 #' @param skip_vars List of variable names to exclude from the imputation.
+#' @param vebose If True display extra information during execution.
 #'
 #' @export
 impute_missing_values = function(data, add_indicators = T, prefix = "miss_",
-                                 skip_vars = c()) {
+                                 skip_vars = c(), verbose = F) {
   # Loop over each feature.
   missing_indicators = NULL
   for (i in 1:ncol(data)){
@@ -16,6 +17,11 @@ impute_missing_values = function(data, add_indicators = T, prefix = "miss_",
     # Nothing to impute, continue to next column.
     # TODO: add note and also skip if nas are 100% of the data.
     if (nas == 0 || names(data)[i] %in% skip_vars) {
+      next
+    } else if (nas == nrow(data)) {
+      if (verbose) {
+        cat("Note: skipping", colnames(data)[i], "because all values are NA.\n")
+      }
       next
     }
 
