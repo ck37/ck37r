@@ -10,6 +10,7 @@ Custom R functions for various things that I use across multiple projects.
 * `missingness_indicators` - return a matrix of missingness indicators for a dataframe.
 * `load_all_code` - source() all R files in a given directory.
 * `import_csvs` - import all CSV files in a given directory.
+* `gen_superlearner` - create a SuperLearner and CV.SuperLearner function setup according to a given parallelization configuration.
 
 ## Examples
 
