@@ -4,11 +4,19 @@
 #'
 #' @param pkgs Character vector of packages to load.
 #' @param auto_install Install any packages that could not be loaded.
+#' @param update Update packages where possible.
 #'
 #' @importFrom utils capture.output install.packages
 #'
 #' @export
-load_packages = function(pkgs, auto_install = F) {
+load_packages = function(pkgs = c(), auto_install = F, update = F) {
+
+  # Attempt an update first, in case it will help with installing new packages.
+  update_result = NULL
+  if (update) {
+    # Update any R packages that can be updated.
+    update_result = update.packages(ask = F, checkBuilt = T)
+  }
 
   # Try to load each package, and save whether or not it succeeded.
   capture.output({ result = sapply(pkgs, require, character.only=T, quietly=T) })
@@ -32,7 +40,9 @@ load_packages = function(pkgs, auto_install = F) {
     install_code = ""
   }
 
+
+
   results = list(packages = pkgs, pkgs_result = result, pkgs_retry = result_retry,
-                 install_code = install_code)
+                 install_code = install_code, update_result = update_result)
   invisible(result)
 }

@@ -4,12 +4,14 @@
 \alias{load_packages}
 \title{Load a list of packages.}
 \usage{
-load_packages(pkgs, auto_install = F)
+load_packages(pkgs = c(), auto_install = F, update = F)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to load.}
 
 \item{auto_install}{Install any packages that could not be loaded.}
+
+\item{update}{Update packages where possible.}
 }
 \description{
 Load packages and install them from CRAN if they aren't already available.
