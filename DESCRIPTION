@@ -6,7 +6,6 @@ Description: Supplies additional R functionality.
 Depends:
     R (>= 3.1.0)
 Imports:
-    doMC,
     doParallel,
     doSNOW,
     foreach,
