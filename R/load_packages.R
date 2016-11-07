@@ -9,7 +9,8 @@
 #' @importFrom utils capture.output install.packages
 #'
 #' @export
-load_packages = function(pkgs = c(), auto_install = F, update = F) {
+load_packages = function(pkgs = NULL, auto_install = F, update = F,
+                         verbose = F) {
 
   # Attempt an update first, in case it will help with installing new packages.
   update_result = NULL
