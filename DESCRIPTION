@@ -6,13 +6,14 @@ Description: Supplies additional R functionality.
 Depends:
     R (>= 3.1.0)
 Imports:
-    doMC,
     doParallel,
     doSNOW,
     foreach,
     parallel,
     RhpcBLASctl,
     snow
+Suggests:
+    doMC
 License: MIT
 Encoding: UTF-8
 LazyData: true
