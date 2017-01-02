@@ -5,6 +5,7 @@
 #' @param pkgs Character vector of packages to load.
 #' @param auto_install Install any packages that could not be loaded.
 #' @param update Update packages where possible.
+#' @param verbose If T display more detailed information during execution.
 #'
 #' @importFrom utils capture.output install.packages
 #'

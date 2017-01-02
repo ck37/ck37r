@@ -12,6 +12,8 @@ load_packages(pkgs = NULL, auto_install = F, update = F, verbose = F)
 \item{auto_install}{Install any packages that could not be loaded.}
 
 \item{update}{Update packages where possible.}
+
+\item{verbose}{If T display more detailed information during execution.}
 }
 \description{
 Load packages and install them from CRAN if they aren't already available.
