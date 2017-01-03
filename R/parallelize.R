@@ -86,7 +86,7 @@ parallelize = function(conf = NULL, type="any", allow_multinode = T,
 
   # TODO: need to figure out difference between get_max_threads and get_num_procs.
   # They are not always both consistently set to 1 (i.e. on Benten).
-  omp_threads = RhpcBLASctl::omp_get_num_procs()
+  omp_threads = RhpcBLASctl::omp_get_max_threads()
   # If omp_get_num_procs() returns NULL we can safely plan on using 1 thread.
   omp_threads = ifelse(is.null(omp_threads), 1, omp_threads)
   cat("Our BLAS is setup for", RhpcBLASctl::blas_get_num_procs(), "threads and OMP is", omp_threads, "threads.\n")
