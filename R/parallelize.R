@@ -22,7 +22,8 @@
 parallelize = function(conf = NULL, type="any", allow_multinode = T,
                        machine_list = Sys.getenv("SLURM_NODELIST"),
                        cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
-                       outfile = "") {
+                       max_cores = NULL,
+                       outfile = "" , verbose = F) {
   # Indicator for multi-node parallelism.
   multinode = F
 
@@ -31,6 +32,12 @@ parallelize = function(conf = NULL, type="any", allow_multinode = T,
     machines = strsplit(machine_list, ",")[[1]]
     if (length(machines) > 1) {
       cat("Have multi-node access for parallelism with", length(machines), "machines:", machines, "\n")
+
+      # Restrict the number of cores used, e.g. if we need a lot of memory per core.
+      if (!is.null(max_cores)) {
+        cpus_per_node = min(cpus_per_node, max_cores)
+      }
+
       # NOTE: this may be a bad config if the nodes have different core counts.
       cores = rep(machines, each = cpus_per_node)
       cat("Multi-node cores enabled:", cores, "\n")
@@ -43,6 +50,15 @@ parallelize = function(conf = NULL, type="any", allow_multinode = T,
     cores = RhpcBLASctl::get_num_cores()
     cat("Local physical cores detected:", cores, "\n")
 
+    # Restrict to max_cores if needed, e.g. high memory usage per core.
+    if (!is.null(max_cores)) {
+      if (max_cores < cores) {
+        cat("Restricting usage to", max_cores, "cores.\n")
+        cores = min(max_cores, cores)
+      }
+    }
+
+    # TODO: remove this option.
     if (exists("conf") && !is.null(conf) && "num_cores" %in% names(conf)) {
       cores = conf$num_cores
       cat("Using", cores, "local processes due to conf settings.\n")

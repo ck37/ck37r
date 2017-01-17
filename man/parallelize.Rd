@@ -7,7 +7,7 @@
 parallelize(conf = NULL, type = "any", allow_multinode = T,
   machine_list = Sys.getenv("SLURM_NODELIST"),
   cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
-  outfile = "")
+  max_cores = NULL, outfile = "", verbose = F)
 }
 \arguments{
 \item{conf}{List whose "cores" element can be used to specify the number of

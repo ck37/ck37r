@@ -4,7 +4,7 @@
 \alias{setup_parallel_tmle}
 \title{Setup TMLE to run in  parallel}
 \usage{
-setup_parallel_tmle(parallel = "multicore", allow_multinode = T,
-  global = T)
+setup_parallel_tmle(parallel = "multicore", max_cores = NULL,
+  allow_multinode = T, global = T)
 }
 
