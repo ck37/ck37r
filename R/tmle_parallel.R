@@ -42,6 +42,11 @@ tmle_parallel = function(Y, A, W, family,
                 SL.library = g.SL.library, id = id,
                 cvControl = list(V = V))
 
+  if (verbose) {
+    cat("Q init fit:\n\n")
+    print(Q_init)
+  }
+
   # Create stacked dataframe with A = 1 and A = 0
   stacked_df = rbind(cbind(A = 1, W), cbind(A = 0, W))
 
@@ -54,8 +59,12 @@ tmle_parallel = function(Y, A, W, family,
   if (verbose) cat("Estimating g using custom SuperLearner.\n")
   g_fit = sl_fn(Y = A, X = W, family = "binomial",
                 SL.library = g.SL.library, id = id,
-                cvControl = list(V = V)
-  )
+                cvControl = list(V = V))
+
+  if (verbose) {
+    cat("g fit:\n\n")
+    print(g_fit)
+  }
 
   # Predict g1W: P(A = 1 | W)
   g1W = predict(g_fit, W, onlySL = TRUE)$pred
