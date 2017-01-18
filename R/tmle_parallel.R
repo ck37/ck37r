@@ -2,12 +2,32 @@
 #' @description
 #' This is needed to use Savio or any multicore system effectively.
 #'
+#' @param Y Outcome
+#' @param A Treatment indicator
+#' @param W Covariates
+#' @param family Gaussian or binomial
+#' @param g.SL.library SL library for estimating g
+#' @param Q.SL.library SL library for estimating Q
+#' @param id Optional list of subject-specific ids.
+#' @param verbose If TRUE outputs additional information during execution.
+#' @param V Number of cross-validation folds to use when estimating g and Q.
+#' @param sl_fn SuperLearner function to use for estimation of g and Q. By
+#'   default this uses the normal SuperLearner function which is sequential.
+#'   Other options would be to pass in mcSuperLearner, snowSuperLearner, or
+#'   CV.SuperLearner. For functions that require additional arguments (e.g. the
+#'   cluster argument of for snowSuperLearner) one should create a new function
+#'   that overloads the call and sets that argument. This is what
+#'   setup_parallel_tmle() does.
+#' @param ... Remaining arguments are passed through to tmle::tmle().
+#'
 #' @export
-#----------------------------------------------------
+#' @seealso setup_parallel_tmle
+#'
+# TODO: add examples to the code, document return object.
 tmle_parallel = function(Y, A, W, family,
                          g.SL.library, Q.SL.library,
                          id = 1:length(Y), verbose = F,
-                         gbound = 0.025, V = 5,
+                         V = 5,
                          sl_fn = SuperLearner::SuperLearner,
                          ...) {
 

@@ -1,5 +1,21 @@
-#' @title Setup TMLE to run in  parallel
+#' @title Setup TMLE to run in parallel
+#'
+#' @description
+#' Starts a cluster and sets up TMLE and SuperLearner to use the cluster
+#' so that TMLE is conducted in parallel rather than using only one core.
+#'
+#' @param parallel "multicore", "doParallel", or "doSNOW"
+#' @param max_cores Restrict how many many cores will be used on a machine,
+#'   rather than using all available cores. Useful if each core needs to use a
+#'   substantial amount of memory.
+#' @param allow_multinode If T, will create a multinode cluster if it finds
+#'   multiple machines listed in the "SLURM_NODELIST" environmental variable.
+#'   If F, it will only use the current node even if multiple nodes are detected.
+#' @param global If TRUE will create run_tmle() as a function in the global
+#'   environment and "cl" as a global cluster object.
 #' @export
+#' @seealso parallelize, tmle_parallel, gen_superlearner
+# TODO: add examples to the code, document return object.
 setup_parallel_tmle = function(parallel = "multicore", max_cores = NULL,
                                allow_multinode = T, global = T) {
 

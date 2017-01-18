@@ -5,10 +5,41 @@
 \title{Modify TMLE to support parallel computation for g and Q.}
 \usage{
 tmle_parallel(Y, A, W, family, g.SL.library, Q.SL.library, id = 1:length(Y),
-  verbose = F, gbound = 0.025, V = 5,
-  sl_fn = SuperLearner::SuperLearner, ...)
+  verbose = F, V = 5, sl_fn = SuperLearner::SuperLearner, ...)
+}
+\arguments{
+\item{Y}{Outcome}
+
+\item{A}{Treatment indicator}
+
+\item{W}{Covariates}
+
+\item{family}{Gaussian or binomial}
+
+\item{g.SL.library}{SL library for estimating g}
+
+\item{Q.SL.library}{SL library for estimating Q}
+
+\item{id}{Optional list of subject-specific ids.}
+
+\item{verbose}{If TRUE outputs additional information during execution.}
+
+\item{V}{Number of cross-validation folds to use when estimating g and Q.}
+
+\item{sl_fn}{SuperLearner function to use for estimation of g and Q. By
+default this uses the normal SuperLearner function which is sequential.
+Other options would be to pass in mcSuperLearner, snowSuperLearner, or
+CV.SuperLearner. For functions that require additional arguments (e.g. the
+cluster argument of for snowSuperLearner) one should create a new function
+that overloads the call and sets that argument. This is what
+setup_parallel_tmle() does.}
+
+\item{...}{Remaining arguments are passed through to tmle::tmle().}
 }
 \description{
 This is needed to use Savio or any multicore system effectively.
+}
+\seealso{
+setup_parallel_tmle
 }
 
