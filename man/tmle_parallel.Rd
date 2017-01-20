@@ -5,7 +5,8 @@
 \title{Modify TMLE to support parallel computation for g and Q.}
 \usage{
 tmle_parallel(Y, A, W, family, g.SL.library, Q.SL.library, id = 1:length(Y),
-  verbose = F, V = 5, sl_fn = SuperLearner::SuperLearner, ...)
+  verbose = F, V = 5, sl_fn = SuperLearner::SuperLearner,
+  cvsl_fn = SuperLearner::CV.SuperLearner, cvQinit = F, ...)
 }
 \arguments{
 \item{Y}{Outcome}
@@ -26,13 +27,17 @@ tmle_parallel(Y, A, W, family, g.SL.library, Q.SL.library, id = 1:length(Y),
 
 \item{V}{Number of cross-validation folds to use when estimating g and Q.}
 
-\item{sl_fn}{SuperLearner function to use for estimation of g and Q. By
-default this uses the normal SuperLearner function which is sequential.
+\item{sl_fn}{SuperLearner function to use for estimation of g and possibly Q.
+By default this uses the normal SuperLearner function which is sequential.
 Other options would be to pass in mcSuperLearner, snowSuperLearner, or
 CV.SuperLearner. For functions that require additional arguments (e.g. the
 cluster argument of for snowSuperLearner) one should create a new function
 that overloads the call and sets that argument. This is what
 setup_parallel_tmle() does.}
+
+\item{cvsl_fn}{CV.SuperLearner equivalent, can be used for estimating Q.}
+
+\item{cvQinit}{If T, estimate Q using cvsl_fn, otherwise use sl_fn.}
 
 \item{...}{Remaining arguments are passed through to tmle::tmle().}
 }

@@ -11,13 +11,15 @@
 #' @param id Optional list of subject-specific ids.
 #' @param verbose If TRUE outputs additional information during execution.
 #' @param V Number of cross-validation folds to use when estimating g and Q.
-#' @param sl_fn SuperLearner function to use for estimation of g and Q. By
-#'   default this uses the normal SuperLearner function which is sequential.
+#' @param sl_fn SuperLearner function to use for estimation of g and possibly Q.
+#'   By default this uses the normal SuperLearner function which is sequential.
 #'   Other options would be to pass in mcSuperLearner, snowSuperLearner, or
 #'   CV.SuperLearner. For functions that require additional arguments (e.g. the
 #'   cluster argument of for snowSuperLearner) one should create a new function
 #'   that overloads the call and sets that argument. This is what
 #'   setup_parallel_tmle() does.
+#' @param cvsl_fn CV.SuperLearner equivalent, can be used for estimating Q.
+#' @param cvQinit If T, estimate Q using cvsl_fn, otherwise use sl_fn.
 #' @param ... Remaining arguments are passed through to tmle::tmle().
 #'
 #' @export
@@ -29,6 +31,8 @@ tmle_parallel = function(Y, A, W, family,
                          id = 1:length(Y), verbose = F,
                          V = 5,
                          sl_fn = SuperLearner::SuperLearner,
+                         cvsl_fn = SuperLearner::CV.SuperLearner,
+                         cvQinit = F,
                          ...) {
 
   # Time our function execution.
@@ -36,8 +40,13 @@ tmle_parallel = function(Y, A, W, family,
 
   X = cbind(A = A, W)
 
+  # TODO: get cvQinit working!
+  if (cvQinit) stop("cvQinit = T not supported yet unfortunately.\n")
+
   # Estimate Q
   if (verbose) cat("Estimating Q using custom SuperLearner.\n")
+
+  # NOTE: tmle::tmle() can optionally run CV.SuperLearner for Q but not g.
   Q_init = sl_fn(Y = Y, X = X, family = family,
                 SL.library = g.SL.library, id = id,
                 cvControl = list(V = V))
@@ -52,8 +61,10 @@ tmle_parallel = function(Y, A, W, family,
 
   # Predict Q_1 and Q_0
   pred = predict(Q_init, stacked_df, onlySL = T)
+
   # Q should be an nx2 matrix (E(Y|A=0,W), E(Y|A=1,W))
-  Q = cbind(pred$pred[seq(nrow(W) + 1, nrow(stacked_df))], pred$pred[1:nrow(W)])
+  Q = cbind(pred$pred[seq(nrow(W) + 1, nrow(stacked_df))],
+            pred$pred[1:nrow(W)])
 
   # Estimate g
   if (verbose) cat("Estimating g using custom SuperLearner.\n")
