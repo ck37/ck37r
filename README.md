@@ -1,6 +1,15 @@
 # ckTools
 Custom R functions for various things that I use across multiple projects.
 
+## Installation
+
+Install from github:
+
+```{r}
+install.packages("devtools") # Install devtools if needed.
+devtools::install_github("ck37/ckTools")
+```
+
 ## Functions
 
 - General
