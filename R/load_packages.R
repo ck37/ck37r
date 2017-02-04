@@ -6,12 +6,13 @@
 #' @param auto_install Install any packages that could not be loaded.
 #' @param update Update packages where possible.
 #' @param verbose If T display more detailed information during execution.
+#' @param ... Any additional parameters to pass through to install.packages()
 #'
 #' @importFrom utils capture.output install.packages
 #'
 #' @export
 load_packages = function(pkgs = NULL, auto_install = F, update = F,
-                         verbose = F) {
+                         verbose = F, ...) {
 
   # Attempt an update first, in case it will help with installing new packages.
   update_result = NULL
@@ -34,7 +35,7 @@ load_packages = function(pkgs = NULL, auto_install = F, update = F,
 
     if (auto_install) {
       cat("Auto-installing from repository:", getOption("repos")[1], "\n")
-      install_result = install.packages(pkgs[!result])
+      install_result = install.packages(pkgs[!result], ...)
       # Try to load newly installed packages.
       capture.output({ result_retry = sapply(pkgs[!result], require, character.only=T, quietly=T) })
     }

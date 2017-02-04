@@ -4,7 +4,8 @@
 \alias{load_packages}
 \title{Load a list of packages.}
 \usage{
-load_packages(pkgs = NULL, auto_install = F, update = F, verbose = F)
+load_packages(pkgs = NULL, auto_install = F, update = F, verbose = F,
+  ...)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to load.}
@@ -14,8 +15,9 @@ load_packages(pkgs = NULL, auto_install = F, update = F, verbose = F)
 \item{update}{Update packages where possible.}
 
 \item{verbose}{If T display more detailed information during execution.}
+
+\item{...}{Any additional parameters to pass through to install.packages()}
 }
 \description{
 Load packages and install them from CRAN if they aren't already available.
 }
-
