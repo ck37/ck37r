@@ -36,4 +36,3 @@ Libraries required: parallel, doSNOW, doMC, RhpcBLASctl, foreach
 \seealso{
 stop_cluster
 }
-

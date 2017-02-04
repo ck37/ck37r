@@ -12,4 +12,3 @@ stop_cluster(cluster_obj)
 \description{
 Stop the cluster if snow::makeCluster() was used, but nothing needed if doMC was used.
 }
-

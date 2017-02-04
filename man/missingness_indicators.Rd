@@ -17,4 +17,3 @@ missingness_indicators(data, prefix = "miss_", remove_constant = T,
 \value{
 Matrix of missingness indicators, with any constant indicators removed.
 }
-

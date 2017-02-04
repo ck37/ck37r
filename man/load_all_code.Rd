@@ -16,4 +16,3 @@ default because we presume that is the main R library file.}
 \description{
 Load all R files in the lib directory.
 }
-

@@ -19,4 +19,3 @@ import_csvs(directory = "", file_pattern = "\\\\.csv$", recursive = T,
 \description{
 Import all CSV files in a given directory and save them to a list.
 }
-

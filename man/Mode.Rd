@@ -9,4 +9,3 @@ Mode(x)
 \description{
 Compute the mode of a vector (can be multiple results).
 }
-

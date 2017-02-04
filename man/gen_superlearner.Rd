@@ -13,4 +13,3 @@ A list with a SL and CV.SL function.
 \description{
 Setup a SuperLearner() based on parallel configuration.
 }
-

@@ -16,4 +16,3 @@ standardize(x, ..., exclude_vars = NULL)
 \value{
 Data-frame with appropriate variables scaled.
 }
-

@@ -28,4 +28,3 @@ so that TMLE is conducted in parallel rather than using only one core.
 \seealso{
 parallelize, tmle_parallel, gen_superlearner
 }
-

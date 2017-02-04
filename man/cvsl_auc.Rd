@@ -19,4 +19,3 @@ Based on initial code by Alan Hubbard.
 \references{
 Add Erin LeDell chapter reference.
 }
-

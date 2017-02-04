@@ -29,4 +29,3 @@ Table in data frame form with each learner's mean, sd, min, and max
 Warning: this function will eventually be moved into the
   SuperLearner package.
 }
-

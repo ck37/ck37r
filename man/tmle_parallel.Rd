@@ -47,4 +47,3 @@ This is needed to use Savio or any multicore system effectively.
 \seealso{
 setup_parallel_tmle
 }
-
