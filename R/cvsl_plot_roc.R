@@ -33,4 +33,11 @@ cvsl_plot_roc = function(cvsl, Y = cvsl$Y, title = "CV-SuperLearner Cross-valida
           ggplot2::theme_bw() +
           ggplot2::annotate("text", x = 0.63, y = 0.15, label = txt, size = 6) +
           ggplot2::annotate("segment", x = 0, xend = 1, y = 0, yend = 1))
+
+  # Return AUC and AUC CI.
+  results = list(auc = ciout$cvAUC,
+                 auc_ci = ciout$ciout)
+
+  # Return results invisibly.
+  invisible(results)
 }
