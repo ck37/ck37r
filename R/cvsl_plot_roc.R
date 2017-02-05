@@ -36,7 +36,7 @@ cvsl_plot_roc = function(cvsl, Y = cvsl$Y, title = "CV-SuperLearner Cross-valida
 
   # Return AUC and AUC CI.
   results = list(auc = ciout$cvAUC,
-                 auc_ci = ciout$ciout)
+                 auc_ci = ciout$ci)
 
   # Return results invisibly.
   invisible(results)
