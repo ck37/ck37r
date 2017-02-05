@@ -44,7 +44,7 @@ cvsl_weights = function(cvsl,
 
   # Round the numerics.
   if (!is.null(digits)) {
-    sl_stats = apply(sl_stats, MARGIN = 2, FUN = round, digits = digits)
+    sl_stats = apply(sl_stats, MARGIN = c(1, 2), FUN = round, digits = digits)
   }
 
   # Move variable name into a real column.
