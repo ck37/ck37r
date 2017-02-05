@@ -34,7 +34,7 @@ cvsl_weights = function(cvsl,
 
   # Sort in descending order of mean weight.
   if (sort) {
-    sl_stats = sl_stats[order(sl_stats[, 1], decreasing = T), ]
+    sl_stats = sl_stats[order(sl_stats[, 1], decreasing = T), , drop = F]
   }
 
   # Restrict to models with non-zero mean weight.
