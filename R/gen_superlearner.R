@@ -8,8 +8,11 @@ gen_superlearner = function(parallel = "multicore",
 
   if (is.null(parallel)) {
     sl_fn = SuperLearner::SuperLearner
-    cv_sl_fn = function(...) {
-      SuperLearner::CV.SuperLearner(..., V = outer_cv_folds)
+    # Treat cvControl as though it's referring to innerCvControl(),
+    # due to new argument style in SuperLearner 2.0-22.
+    cv_sl_fn = function(cvControl = list(), ...) {
+      SuperLearner::CV.SuperLearner(..., V = outer_cv_folds, innerCvControl = cvControl)
+      #SuperLearner::CV.SuperLearner(...)
     }
   } else if (parallel == "multicore") {
     if (verbose) {
@@ -18,8 +21,13 @@ gen_superlearner = function(parallel = "multicore",
     sl_fn = function(...) {
       SuperLearner::mcSuperLearner(...)
     }
-    cv_sl_fn = function(...) {
-      SuperLearner::CV.SuperLearner(..., V = outer_cv_folds, parallel = parallel)
+    #cv_sl_fn = function(...) {
+    cv_sl_fn = function(cvControl = list(), ...) {
+      SuperLearner::CV.SuperLearner(...,
+                                    V = outer_cv_folds,
+                                    innerCvControl = list(cvControl),
+                                    parallel = parallel)
+      #SuperLearner::CV.SuperLearner(..., parallel = parallel)
     }
   } else if (parallel == "snow") {
     if (verbose) {
@@ -28,8 +36,11 @@ gen_superlearner = function(parallel = "multicore",
     sl_fn = function(...) {
       SuperLearner::snowSuperLearner(cluster, ...)
     }
-    cv_sl_fn = function(...) {
-      SuperLearner::CV.SuperLearner(..., V = outer_cv_folds, parallel = cluster)
+    cv_sl_fn = function(cvControl = list(), ...) {
+      SuperLearner::CV.SuperLearner(...,
+                                    V = outer_cv_folds,
+                                    innerCvControl = cvControl,
+                                    parallel = cluster)
     }
   }
   results = list(sl_fn = sl_fn, cv_sl_fn = cv_sl_fn)
