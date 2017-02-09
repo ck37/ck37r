@@ -5,7 +5,7 @@ library(ck37r)
 context("Test tmle_parallel()")
 
 # Use Causal Inference's lab 5 data as test data.
-file = system.file("extdata", "RLab5.TMLE.csv", package = "ckTools")
+file = system.file("extdata", "RLab5.TMLE.csv", package = "ck37r")
 
 data = read.csv(file)
 str(data)
