@@ -1,6 +1,6 @@
 library(testthat)
-try(detach(package:ckTools), silent = T)
-library(ckTools)
+try(detach(package:ck37r), silent = T)
+library(ck37r)
 
 context("Test tmle_parallel()")
 
