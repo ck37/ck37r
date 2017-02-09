@@ -20,15 +20,15 @@ setup_parallel_tmle = function(parallel = "multicore", max_cores = NULL,
                                allow_multinode = T, global = T) {
 
   # Start cluster.
-  cl = ckTools::parallelize(type = parallel, max_cores = max_cores,
+  cl = ck37r::parallelize(type = parallel, max_cores = max_cores,
                             allow_multinode = allow_multinode)
 
   # Create SuperLearner function.
-  sl_functions = ckTools::gen_superlearner(parallel = parallel, cluster = cl)
+  sl_functions = ck37r::gen_superlearner(parallel = parallel, cluster = cl)
 
   # Create a run_tmle function that automatically uses this parallel setup.
   run_tmle = function(...) {
-    ckTools::tmle_parallel(..., sl_fn = sl_functions$sl_fn)
+    ck37r::tmle_parallel(..., sl_fn = sl_functions$sl_fn)
   }
 
   # Save cl and run_tmle as global variables for easier usage.

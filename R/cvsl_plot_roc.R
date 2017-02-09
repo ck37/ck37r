@@ -16,7 +16,7 @@ cvsl_plot_roc = function(cvsl, Y = cvsl$Y, title = "CV-SuperLearner Cross-valida
   pred = ROCR::prediction(preds, Y)
   perf1 = ROCR::performance(pred, "sens", "spec")
 
-  ciout = ckTools::cvsl_auc(cvsl)
+  ciout = ck37r::cvsl_auc(cvsl)
 
   txt = paste0("AUC = ",
                sprintf(paste0("%0.", digits, "f"), round(ciout$cvAUC, digits)),
