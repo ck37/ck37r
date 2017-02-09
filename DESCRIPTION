@@ -1,8 +1,8 @@
-Package: ckTools
+Package: ck37r
 Title: Various R functions
 Version: 1.0
 Authors@R: person("Chris", "Kennedy", email = "chrisken@gmail.com", role = c("aut", "cre"))
-Description: Supplies additional R functionality.
+Description: R functions for project setup, data cleaning, parallelization, and targeted learning
 Depends:
     R (>= 3.1.0)
 Imports:
