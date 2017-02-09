@@ -1,4 +1,4 @@
-# ckTools
+# ck37r
 Custom R functions for various things that I use across multiple projects.
 
 ## Installation
@@ -7,7 +7,7 @@ Install from github:
 
 ```{r}
 install.packages("devtools") # Install devtools if needed.
-devtools::install_github("ck37/ckTools")
+devtools::install_github("ck37/ck37r")
 ```
 
 ## Functions
@@ -36,11 +36,11 @@ devtools::install_github("ck37/ckTools")
 ### Parallel TMLE
 
 ```r
-library(ckTools)
+library(ck37r)
 library(tmle)
 
 # Use multiple cores as available.
-ckTools::setup_parallel_tmle()
+ck37r::setup_parallel_tmle()
 
 # Basic SL library.
 sl_lib = c("SL.mean", "SL.rpart", "SL.glmnet")
