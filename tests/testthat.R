@@ -1,4 +1,4 @@
 library(testthat)
-library(ckTools)
+library(ck37r)
 
 test_check("ck37r")
