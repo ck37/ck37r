@@ -2,7 +2,8 @@ Package: ck37r
 Title: Various R functions
 Version: 1.0
 Authors@R: person("Chris", "Kennedy", email = "chrisken@gmail.com", role = c("aut", "cre"))
-Description: R functions for project setup, data cleaning, parallelization, and targeted learning
+Description: R functions for project setup, data cleaning, parallelization, and
+    targeted learning
 Depends:
     R (>= 3.1.0)
 Imports:
@@ -26,4 +27,4 @@ Suggests:
 License: MIT
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1
