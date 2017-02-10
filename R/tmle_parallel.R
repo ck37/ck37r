@@ -22,6 +22,7 @@
 #' @param cvQinit If T, estimate Q using cvsl_fn, otherwise use sl_fn.
 #' @param ... Remaining arguments are passed through to tmle::tmle().
 #'
+#' @importFrom stats predict
 #' @export
 #' @seealso setup_parallel_tmle
 #'

@@ -13,7 +13,8 @@ str(data)
 W = subset(data, select = -c(Y, A))
 
 # Use multiple cores as available.
-parallel = setup_parallel_tmle()
+# CRAN check requires at most 2 cores.
+parallel = setup_parallel_tmle(max_cores = 2)
 
 # Basic SL library.
 sl_lib = c("SL.mean", "SL.glm")
