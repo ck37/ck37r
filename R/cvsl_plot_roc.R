@@ -7,8 +7,6 @@
 #' @param digits tbd
 #' @references
 #' Add Erin LeDell paper/chapter.
-#' @importFrom ROCR prediction performance
-#' @importFrom methods slot
 #' @export
 cvsl_plot_roc = function(cvsl, Y = cvsl$Y, title = "CV-SuperLearner Cross-validated ROC",
                          digits = 4) {

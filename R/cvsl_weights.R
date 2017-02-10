@@ -11,6 +11,7 @@
 #' @return Table in data frame form with each learner's mean, sd, min, and max
 #'   meta-weight in the ensemble of each learner.
 #' @export
+#' @importFrom stats coef sd
 # TODO: add examples and tests.
 cvsl_weights = function(cvsl,
                         sort = T,
@@ -31,6 +32,8 @@ cvsl_weights = function(cvsl,
                    "SD" = sds,
                    "Min" = mins,
                    "Max" = maxs)
+
+  # Convert from SD to SE? (SD / sqrt(n))?
 
   # Sort in descending order of mean weight.
   if (sort) {

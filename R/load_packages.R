@@ -8,7 +8,7 @@
 #' @param verbose If T display more detailed information during execution.
 #' @param ... Any additional parameters to pass through to install.packages()
 #'
-#' @importFrom utils capture.output install.packages
+#' @importFrom utils capture.output install.packages update.packages
 #'
 #' @export
 load_packages = function(pkgs = NULL, auto_install = F, update = F,

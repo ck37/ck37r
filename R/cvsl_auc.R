@@ -6,7 +6,6 @@
 #' Add Erin LeDell chapter reference.
 #' @param cvsl CV.SuperLearner object
 #' @return List with cvAUC and ci elements.
-#' @importFrom cvAUC ci.cvAUC
 #' @export
 cvsl_auc = function(cvsl) {
 

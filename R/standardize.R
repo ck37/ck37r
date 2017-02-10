@@ -1,4 +1,5 @@
 #' @title Rescale variables, possibly excluding some columns
+#' @description Simple extension to base::scale() to skip columns.
 #' @param x Dataframe or matrix, assumed to have column names.
 #' @param ... Extra arguments passed-through to base::scale
 #' @param exclude_vars List of names of variables not to scale.

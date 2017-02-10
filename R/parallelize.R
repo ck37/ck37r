@@ -15,6 +15,7 @@
 #'
 #' @return obj Cluster object that can be passed to stop_cluster().
 #'
+#' @importFrom utils installed.packages
 #' @seealso stop_cluster
 #' @export
 parallelize = function(type="any", max_cores = NULL, allow_multinode = T,

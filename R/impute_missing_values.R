@@ -6,6 +6,7 @@
 #'   indicator.
 #' @param skip_vars List of variable names to exclude from the imputation.
 #' @param vebose If True display extra information during execution.
+#' @importFrom stats median
 #'
 #' @export
 impute_missing_values = function(data, add_indicators = T, prefix = "miss_",

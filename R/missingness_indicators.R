@@ -1,4 +1,5 @@
 #' @title Return matrix of missingness indicators for a dataframe or matrix.
+#' @description Return matrix of missingness indicators for a dataframe or matrix.
 #' @param data Dataframe or matrix to analyze for missingness.
 #' @param prefix Name prefix for new indicator columns.
 #' @param verbose If TRUE, print additional information.
