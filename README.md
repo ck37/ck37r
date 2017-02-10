@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/ck37/varImpact.svg?branch=master)](https://travis-ci.org/ck37/varImpact)
 # ck37r
 Custom R functions for various things that I use across multiple projects.
 
