@@ -6,14 +6,23 @@ Description: R functions for project setup, data cleaning, parallelization, and 
 Depends:
     R (>= 3.1.0)
 Imports:
+    cvAUC,
     doParallel,
     doSNOW,
     foreach,
+    ggplot2,
+    methods,
     parallel,
+    reader,
     RhpcBLASctl,
-    snow
+    ROCR,
+    snow,
+    stringr,
+    SuperLearner,
+    tmle
 Suggests:
-    doMC
+    doMC,
+    testthat
 License: MIT
 Encoding: UTF-8
 LazyData: true
