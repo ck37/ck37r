@@ -6,12 +6,14 @@ gen_superlearner = function(parallel = "multicore",
                             outer_cv_folds = NULL,
                             verbose = T) {
 
-  if (is.null(parallel)) {
+  if (is.null(parallel) || parallel == "seq") {
     sl_fn = SuperLearner::SuperLearner
     # Treat cvControl as though it's referring to innerCvControl(),
     # due to new argument style in SuperLearner 2.0-22.
     cv_sl_fn = function(cvControl = list(), ...) {
-      SuperLearner::CV.SuperLearner(..., V = outer_cv_folds, innerCvControl = cvControl)
+      SuperLearner::CV.SuperLearner(...,
+                                    V = outer_cv_folds,
+                                    innerCvControl = list(cvControl))
       #SuperLearner::CV.SuperLearner(...)
     }
   } else if (parallel == "multicore") {
@@ -39,7 +41,7 @@ gen_superlearner = function(parallel = "multicore",
     cv_sl_fn = function(cvControl = list(), ...) {
       SuperLearner::CV.SuperLearner(...,
                                     V = outer_cv_folds,
-                                    innerCvControl = cvControl,
+                                    innerCvControl = list(cvControl),
                                     parallel = cluster)
     }
   }
