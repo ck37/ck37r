@@ -4,16 +4,13 @@
 \alias{parallelize}
 \title{Setup parallel processing, either multinode or multicore.}
 \usage{
-parallelize(conf = NULL, type = "any", allow_multinode = T,
+parallelize(type = "any", max_cores = NULL, allow_multinode = T,
   machine_list = Sys.getenv("SLURM_NODELIST"),
   cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
-  max_cores = NULL, outfile = "", verbose = F)
+  outfile = "", verbose = F)
 }
 \arguments{
-\item{conf}{List whose "cores" element can be used to specify the number of
-multicore workers used.}
-
-\item{type}{"any", "cluster"/"doSNOW", "doParallel", or "doMC"}
+\item{type}{"any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq"}
 
 \item{allow_multinode}{If T will use multiple nodes if detected. If F will
 not use multiple machines even if they are available.}

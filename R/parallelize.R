@@ -4,9 +4,7 @@
 #' By default it uses a multinode cluster if available, otherwise sets up multicore via doMC.
 #' Libraries required: parallel, doSNOW, doMC, RhpcBLASctl, foreach
 #'
-#' @param conf List whose "cores" element can be used to specify the number of
-#'   multicore workers used.
-#' @param type "any", "cluster"/"doSNOW", "doParallel", or "doMC"
+#' @param type "any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq"
 #' @param allow_multinode If T will use multiple nodes if detected. If F will
 #'   not use multiple machines even if they are available.
 #' @param machine_list List of networked computers for multinode computation.
@@ -19,10 +17,9 @@
 #'
 #' @seealso stop_cluster
 #' @export
-parallelize = function(conf = NULL, type="any", allow_multinode = T,
+parallelize = function(type="any", max_cores = NULL, allow_multinode = T,
                        machine_list = Sys.getenv("SLURM_NODELIST"),
                        cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
-                       max_cores = NULL,
                        outfile = "" , verbose = F) {
   # Indicator for multi-node parallelism.
   multinode = F
@@ -31,7 +28,8 @@ parallelize = function(conf = NULL, type="any", allow_multinode = T,
   if (allow_multinode) {
     machines = strsplit(machine_list, ",")[[1]]
     if (length(machines) > 1) {
-      cat("Have multi-node access for parallelism with", length(machines), "machines:", machines, "\n")
+      cat("Have multi-node access for parallelism with", length(machines),
+          "machines:", machines, "\n")
 
       # Restrict the number of cores used, e.g. if we need a lot of memory per core.
       if (!is.null(max_cores)) {
@@ -57,12 +55,6 @@ parallelize = function(conf = NULL, type="any", allow_multinode = T,
         cores = min(max_cores, cores)
       }
     }
-
-    # TODO: remove this option.
-    if (exists("conf") && !is.null(conf) && "num_cores" %in% names(conf)) {
-      cores = conf$num_cores
-      cat("Using", cores, "local processes due to conf settings.\n")
-    }
   }
 
   if (multinode || type %in% c("cluster", "doSNOW")) {
@@ -85,6 +77,12 @@ parallelize = function(conf = NULL, type="any", allow_multinode = T,
     doParallel::registerDoParallel(cl)
     parallel::setDefaultCluster(cl)
     parallel_type = "multicore"
+  } else if (type %in% "seq" || is.null(type)) {
+    # Don't use any parallelization.
+    options(mc.cores = 1)
+    foreach::registerDoSEQ()
+    cl = NA
+    parallel_type = "seq"
   } else {
     # doMC only supports multicore parallelism, not multi-node.
     doMC::registerDoMC(cores)
