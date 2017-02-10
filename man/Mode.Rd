@@ -6,6 +6,9 @@
 \usage{
 Mode(x)
 }
+\arguments{
+\item{x}{vector}
+}
 \description{
 Compute the mode of a vector (can be multiple results).
 }

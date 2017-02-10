@@ -16,3 +16,6 @@ standardize(x, ..., exclude_vars = NULL)
 \value{
 Data-frame with appropriate variables scaled.
 }
+\description{
+Simple extension to base::scale() to skip columns.
+}
