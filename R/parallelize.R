@@ -5,6 +5,7 @@
 #' Libraries required: parallel, doSNOW, doMC, RhpcBLASctl, foreach
 #'
 #' @param type "any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq"
+#' @param max_cores Restrict to this many cores, even if more are available.
 #' @param allow_multinode If T will use multiple nodes if detected. If F will
 #'   not use multiple machines even if they are available.
 #' @param machine_list List of networked computers for multinode computation.
@@ -12,6 +13,7 @@
 #'   multinode parallelization.
 #' @param outfile File to collect output across workers. IF "" then results are
 #'   printed to the console.
+#' @param verbose If TRUE display additional output during execution.
 #'
 #' @return obj Cluster object that can be passed to stop_cluster().
 #'

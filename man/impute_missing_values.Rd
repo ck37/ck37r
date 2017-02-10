@@ -17,8 +17,8 @@ indicator.}
 
 \item{skip_vars}{List of variable names to exclude from the imputation.}
 
-\item{vebose}{If True display extra information during execution.}
+\item{verbose}{If True display extra information during execution.}
 }
 \description{
-Impute missing values in a dataframe and add missingness indicators.
+tbd
 }

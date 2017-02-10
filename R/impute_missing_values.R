@@ -1,11 +1,11 @@
 #' Impute missing values in a dataframe and add missingness indicators.
-#'
+#' @description tbd
 #' @param data Dataframe or matrix.
 #' @param add_indicators Add a series of missingness indicators.
 #' @param prefix String to add at the beginning of the name of each missingness
 #'   indicator.
 #' @param skip_vars List of variable names to exclude from the imputation.
-#' @param vebose If True display extra information during execution.
+#' @param verbose If True display extra information during execution.
 #' @importFrom stats median
 #'
 #' @export

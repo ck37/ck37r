@@ -7,9 +7,19 @@
 gen_superlearner(parallel = "multicore", cluster = NULL,
   outer_cv_folds = NULL, verbose = T)
 }
+\arguments{
+\item{parallel}{Can be "multicore", "snow", or "seq"/NULL.}
+
+\item{cluster}{Optional cluster, e.g. from SNOW.}
+
+\item{outer_cv_folds}{How many folds to use for CV.SuperLearner}
+
+\item{verbose}{If TRUE will output additional details during execution.}
+}
 \value{
 A list with a SL and CV.SL function.
 }
 \description{
-Setup a SuperLearner() based on parallel configuration.
+Create custom SL and CV.SL functions that automatically use
+  parallelization based on the provided configuration.
 }

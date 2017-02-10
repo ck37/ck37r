@@ -12,6 +12,8 @@ parallelize(type = "any", max_cores = NULL, allow_multinode = T,
 \arguments{
 \item{type}{"any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq"}
 
+\item{max_cores}{Restrict to this many cores, even if more are available.}
+
 \item{allow_multinode}{If T will use multiple nodes if detected. If F will
 not use multiple machines even if they are available.}
 
@@ -22,6 +24,8 @@ multinode parallelization.}
 
 \item{outfile}{File to collect output across workers. IF "" then results are
 printed to the console.}
+
+\item{verbose}{If TRUE display additional output during execution.}
 }
 \value{
 obj Cluster object that can be passed to stop_cluster().

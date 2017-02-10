@@ -2,6 +2,7 @@
 #' @description Return matrix of missingness indicators for a dataframe or matrix.
 #' @param data Dataframe or matrix to analyze for missingness.
 #' @param prefix Name prefix for new indicator columns.
+#' @param remove_constant Remove any indicators that are all 0 or all 1.
 #' @param verbose If TRUE, print additional information.
 #' @return Matrix of missingness indicators, with any constant indicators removed.
 #' @export

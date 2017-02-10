@@ -12,6 +12,12 @@ load_all_code(lib_dir = "lib", exclude_files = c("function_library.R"),
 
 \item{exclude_files}{Exclude a list of files; exclude function_library.R by
 default because we presume that is the main R library file.}
+
+\item{file_pattern}{Regular expression for files to load, defaults to *.R}
+
+\item{recursive}{If TRUE also recurse into subdirectories.}
+
+\item{verbose}{If TRUE display additional output during execution.}
 }
 \description{
 Load all R files in the lib directory.

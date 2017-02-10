@@ -12,6 +12,8 @@ missingness_indicators(data, prefix = "miss_", remove_constant = T,
 
 \item{prefix}{Name prefix for new indicator columns.}
 
+\item{remove_constant}{Remove any indicators that are all 0 or all 1.}
+
 \item{verbose}{If TRUE, print additional information.}
 }
 \value{
