@@ -19,6 +19,8 @@ parallel = setup_parallel_tmle(max_cores = 2)
 # Basic SL library.
 sl_lib = c("SL.mean", "SL.glm")
 
+library(SuperLearner)
+
 # Set a parallel-compatible seed so cross-validation folds are deterministic.
 set.seed(1, "L'Ecuyer-CMRG")
 result = run_tmle(Y = data$Y, A = data$A, W = W, family = "binomial",
@@ -29,7 +31,7 @@ result$time
 
 # Compare to normal tmle
 set.seed(1, "L'Ecuyer-CMRG")
-tmle = tmle(Y = data$Y, A = data$A, W = W, family = "binomial",
+tmle = tmle::tmle(Y = data$Y, A = data$A, W = W, family = "binomial",
                   g.SL.library = sl_lib, Q.SL.library = sl_lib)
 tmle
 
