@@ -49,7 +49,7 @@ tmle_parallel = function(Y, A, W, family,
 
   # NOTE: tmle::tmle() can optionally run CV.SuperLearner for Q but not g.
   Q_init = sl_fn(Y = Y, X = X, family = family,
-                SL.library = g.SL.library, id = id,
+                SL.library = Q.SL.library, id = id,
                 cvControl = list(V = V))
 
   if (verbose) {
