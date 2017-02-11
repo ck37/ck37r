@@ -11,13 +11,13 @@
 #' @param allow_multinode If T, will create a multinode cluster if it finds
 #'   multiple machines listed in the "SLURM_NODELIST" environmental variable.
 #'   If F, it will only use the current node even if multiple nodes are detected.
-#' @param global If TRUE will create run_tmle() as a function in the global
-#'   environment and "cl" as a global cluster object.
+#' @param env Environment in which to save the functions, defaulting to the
+#'   global environment. Set to NULL to disable.
 #' @export
 #' @seealso parallelize, tmle_parallel, gen_superlearner
 # TODO: add examples to the code, document return object.
 setup_parallel_tmle = function(parallel = "multicore", max_cores = NULL,
-                               allow_multinode = T, global = T) {
+                               allow_multinode = T, env = .GlobalEnv) {
 
   # Start cluster.
   cl = ck37r::parallelize(type = parallel, max_cores = max_cores,
@@ -31,10 +31,10 @@ setup_parallel_tmle = function(parallel = "multicore", max_cores = NULL,
     ck37r::tmle_parallel(..., sl_fn = sl_functions$sl_fn)
   }
 
-  # Save cl and run_tmle as global variables for easier usage.
-  if (global) {
-    assign("cl", cl, envir = .GlobalEnv)
-    assign("run_tmle", run_tmle, envir = .GlobalEnv)
+  # Save cl and run_tmle as variables in the environment for easier usage.
+  if (!is.null(env)) {
+    assign("cl", cl, envir = env)
+    assign("run_tmle", run_tmle, envir = env)
   }
 
   # Compile results into a list.

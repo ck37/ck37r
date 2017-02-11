@@ -5,7 +5,7 @@
 \title{Setup TMLE to run in parallel}
 \usage{
 setup_parallel_tmle(parallel = "multicore", max_cores = NULL,
-  allow_multinode = T, global = T)
+  allow_multinode = T, env = .GlobalEnv)
 }
 \arguments{
 \item{parallel}{"multicore", "doParallel", or "doSNOW"}
@@ -18,8 +18,8 @@ substantial amount of memory.}
 multiple machines listed in the "SLURM_NODELIST" environmental variable.
 If F, it will only use the current node even if multiple nodes are detected.}
 
-\item{global}{If TRUE will create run_tmle() as a function in the global
-environment and "cl" as a global cluster object.}
+\item{env}{Environment in which to save the functions, defaulting to the
+global environment. Set to NULL to disable.}
 }
 \description{
 Starts a cluster and sets up TMLE and SuperLearner to use the cluster
