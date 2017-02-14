@@ -18,7 +18,7 @@ devtools::install_github("ck37/ck37r")
   * `impute_missing_values` - impute missing values in a dataframe (median for numerics and mode for factors), add missingness indicators.
   * `load_all_code` - source() all R files in a given directory.
   * `load_packages` - load a list of packages; for the ones that fail it can attempt to install them automatically from CRAN, then load them again.
-  * `missingness_indicators` - return a matrix of missingness indicators for a dataframe, omitting any constant columns.
+  * `missingness_indicators` - return a matrix of missingness indicators for a dataframe, (optionally) omitting any constant or collinear columns.
   * `standardize` - standardize a dataset (center, scale), optionally omitting certain variables.
 - Parallelization
   * `parallelize` - starts a multicore or multinode parallel cluster. Automatically detects parallel nodes in a SLURM environment, which makes code work seemlessly on a laptop or a cluster.
