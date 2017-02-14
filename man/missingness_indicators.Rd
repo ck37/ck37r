@@ -5,7 +5,7 @@
 \title{Return matrix of missingness indicators for a dataframe or matrix.}
 \usage{
 missingness_indicators(data, prefix = "miss_", remove_constant = T,
-  verbose = F)
+  remove_collinear = T, verbose = F)
 }
 \arguments{
 \item{data}{Dataframe or matrix to analyze for missingness.}
@@ -13,6 +13,8 @@ missingness_indicators(data, prefix = "miss_", remove_constant = T,
 \item{prefix}{Name prefix for new indicator columns.}
 
 \item{remove_constant}{Remove any indicators that are all 0 or all 1.}
+
+\item{remove_collinear}{Remove any indicators that are collinear with each other.}
 
 \item{verbose}{If TRUE, print additional information.}
 }

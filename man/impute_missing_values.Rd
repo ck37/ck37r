@@ -20,5 +20,5 @@ indicator.}
 \item{verbose}{If True display extra information during execution.}
 }
 \description{
-tbd
+Median-impute numerics, Mode-impute factors, add missingness indicators.
 }
