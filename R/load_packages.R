@@ -29,7 +29,7 @@ load_packages = function(pkgs = NULL, auto_install = F, update = F,
 
   # Return a helpful message and the install.packages command if needed.
   if (sum(!result) > 0) {
-    cat("These packages need to be installed:", paste(pkgs[!result], collapse=", "), "\n")
+    cat("\n\nThese packages need to be installed:", paste(pkgs[!result], collapse=", "), "\n")
     install_code = paste0('install.packages(c("', paste(pkgs[!result], collapse='", "'), '"))')
     cat(install_code, "\n")
 
