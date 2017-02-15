@@ -23,6 +23,8 @@ devtools::install_github("ck37/ck37r")
 - Parallelization
   * `parallelize` - starts a multicore or multinode parallel cluster. Automatically detects parallel nodes in a SLURM environment, which makes code work seemlessly on a laptop or a cluster.
   * `stop_cluster` - stops a cluster started by `parallelize()`.
+- Random Forest
+  * `rf_count_terminal_nodes` - count the number of terminal nodes in each tree in a random forest.
 - SuperLearner
   * `gen_superlearner` - create a SuperLearner and CV.SuperLearner function setup according to a given parallelization configuration.
   * `cvsl_weights` - table of the meta-weight distribution for each learner in a CV.SuperLearner analysis.
