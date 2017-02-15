@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/ck37/varImpact.svg?branch=master)](https://travis-ci.org/ck37/varImpact)
 # ck37r
-Custom R functions for various things that I use across multiple projects.
+
+My R toolkit for organizing analyses, parallelizing code for multiple cores or in a SLURM cluster, and extended functionality for [SuperLearner](http://github.com/ecpolley/SuperLearner) and [TMLE](github.com/cran/tmle).
 
 ## Installation
 
