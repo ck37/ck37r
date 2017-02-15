@@ -14,6 +14,7 @@ Imports:
     ggplot2,
     methods,
     parallel,
+    randomForest,
     reader,
     RhpcBLASctl,
     ROCR,
