@@ -1,46 +1,97 @@
 #' Impute missing values in a dataframe and add missingness indicators.
-#' @description Median-impute numerics, Mode-impute factors, add missingness indicators.
+#'
+#' @description Impute missing values, using knn by default or alternatively
+#'   median-impute numerics, mode-impute factors. Add missingness indicators.
+#'
 #' @param data Dataframe or matrix.
+#' @param type "knn" or "standard" (median/mode). NOTE: knn will result in the
+#'   data being centered and scaled!
 #' @param add_indicators Add a series of missingness indicators.
 #' @param prefix String to add at the beginning of the name of each missingness
 #'   indicator.
 #' @param skip_vars List of variable names to exclude from the imputation.
 #' @param verbose If True display extra information during execution.
 #' @importFrom stats median
+#' @return List with the following elements:
+#' \itemize{
+#' \item $data - imputed dataset.
+#' \item $impute_info - if knn, caret preprocess element for imputing test data.
+#' \item $impute_values - if standard, list of imputation values for each variable.
+#' }
 #'
 #' @export
-impute_missing_values = function(data, add_indicators = T, prefix = "miss_",
-                                 skip_vars = c(), verbose = F) {
+impute_missing_values = function(data,
+                                 type = "standard",
+                                 add_indicators = T,
+                                 prefix = "miss_",
+                                 skip_vars = c(),
+                                 verbose = F) {
   # Loop over each feature.
   missing_indicators = NULL
 
   # Make a copy to store the imputed dataframe.
   new_data = data
 
-  # TODO: vectorize, and support parallelization.
-  for (i in 1:ncol(data)) {
-    # Use double brackets rather than [, i] to support tibbles.
-    nas = sum(is.na(data[[i]]))
-    # Nothing to impute, continue to next column.
-    # TODO: add note and also skip if nas are 100% of the data.
-    if (nas == 0 || names(data)[i] %in% skip_vars) {
-      next
-    } else if (nas == nrow(data)) {
-      if (verbose) {
-        cat("Note: skipping", colnames(data)[i], "because all values are NA.\n")
+  # List of results to populate.
+  # Save our configuration first.
+  results = list(type = type,
+                 add_indicators = add_indicators,
+                 skip_vars = skip_vars,
+                 prefix = prefix)
+
+  if (type == "standard") {
+    preprocess = NA
+
+    # List to save the imputation values used.
+    # We need a list because it can contain numerics and factors.
+    impute_values = rep(NA, ncol(data))
+
+    # Copy variable names into the imputed values vector.
+    names(impute_values) = colnames(data)
+
+    # TODO: vectorize, and support parallelization.
+    for (i in 1:ncol(data)) {
+      # Use double brackets rather than [, i] to support tibbles.
+      nas = sum(is.na(data[[i]]))
+
+      if (class(data[[i]]) == "factor") {
+        # Impute factors to the mode.
+        # Choose the first mode in case of ties.
+        impute_value = Mode(data[[i]])[1]
+      } else {
+        # Impute numeric values to the median.
+        impute_value = median(data[[i]], na.rm = T)
       }
-      next
+
+      # Save the imputed value even if there is no missingness.
+      # We may need this for future data.
+      impute_values[i] = impute_value
+
+      # Nothing to impute, continue to next column.
+      # TODO: add note and also skip if nas are 100% of the data.
+      if (nas == 0 || names(data)[i] %in% skip_vars) {
+        next
+      } else if (nas == nrow(data)) {
+        if (verbose) {
+          cat("Note: skipping", colnames(data)[i], "because all values are NA.\n")
+        }
+        next
+      } else {
+        # Make the imputation.
+        new_data[is.na(data[[i]]), i] = impute_value
+      }
+
     }
 
-    if (class(data[[i]]) == "factor") {
-      # Impute factors to the mode.
-      # Choose the first mode in case of ties.
-      new_data[is.na(data[[i]]), i] = Mode(data[[i]])[1]
-    } else {
-      # Impute numeric values to the median.
-      new_data[is.na(data[[i]]), i] = median(data[[i]], na.rm = T)
-    }
+    results$impute_values = impute_values
+
+  } else if (type == "knn") {
+    impute_info = caret::preProcess(method = c("knnImpute"))
+    new_data = predict(impute_info, new_data)
+    results$impute_info = impute_info
+
   }
+
   if (add_indicators) {
     # Create missingness indicators from original dataframe.
     missing_indicators = missingness_indicators(data, prefix = prefix, verbose = verbose)
@@ -52,5 +103,9 @@ impute_missing_values = function(data, add_indicators = T, prefix = "miss_",
     # Append indicators.
     new_data = cbind(new_data, missing_indicators)
   }
-  new_data
+
+  results$data = new_data
+
+  results
+
 }

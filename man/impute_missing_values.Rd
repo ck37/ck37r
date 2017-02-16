@@ -4,11 +4,14 @@
 \alias{impute_missing_values}
 \title{Impute missing values in a dataframe and add missingness indicators.}
 \usage{
-impute_missing_values(data, add_indicators = T, prefix = "miss_",
-  skip_vars = c(), verbose = F)
+impute_missing_values(data, type = "standard", add_indicators = T,
+  prefix = "miss_", skip_vars = c(), verbose = F)
 }
 \arguments{
 \item{data}{Dataframe or matrix.}
+
+\item{type}{"knn" or "standard" (median/mode). NOTE: knn will result in the
+data being centered and scaled!}
 
 \item{add_indicators}{Add a series of missingness indicators.}
 
@@ -19,6 +22,15 @@ indicator.}
 
 \item{verbose}{If True display extra information during execution.}
 }
+\value{
+List with the following elements:
+\itemize{
+\item $data - imputed dataset.
+\item $impute_info - if knn, caret preprocess element for imputing test data.
+\item $impute_values - if standard, list of imputation values for each variable.
+}
+}
 \description{
-Median-impute numerics, Mode-impute factors, add missingness indicators.
+Impute missing values, using knn by default or alternatively
+  median-impute numerics, mode-impute factors. Add missingness indicators.
 }
