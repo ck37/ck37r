@@ -7,6 +7,7 @@ Description: R functions for project organization, data cleaning, parallelizatio
 Depends:
     R (>= 3.1.0)
 Imports:
+    caret,
     cvAUC,
     doParallel,
     doSNOW,
