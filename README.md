@@ -67,6 +67,15 @@ colSums(is.na(result2$data))
 
 ```
 
+### Load packages
+
+This loads a vector of packages, automatically installing any packages that aren't already installed.
+
+```r
+# Load these 4 packages and install them if necessary.
+load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
+```
+
 ### Parallel TMLE
 
 ```r
