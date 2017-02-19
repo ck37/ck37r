@@ -16,7 +16,7 @@
 #'
 #' @export
 import_csvs = function(directory = "", file_pattern = "\\.csv$",
-                       recursive = T, verbose=T) {
+                       recursive = T, verbose = T) {
 
   file_names = list.files(path=directory, file_pattern, full.names = F,
                           recursive = recursive)
@@ -29,21 +29,25 @@ import_csvs = function(directory = "", file_pattern = "\\.csv$",
     return(list())
   }
 
-  system.time({
-    files = list()
-    for (file in file_names) {
-      # Remove the file extension from the file.
-      list_name = stringr::str_to_lower(gsub(file_pattern, "", file))
-      # Import the csv file.
-      data = reader::reader(file, directory, header=T, def = ",")
-      # Lowercase the column names.
-      colnames(data) = sapply(colnames(data), FUN=stringr::str_to_lower)
-      files[[list_name]] = data
-    }
-  })
+  time_start = proc.time()
+
+  files = list()
+  for (file in file_names) {
+    # Remove the file extension from the file.
+    list_name = stringr::str_to_lower(gsub(file_pattern, "", file))
+    # Import the csv file.
+    data = reader::reader(file, directory, header=T, def = ",")
+    # Lowercase the column names.
+    colnames(data) = sapply(colnames(data), FUN=stringr::str_to_lower)
+    files[[list_name]] = data
+  }
+
+  time_end = proc.time()
 
   # Double-check how many files we loaded.
   if (verbose) {
+    cat("Time to import files:\n")
+    print(time_end - time_start)
     cat("Total files imported:", length(files), "\n")
   }
 
