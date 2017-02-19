@@ -2,10 +2,31 @@
 #' @description
 #' Also calculates confidence interval.
 #' Based on initial code by Alan Hubbard.
-#' @references
-#' Add Erin LeDell chapter reference.
 #' @param cvsl CV.SuperLearner object
+#'
 #' @return List with cvAUC and ci elements.
+#'
+#' @examples
+#'
+#' library(SuperLearner)
+#' library(ck37r)
+#' data(Boston, package = "MASS")
+#'
+#' set.seed(1)
+#' cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+#'                       cvControl = list(V = 2, stratifyCV = TRUE),
+#'                       SL.library = c("SL.mean", "SL.glmnet"))
+#' cvsl_auc(cvsl)
+#'
+#' @references
+#' LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
+#' efficient confidence intervals for cross-validated area under the ROC curve
+#' estimates. Electronic journal of statistics, 9(1), 1583.
+#'
+#' @importFrom cvAUC ci.cvAUC
+#'
+#' @seealso sl_auc cvAUC::ci.cvAUC
+#'
 #' @export
 cvsl_auc = function(cvsl) {
 
