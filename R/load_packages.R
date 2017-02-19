@@ -10,6 +10,11 @@
 #'
 #' @importFrom utils capture.output install.packages update.packages
 #'
+#' @examples
+#'
+#' # Load these 4 packages and install them if necessary.
+#' load_packages(c("MASS", "SuperLearner", "TMLE", "doParallel"), auto_install = T)
+#'
 #' @export
 load_packages = function(pkgs = NULL, auto_install = F, update = F,
                          verbose = F, ...) {
