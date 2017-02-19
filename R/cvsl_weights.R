@@ -1,10 +1,10 @@
 #' @title Create a table of meta-weights from a CV.SuperLearner
 #'
 #' @description Returns summary statistics (mean, sd, min, max) on the
-#'   distribution of the weights assigned to each learner by CV.SuperLearner.
-#'   This makes it easier to understand the stochastic nature of the SL learner
-#'   weights and to see how often certain learners are used. This function may
-#'   eventually be moved into the SuperLearner package.
+#'   distribution of the weights assigned to each learner across SuperLearner
+#'   ensembles. This makes it easier to understand the stochastic nature of the
+#'   SL learner weights and to see how often certain learners are used. This
+#'   function may eventually be moved into the SuperLearner package.
 #'
 #' @param cvsl CV.SuperLearner result object
 #' @param sort  If TRUE, sort rows (learners) in descending order by mean weight.

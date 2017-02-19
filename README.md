@@ -145,6 +145,8 @@ cvsl_plot_roc(cvsl)
 
 ### CV.SuperLearner weight table
 
+Returns summary statistics (mean, sd, min, max) on the distribution of the weights assigned to each learner across SuperLearner ensembles. This makes it easier to understand the stochastic nature of the SL learner weights and to see how often certain learners are used.
+
 ```r
 library(SuperLearner)
 library(ck37r)
