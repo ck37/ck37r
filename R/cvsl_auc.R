@@ -9,8 +9,10 @@
 #' @export
 cvsl_auc = function(cvsl) {
 
-  # Loop over each CV.SL fold and extract which observations were in that fold.
+  # Vector to save the fold id for each observation.
   fold_ids = rep(NA, length(cvsl$SL.predict))
+
+  # Loop over each CV.SL fold and extract which observations were in that fold.
   for (fold_i in 1:length(cvsl$fold)) {
     obs_index = unlist(cvsl$fold[fold_i])
     fold_ids[obs_index] = fold_i
@@ -18,7 +20,7 @@ cvsl_auc = function(cvsl) {
 
   # Create a default in case there is an error. Will be overwritten
   # if successful.
-  result = list(cvAUC = 0, ci = c(0, 0))
+  result = list(cvAUC = NA, se = NA, ci = c(NA, NA))
   tryCatch({
     result = cvAUC::ci.cvAUC(cvsl$SL.predict, cvsl$Y, folds = fold_ids)
   }, error = function(e) {
