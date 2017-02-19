@@ -59,4 +59,52 @@ result = run_tmle(Y = Y, A = A, W = W, family = "binomial",
                   g.SL.library = sl_lib, Q.SL.library = sl_lib)
 ```
 
+### SuperLearner AUC
+
+This will return an AUC table for all learners. It does not include Discrete SL or SuperLearner as those require CV.SuperLearner.
+
+```r
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+                       SL.library = c("SL.mean", "SL.glmnet"))
+
+sl_auc(sl, Y = Boston$chas)
+```
+
+### CV.SuperLearner AUC
+
+This will return the AUC inference for the SuperLearner.
+
+```r
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+                       cvControl = list(V = 2, stratifyCV = T),
+                       SL.library = c("SL.mean", "SL.glmnet"))
+cvsl_auc(cvsl)
+```
+
 More examples to be added.
+
+## References
+
+Breiman, L. (2001). Random forests. Machine learning, 45(1), 5-32.
+
+LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally efficient confidence intervals for cross-validated area under the ROC curve estimates. Electronic journal of statistics, 9(1), 1583.
+
+Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C. Berkeley Division of Biostatistics Working Paper Series. Paper 226. http://biostats.bepress.com/ucbbiostat/paper266/
+
+van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner. Statistical Applications of Genetics and Molecular Biology, 6, article 25. http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
+
+van der Laan, M. J., & Rose, S. (2011). Targeted learning: causal inference for observational and experimental data. Springer Science & Business Media.
+
+van der Laan, M. J., & Rubin, D. (2006). Targeted Maximum Likelihood Learning. The International Journal of Biostatistics, 2(1), 1-38.
