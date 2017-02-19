@@ -25,6 +25,7 @@ Imports:
     tmle
 Suggests:
     doMC,
+    MASS,
     testthat
 License: MIT + file LICENSE
 Encoding: UTF-8

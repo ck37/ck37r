@@ -13,7 +13,7 @@
 #' @examples
 #'
 #' # Load these 4 packages and install them if necessary.
-#' load_packages(c("MASS", "SuperLearner", "TMLE", "doParallel"), auto_install = T)
+#' load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
 #'
 #' @export
 load_packages = function(pkgs = NULL, auto_install = F, update = F,
