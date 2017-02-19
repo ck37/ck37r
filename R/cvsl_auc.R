@@ -23,6 +23,14 @@
 #' efficient confidence intervals for cross-validated area under the ROC curve
 #' estimates. Electronic journal of statistics, 9(1), 1583.
 #'
+#' Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C. Berkeley
+#' Division of Biostatistics Working Paper Series. Paper 226.
+#' http://biostats.bepress.com/ucbbiostat/paper266/
+#'
+#' van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner.
+#' Statistical Applications of Genetics and Molecular Biology, 6, article 25.
+#' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
+#'
 #' @importFrom cvAUC ci.cvAUC
 #'
 #' @seealso sl_auc cvAUC::ci.cvAUC
