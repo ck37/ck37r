@@ -1,10 +1,18 @@
-#' Load all R files in the lib directory.
+#' Load all R files in a library directory.
+#'
 #' @param lib_dir Directory contains the source code files.
 #' @param exclude_files Exclude a list of files; exclude function_library.R by
 #'   default because we presume that is the main R library file.
 #' @param file_pattern Regular expression for files to load, defaults to *.R
 #' @param recursive If TRUE also recurse into subdirectories.
 #' @param verbose If TRUE display additional output during execution.
+#'
+#' @examples
+#'
+#' library(ck37r)
+#'
+#' # Here R is a subdirectory with a bunch of .R files to load.
+#' load_all_code("R")
 #'
 #' @export
 load_all_code = function(lib_dir = "lib",

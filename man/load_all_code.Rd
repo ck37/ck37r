@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_all_code.R
 \name{load_all_code}
 \alias{load_all_code}
-\title{Load all R files in the lib directory.}
+\title{Load all R files in a library directory.}
 \usage{
 load_all_code(lib_dir = "lib", exclude_files = c("function_library.R"),
   file_pattern = "\\\\.R$", recursive = T, verbose = T)
@@ -20,5 +20,13 @@ default because we presume that is the main R library file.}
 \item{verbose}{If TRUE display additional output during execution.}
 }
 \description{
-Load all R files in the lib directory.
+Load all R files in a library directory.
+}
+\examples{
+
+library(ck37r)
+
+# Here R is a subdirectory with a bunch of .R files to load.
+load_all_code("R")
+
 }
