@@ -1,10 +1,14 @@
 #' @title Plot a ROC curve from cross-validated AUC from CV.SuperLearner
 #' @description
-#' Thank you to Alan Hubbard for the initial code.
-#' @param cvsl tbd
-#' @param Y tbd
-#' @param title tbd
-#' @param digits tbd
+#' Based on initial code by Alan Hubbard.
+#'
+#' @param cvsl CV.SuperLearner object
+#' @param Y Outcome vector if not already included in the SL object.
+#' @param title Title to use in the plot.
+#' @param digits Digits to use when rounding AUC and CI for plot.
+#'
+#' @return List with the AUC plus standard error and confidence interval.
+#'
 #' @references
 #'
 #' LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
@@ -15,9 +19,14 @@
 #' Division of Biostatistics Working Paper Series. Paper 226.
 #' http://biostats.bepress.com/ucbbiostat/paper266/
 #'
+#' Sing, T., Sander, O., Beerenwinkel, N., & Lengauer, T. (2005). ROCR:
+#' visualizing classifier performance in R. Bioinformatics, 21(20), 3940-3941.
+#'
 #' van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner.
 #' Statistical Applications of Genetics and Molecular Biology, 6, article 25.
 #' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
+#'
+#' @seealso \code{\link{cvsl_auc}} \code{\link{sl_plot_roc}} \code{\link[cvAUC]{ci.cvAUC}}
 #'
 #' @export
 cvsl_plot_roc = function(cvsl, Y = cvsl$Y,
@@ -47,6 +56,7 @@ cvsl_plot_roc = function(cvsl, Y = cvsl$Y,
 
   # Return AUC and AUC CI.
   results = list(auc = ciout$cvAUC,
+                 auc_se = ciout$se,
                  auc_ci = ciout$ci)
 
   # Return results invisibly.
