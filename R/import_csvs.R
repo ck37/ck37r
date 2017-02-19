@@ -4,6 +4,16 @@
 #' @param recursive Whether or not recurse into subdirectories, default T.
 #' @param verbose If True display additional information during execution.
 #'
+#' @return List with files; filenames are the names of the list elements (with extension removed).
+#'
+#' @examples
+#'
+#' library(ck37r)
+#'
+#' files = import_csvs("extdata")
+#'
+#' names(files)
+#'
 #' @export
 import_csvs = function(directory = "", file_pattern = "\\.csv$",
                        recursive = T, verbose=T) {
@@ -15,8 +25,8 @@ import_csvs = function(directory = "", file_pattern = "\\.csv$",
   }
 
   if (length(file_names) == 0) {
-    stop(paste("did not find any files to load. \nMake sure you have unzipped the ",
-               "data into the inbound directory."))
+    warning(paste("did not find any files to load."))
+    return(list())
   }
 
   system.time({

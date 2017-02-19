@@ -16,6 +16,18 @@ import_csvs(directory = "", file_pattern = "\\\\.csv$", recursive = T,
 
 \item{verbose}{If True display additional information during execution.}
 }
+\value{
+List with files; filenames are the names of the list elements (with extension removed).
+}
 \description{
 Import all CSV files in a given directory and save them to a list.
+}
+\examples{
+
+library(ck37r)
+
+files = import_csvs("extdata")
+
+names(files)
+
 }
