@@ -18,7 +18,7 @@
 #'
 #' set.seed(1)
 #' cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
-#'                       cvControl = list(V = 2, stratifyCV = T),
+#'                       cvControl = list(V = 2, stratifyCV = TRUE),
 #'                       SL.library = c("SL.mean", "SL.glmnet"))
 #' cvsl_plot_roc(cvsl)
 #'
