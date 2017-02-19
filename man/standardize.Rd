@@ -4,18 +4,21 @@
 \alias{standardize}
 \title{Rescale variables, possibly excluding some columns}
 \usage{
-standardize(x, ..., exclude_vars = NULL)
+standardize(x, skip_vars = NULL, ...)
 }
 \arguments{
 \item{x}{Dataframe or matrix, assumed to have column names.}
 
-\item{...}{Extra arguments passed-through to base::scale}
+\item{skip_vars}{List of names of variables not to scale.}
 
-\item{exclude_vars}{List of names of variables not to scale.}
+\item{...}{Extra arguments passed-through to base::scale}
 }
 \value{
 Data-frame with appropriate variables scaled.
 }
 \description{
 Simple extension to base::scale() to skip columns.
+}
+\seealso{
+\code{\link[base]{scale}}
 }
