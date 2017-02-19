@@ -1,21 +1,46 @@
 #' @title Return matrix of missingness indicators for a dataframe or matrix.
-#' @description Return matrix of missingness indicators for a dataframe or matrix.
+#'
+#' @description Return matrix of missingness indicators for a dataframe or
+#'   matrix. Removes constant or collinear indicators.
+#'
 #' @param data Dataframe or matrix to analyze for missingness.
 #' @param prefix Name prefix for new indicator columns.
 #' @param remove_constant Remove any indicators that are all 0 or all 1.
 #' @param remove_collinear Remove any indicators that are collinear with each other.
+#' @param skip_vars Vector of variable names to skip.
 #' @param verbose If TRUE, print additional information.
-#' @return Matrix of missingness indicators, with any constant indicators removed.
+#'
+#' @return Matrix of missingness indicators
+#'
+#' @examples
+#'
+#' # Load a test dataset.
+#' data(PimaIndiansDiabetes2, package = "mlbench")
+#'
+#' # Check for missing values.
+#' colSums(is.na(PimaIndiansDiabetes2))
+#'
+#' # Generate missingness indicators; skip outcome variable.
+#' indicators = missingness_indicators(PimaIndiansDiabetes2, skip_vars = "diabetes")
+#'
+#' # Check missingness.
+#' colSums(indicators)
+#'
+#' @seealso \code{\link{impute_missing_values}}
+#'
 #' @importFrom caret findLinearCombos
+#'
 #' @export
 missingness_indicators = function(data, prefix = "miss_",
                                   remove_constant = T,
                                   remove_collinear = T,
+                                  skip_vars = c(),
                                   verbose = F) {
-  # Create indicators.
-  indicators = sapply(data, FUN = function(col) as.numeric(is.na(col)) )
 
-  colnames(indicators) = paste0(prefix, colnames(data))
+  # Create indicators.
+  indicators = sapply(data[, !colnames(data) %in% skip_vars], FUN = function(col) as.numeric(is.na(col)) )
+
+  colnames(indicators) = paste0(prefix, colnames(data)[!colnames(data) %in% skip_vars])
 
   # Remove any indicators that are all 0 or all 1.
   if (remove_constant) {

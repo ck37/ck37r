@@ -5,7 +5,7 @@
 \title{Return matrix of missingness indicators for a dataframe or matrix.}
 \usage{
 missingness_indicators(data, prefix = "miss_", remove_constant = T,
-  remove_collinear = T, verbose = F)
+  remove_collinear = T, skip_vars = c(), verbose = F)
 }
 \arguments{
 \item{data}{Dataframe or matrix to analyze for missingness.}
@@ -16,11 +16,32 @@ missingness_indicators(data, prefix = "miss_", remove_constant = T,
 
 \item{remove_collinear}{Remove any indicators that are collinear with each other.}
 
+\item{skip_vars}{Vector of variable names to skip.}
+
 \item{verbose}{If TRUE, print additional information.}
 }
 \value{
-Matrix of missingness indicators, with any constant indicators removed.
+Matrix of missingness indicators
 }
 \description{
-Return matrix of missingness indicators for a dataframe or matrix.
+Return matrix of missingness indicators for a dataframe or
+  matrix. Removes constant or collinear indicators.
+}
+\examples{
+
+# Load a test dataset.
+data(PimaIndiansDiabetes2, package = "mlbench")
+
+# Check for missing values.
+colSums(is.na(PimaIndiansDiabetes2))
+
+# Generate missingness indicators; skip outcome variable.
+indicators = missingness_indicators(PimaIndiansDiabetes2, skip_vars = "diabetes")
+
+# Check missingness.
+colSums(indicators)
+
+}
+\seealso{
+\code{\link{impute_missing_values}}
 }
