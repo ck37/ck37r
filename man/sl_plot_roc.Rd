@@ -11,17 +11,47 @@ sl_plot_roc(sl, Y = sl$Y, learner = which.min(sl$cvRisk),
 \arguments{
 \item{sl}{SuperLearner object}
 
-\item{Y}{tbd}
+\item{Y}{Outcome vector if not already included in the SL object.}
 
 \item{learner}{Which learner to plot - defaults to minimum risk learner.}
 
-\item{title}{tbd}
+\item{title}{Title to use in the plot.}
 
-\item{digits}{tbd}
+\item{digits}{Digits to use when rounding AUC and CI for plot.}
+}
+\value{
+List with plotted AUC & CI, plus the table of AUC results for all learners.
 }
 \description{
-Thank you to Alan Hubbard for the initial code.
+Plots the ROC curve for a single learner from a SuperLearner object,
+defaulting to the minimum estimated risk learner. Based on code by Alan Hubbard.
+}
+\examples{
+
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+                 SL.library = c("SL.mean", "SL.glmnet"))
+
+sl
+
+sl_plot_roc(sl, Y = Boston$chas)
+
 }
 \references{
-Add Erin LeDell paper/chapter.
+LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
+efficient confidence intervals for cross-validated area under the ROC curve
+estimates. Electronic journal of statistics, 9(1), 1583.
+
+Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C. Berkeley
+Division of Biostatistics Working Paper Series. Paper 226.
+http://biostats.bepress.com/ucbbiostat/paper266/
+
+van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner.
+Statistical Applications of Genetics and Molecular Biology, 6, article 25.
+http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
 }

@@ -76,6 +76,23 @@ sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial
 sl_auc(sl, Y = Boston$chas)
 ```
 
+### SuperLearner ROC plot
+
+```r
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+                  SL.library = c("SL.mean", "SL.glmnet"))
+
+sl
+
+sl_plot_roc(sl, Y = Boston$chas)
+```
+
 ### CV.SuperLearner AUC
 
 This will return the AUC inference for the SuperLearner.
