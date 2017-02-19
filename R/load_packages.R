@@ -44,7 +44,6 @@ load_packages = function(pkgs = NULL, auto_install = F, update = F,
   }
 
 
-
   results = list(packages = pkgs, pkgs_result = result, pkgs_retry = result_retry,
                  install_code = install_code, update_result = update_result)
   invisible(result)

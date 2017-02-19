@@ -8,7 +8,8 @@
 #' @references
 #' Add Erin LeDell paper/chapter.
 #' @export
-cvsl_plot_roc = function(cvsl, Y = cvsl$Y, title = "CV-SuperLearner Cross-validated ROC",
+cvsl_plot_roc = function(cvsl, Y = cvsl$Y,
+                         title = "CV-SuperLearner Cross-validated ROC",
                          digits = 4) {
   preds = cvsl$SL.predict
   pred = ROCR::prediction(preds, Y)
