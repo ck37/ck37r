@@ -125,6 +125,21 @@ cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = bin
 cvsl_plot_roc(cvsl)
 ```
 
+### CV.SuperLearner weight table
+
+```r
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+                       cvControl = list(V = 2, stratifyCV = T),
+                       SL.library = c("SL.mean", "SL.glmnet"))
+cvsl_weights(cvsl)
+```
+
 More examples to be added.
 
 ## References

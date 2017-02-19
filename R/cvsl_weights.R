@@ -1,6 +1,11 @@
 #' @title Create a table of meta-weights from a CV.SuperLearner
-#' @description Warning: this function will eventually be moved into the
-#'   SuperLearner package.
+#'
+#' @description Returns summary statistics (mean, sd, min, max) on the
+#'   distribution of the weights assigned to each learner by CV.SuperLearner.
+#'   This makes it easier to understand the stochastic nature of the SL learner
+#'   weights and to see how often certain learners are used. This function may
+#'   eventually be moved into the SuperLearner package.
+#'
 #' @param cvsl CV.SuperLearner result object
 #' @param sort  If TRUE, sort rows (learners) in descending order by mean weight.
 #' @param nonzero Restrict to learners with a non-zero mean weight.
@@ -8,11 +13,34 @@
 #'   learner names.
 #' @param rank Adding the learner rank to the table.
 #' @param digits Number of digits to round the results. Set to NULL to disable.
+#'
 #' @return Table in data frame form with each learner's mean, sd, min, and max
 #'   meta-weight in the ensemble of each learner.
-#' @export
+#'
+#' @examples
+#' library(SuperLearner)
+#' library(ck37r)
+#'
+#' data(Boston, package = "MASS")
+#'
+#' set.seed(1)
+#' cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+#'                       cvControl = list(V = 2, stratifyCV = TRUE),
+#'                       SL.library = c("SL.mean", "SL.glmnet"))
+#' cvsl_weights(cvsl)
+#'
+#' @references
+#'
+#' Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C. Berkeley
+#' Division of Biostatistics Working Paper Series. Paper 226.
+#' http://biostats.bepress.com/ucbbiostat/paper266/
+#'
+#' van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner.
+#' Statistical Applications of Genetics and Molecular Biology, 6, article 25.
+#' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
+#'
 #' @importFrom stats coef sd
-# TODO: add examples and tests.
+#' @export
 cvsl_weights = function(cvsl,
                         sort = T,
                         nonzero = F,
