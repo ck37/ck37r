@@ -9,6 +9,19 @@
 #'
 #' @return List with the AUC plus standard error and confidence interval.
 #'
+#' @examples
+#'
+#' library(SuperLearner)
+#' library(ck37r)
+#'
+#' data(Boston, package = "MASS")
+#'
+#' set.seed(1)
+#' cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+#'                       cvControl = list(V = 2, stratifyCV = T),
+#'                       SL.library = c("SL.mean", "SL.glmnet"))
+#' cvsl_plot_roc(cvsl)
+#'
 #' @references
 #'
 #' LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
@@ -30,7 +43,7 @@
 #'
 #' @export
 cvsl_plot_roc = function(cvsl, Y = cvsl$Y,
-                         title = "CV-SuperLearner Cross-validated ROC",
+                         title = "CV-SuperLearner cross-validated ROC",
                          digits = 4) {
   preds = cvsl$SL.predict
   pred = ROCR::prediction(preds, Y)

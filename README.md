@@ -95,7 +95,7 @@ sl_plot_roc(sl, Y = Boston$chas)
 
 ### CV.SuperLearner AUC
 
-This will return the AUC inference for the SuperLearner.
+This will return the AUC inference for the CV.SuperLearner.
 
 ```r
 library(SuperLearner)
@@ -108,6 +108,21 @@ cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = bin
                        cvControl = list(V = 2, stratifyCV = T),
                        SL.library = c("SL.mean", "SL.glmnet"))
 cvsl_auc(cvsl)
+```
+
+### CV.SuperLearner plot ROC
+
+```r
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+                       cvControl = list(V = 2, stratifyCV = T),
+                       SL.library = c("SL.mean", "SL.glmnet"))
+cvsl_plot_roc(cvsl)
 ```
 
 More examples to be added.

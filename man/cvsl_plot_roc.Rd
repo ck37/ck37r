@@ -5,7 +5,7 @@
 \title{Plot a ROC curve from cross-validated AUC from CV.SuperLearner}
 \usage{
 cvsl_plot_roc(cvsl, Y = cvsl$Y,
-  title = "CV-SuperLearner Cross-validated ROC", digits = 4)
+  title = "CV-SuperLearner cross-validated ROC", digits = 4)
 }
 \arguments{
 \item{cvsl}{CV.SuperLearner object}
@@ -21,6 +21,20 @@ List with the AUC plus standard error and confidence interval.
 }
 \description{
 Based on initial code by Alan Hubbard.
+}
+\examples{
+
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+                      cvControl = list(V = 2, stratifyCV = T),
+                      SL.library = c("SL.mean", "SL.glmnet"))
+cvsl_plot_roc(cvsl)
+
 }
 \references{
 LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
