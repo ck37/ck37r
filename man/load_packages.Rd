@@ -27,4 +27,3 @@ Load packages and install them from CRAN if they aren't already available.
 load_packages(c("MASS", "SuperLearner", "TMLE", "doParallel"), auto_install = T)
 
 }
-
