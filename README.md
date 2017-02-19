@@ -16,7 +16,7 @@ devtools::install_github("ck37/ck37r")
 
 - General
   * `import_csvs` - import all CSV files in a given directory.
-  * `impute_missing_values` - impute missing values in a dataframe (median for numerics and mode for factors), add missingness indicators.
+  * `impute_missing_values` - impute missing values in a dataframe (median for numerics and mode for factors; or k-nearest neighbors), add missingness indicators.
   * `load_all_code` - source() all R files in a given directory.
   * `load_packages` - load a list of packages; for the ones that fail it can attempt to install them automatically from CRAN, then load them again.
   * `missingness_indicators` - return a matrix of missingness indicators for a dataframe, (optionally) omitting any constant or collinear columns.
