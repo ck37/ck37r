@@ -1,13 +1,33 @@
-#' @title Calculate cross-validated AUC from CV.SuperLearner result
+#' @title Table of cross-validated AUCs from SuperLearner result
 #' @description
-#' Also calculates confidence interval and p-value.
-#' Based on initial code by Alan Hubbard.
-#' @references
-#' Add Erin LeDell chapter reference.
+#' Calculates cross-validated AUC for each learner in the SuperLearner. Also
+#' calculates standard-error, confidence interval and p-value. Based on initial
+#' code by Alan Hubbard.
+#'
 #' @param sl CV.SuperLearner object
 #' @param Y Outcome vector, if not already added to SL object.
-#' @return List with cvAUC and ci elements.
+#'
+#' @return Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5).
+#'
+#' @examples
+#' library(SuperLearner)
+#' library(ck37r)
+#'
+#' data(Boston, package = "MASS")
+#'
+#' set.seed(1)
+#' sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+#'                  SL.library = c("SL.mean", "SL.glmnet"))
+#'
+#' sl_auc(sl, Y = Boston$chas)
+#'
+#' @references
+#' LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
+#' efficient confidence intervals for cross-validated area under the ROC curve
+#' estimates. Electronic journal of statistics, 9(1), 1583.
+#'
 #' @importFrom stats pnorm
+#'
 #' @export
 sl_auc = function(sl, Y = sl$Y) {
 

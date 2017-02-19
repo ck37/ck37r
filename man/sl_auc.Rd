@@ -2,7 +2,7 @@
 % Please edit documentation in R/sl_auc.R
 \name{sl_auc}
 \alias{sl_auc}
-\title{Calculate cross-validated AUC from CV.SuperLearner result}
+\title{Table of cross-validated AUCs from SuperLearner result}
 \usage{
 sl_auc(sl, Y = sl$Y)
 }
@@ -12,12 +12,28 @@ sl_auc(sl, Y = sl$Y)
 \item{Y}{Outcome vector, if not already added to SL object.}
 }
 \value{
-List with cvAUC and ci elements.
+Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5).
 }
 \description{
-Also calculates confidence interval and p-value.
-Based on initial code by Alan Hubbard.
+Calculates cross-validated AUC for each learner in the SuperLearner. Also
+calculates standard-error, confidence interval and p-value. Based on initial
+code by Alan Hubbard.
+}
+\examples{
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+                 SL.library = c("SL.mean", "SL.glmnet"))
+
+sl_auc(sl, Y = Boston$chas)
+
 }
 \references{
-Add Erin LeDell chapter reference.
+LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
+efficient confidence intervals for cross-validated area under the ROC curve
+estimates. Electronic journal of statistics, 9(1), 1583.
 }
