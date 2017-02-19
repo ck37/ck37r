@@ -40,11 +40,14 @@ impute_missing_values = function(data,
                  prefix = prefix)
 
   if (type == "standard") {
+    if (verbose) {
+      cat("Running standard imputation.\n")
+    }
     preprocess = NA
 
     # List to save the imputation values used.
     # We need a list because it can contain numerics and factors.
-    impute_values = rep(NA, ncol(data))
+    impute_values = vector("list", ncol(data))
 
     # Copy variable names into the imputed values vector.
     names(impute_values) = colnames(data)
@@ -53,19 +56,25 @@ impute_missing_values = function(data,
     for (i in 1:ncol(data)) {
       # Use double brackets rather than [, i] to support tibbles.
       nas = sum(is.na(data[[i]]))
+      # cat("Processing", colnames(data)[i], "class:", class(data[[i]]), "\n")
 
-      if (class(data[[i]]) == "factor") {
+      col_class = class(data[[i]])
+      if (col_class == "factor") {
         # Impute factors to the mode.
         # Choose the first mode in case of ties.
         impute_value = Mode(data[[i]])[1]
-      } else {
+      } else if (col_class %in% c("integer", "numeric")) {
         # Impute numeric values to the median.
         impute_value = median(data[[i]], na.rm = T)
+      } else {
+        warning(paste(colnames(data)[i],
+                      "should be numeric or factor type. But its class is",
+                      col_class))
       }
 
       # Save the imputed value even if there is no missingness.
       # We may need this for future data.
-      impute_values[i] = impute_value
+      impute_values[[i]] = impute_value
 
       # Nothing to impute, continue to next column.
       # TODO: add note and also skip if nas are 100% of the data.
@@ -86,7 +95,7 @@ impute_missing_values = function(data,
     results$impute_values = impute_values
 
   } else if (type == "knn") {
-    impute_info = caret::preProcess(method = c("knnImpute"))
+    impute_info = caret::preProcess(new_data, method = c("knnImpute"))
     new_data = predict(impute_info, new_data)
     results$impute_info = impute_info
 
