@@ -71,21 +71,21 @@ parallelize = function(type="any", max_cores = NULL, allow_multinode = T,
     doSNOW::registerDoSNOW(cl)
     parallel::setDefaultCluster(cl)
     parallel_type = "snow"
-  } else if (type %in% c("doParallel") ||
-             # doMC can't be used on Windows, so default to doParallel if doMC not installed.
-             !"doMC" %in% rownames(installed.packages())) {
-    # Outfile = "" allows output from within foreach to be displayed.
-    # TODO: figure out how to suppress the output from makeCluster()
-    capture.output({ cl = parallel::makeCluster(cores, outfile = outfile) })
-    doParallel::registerDoParallel(cl)
-    parallel::setDefaultCluster(cl)
-    parallel_type = "multicore"
   } else if (type %in% "seq" || is.null(type)) {
     # Don't use any parallelization.
     options(mc.cores = 1)
     foreach::registerDoSEQ()
     cl = NA
     parallel_type = "seq"
+  } else if (type %in% c("doParallel") || (type %in% c("doMC", "multcore") &&
+             # doMC can't be used on Windows, so default to doParallel if doMC not installed.
+             !"doMC" %in% rownames(installed.packages()))) {
+    # Outfile = "" allows output from within foreach to be displayed.
+    # TODO: figure out how to suppress the output from makeCluster()
+    capture.output({ cl = parallel::makeCluster(cores, outfile = outfile) })
+    doParallel::registerDoParallel(cl)
+    parallel::setDefaultCluster(cl)
+    parallel_type = "multicore"
   } else {
     # doMC only supports multicore parallelism, not multi-node.
     doMC::registerDoMC(cores)
