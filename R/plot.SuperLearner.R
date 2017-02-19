@@ -3,11 +3,22 @@
 #' @description
 #' Does not include SuperLearner or Discrete SL results as that requires
 #' CV.SuperLearner to estimate the standard errors.
+#' @param x SuperLearner result object
+#' @param Y Outcome vector
+#' @param constant Multiplier of the standard error for confidence interval
+#'   construction.
+#' @param sort If TRUE re-orders the results by risk estimate.
+#' @param ... Any remaining arguments (unused).
 #' @importFrom ggplot2 ggplot aes_string geom_pointrange coord_flip ylab xlab
-plot.SuperLearner <- function(sl, Y = sl$Y,
+#' @importFrom stats qnorm
+#' @export
+plot.SuperLearner <- function(x, Y = x$Y,
                               constant = qnorm(0.975),
                               sort = TRUE, ...) {
   #.SL.require("ggplot2")
+
+  # Use a clearer object name.
+  sl = x
 
   # Need to pass in Y for now - should calculate SE during SuperLearner() to avoid this.
   table = data.frame(Learner = names(sl$cvRisk),

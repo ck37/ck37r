@@ -4,8 +4,20 @@
 \alias{plot.SuperLearner}
 \title{Plot estimated risk and confidence interval for each learner}
 \usage{
-\method{plot}{SuperLearner}(sl, Y = sl$Y, constant = qnorm(0.975),
+\method{plot}{SuperLearner}(x, Y = x$Y, constant = qnorm(0.975),
   sort = TRUE, ...)
+}
+\arguments{
+\item{x}{SuperLearner result object}
+
+\item{Y}{Outcome vector}
+
+\item{constant}{Multiplier of the standard error for confidence interval
+construction.}
+
+\item{sort}{If TRUE re-orders the results by risk estimate.}
+
+\item{...}{Any remaining arguments (unused).}
 }
 \description{
 Does not include SuperLearner or Discrete SL results as that requires

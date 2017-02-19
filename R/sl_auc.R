@@ -7,6 +7,7 @@
 #' @param sl CV.SuperLearner object
 #' @param Y Outcome vector, if not already added to SL object.
 #' @return List with cvAUC and ci elements.
+#' @importFrom stats pnorm
 #' @export
 sl_auc = function(sl, Y = sl$Y) {
 
