@@ -76,6 +76,24 @@ sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial
 sl_auc(sl, Y = Boston$chas)
 ```
 
+### SuperLearner plot of risk estimates
+
+This is similar to CV.SuperLearner's plot except SuperLearner cannot estimate risk for the Discrete SL and SuperLearner, so those must be omitted here.
+
+```r
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
+                  SL.library = c("SL.mean", "SL.glmnet"))
+
+sl
+plot(sl, Y = Boston$chas)
+```
+
 ### SuperLearner ROC plot
 
 ```r

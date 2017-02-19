@@ -3,14 +3,44 @@
 #' @description
 #' Does not include SuperLearner or Discrete SL results as that requires
 #' CV.SuperLearner to estimate the standard errors.
+#'
 #' @param x SuperLearner result object
 #' @param Y Outcome vector
 #' @param constant Multiplier of the standard error for confidence interval
 #'   construction.
 #' @param sort If TRUE re-orders the results by risk estimate.
 #' @param ... Any remaining arguments (unused).
-#' @importFrom ggplot2 ggplot aes_string geom_pointrange coord_flip ylab xlab
+#'
+#' @return plot object; print to display.
+#'
+#' @examples
+#' library(SuperLearner)
+#' library(ck37r)
+#'
+#' data(Boston, package = "MASS")
+#'
+#' set.seed(1)
+#' sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
+#'                  SL.library = c("SL.mean", "SL.glmnet"))
+#'
+#' sl
+#' plot(sl, Y = Boston$chas)
+#'
+#' @references
+#'
+#' Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C. Berkeley
+#' Division of Biostatistics Working Paper Series. Paper 226.
+#' http://biostats.bepress.com/ucbbiostat/paper266/
+#'
+#' van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner.
+#' Statistical Applications of Genetics and Molecular Biology, 6, article 25.
+#' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
+#'
+#' @seealso \code{\link[SuperLearner]{SuperLearner}}
+#'
+#' @importFrom ggplot2 ggplot aes geom_pointrange coord_flip ylab xlab
 #' @importFrom stats qnorm
+#'
 #' @export
 plot.SuperLearner <- function(x, Y = x$Y,
                               constant = qnorm(0.975),
