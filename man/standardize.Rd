@@ -19,6 +19,18 @@ Data-frame with appropriate variables scaled.
 \description{
 Simple extension to base::scale() to skip columns.
 }
+\examples{
+
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+# Don't scale our outcome variable.
+data = standardize(Boston, skip_vars = "medv")
+
+summary(data)
+
+}
 \seealso{
 \code{\link[base]{scale}}
 }

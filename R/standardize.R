@@ -8,7 +8,7 @@
 #'
 #' @return Data-frame with appropriate variables scaled.
 #'
-#' @example
+#' @examples
 #'
 #' library(ck37r)
 #'
