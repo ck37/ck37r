@@ -3,8 +3,6 @@ library(ck37r)
 
 data(Boston, package = "MASS")
 
-str(Boston)
-
 set.seed(1)
 cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
                        cvControl = list(V = 2, stratifyCV = T),
