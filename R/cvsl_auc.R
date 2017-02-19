@@ -27,13 +27,16 @@
 #' Division of Biostatistics Working Paper Series. Paper 226.
 #' http://biostats.bepress.com/ucbbiostat/paper266/
 #'
+#' Sing, T., Sander, O., Beerenwinkel, N., & Lengauer, T. (2005). ROCR:
+#' visualizing classifier performance in R. Bioinformatics, 21(20), 3940-3941.
+#'
 #' van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner.
 #' Statistical Applications of Genetics and Molecular Biology, 6, article 25.
 #' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
 #'
-#' @importFrom cvAUC ci.cvAUC
+#' @seealso \code{\link{sl_auc}} \code{\link{cvsl_plot_roc}}  \code{\link[cvAUC]{ci.cvAUC}}
 #'
-#' @seealso sl_auc cvAUC::ci.cvAUC
+#' @importFrom cvAUC ci.cvAUC
 #'
 #' @export
 cvsl_auc = function(cvsl) {
