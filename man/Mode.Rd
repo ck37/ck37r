@@ -9,6 +9,20 @@ Mode(x)
 \arguments{
 \item{x}{vector}
 }
+\value{
+Vector of modal values in arbitrary order.
+}
 \description{
-Compute the mode of a vector (can be multiple results).
+Via http://stackoverflow.com/questions/2547402/is-there-a-built-in-function-for-finding-the-mode
+}
+\examples{
+
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+table(Boston$chas)
+
+Mode(Boston$chas)
+
 }
