@@ -25,6 +25,7 @@ Imports:
     tmle
 Suggests:
     doMC,
+    glmnet,
     MASS,
     testthat
 License: MIT + file LICENSE
