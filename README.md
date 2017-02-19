@@ -27,10 +27,14 @@ devtools::install_github("ck37/ck37r")
 - Random Forest
   * `rf_count_terminal_nodes` - count the number of terminal nodes in each tree in a random forest.
 - SuperLearner
-  * `gen_superlearner` - create a SuperLearner and CV.SuperLearner function setup according to a given parallelization configuration.
+  * `gen_superlearner` - create a SuperLearner and CV.SuperLearner function setup to transparently use a certain parallelization configuration.
   * `cvsl_weights` - table of the meta-weight distribution for each learner in a CV.SuperLearner analysis.
   * `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
   * `cvsl_plot_roc` - ROC plot with AUC for a CV.SuperLearner analysis.
+  * `plot.SuperLearner` - plot risk estimates and CIs for a SuperLearner, similar to CV.Superlearner except without SL or Discrete SL.
+  * `sl_auc` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
+  * `sl_stderr` - calculate standard error for each learner's risk in SL.
+  * `sl_plot_roc` - ROC curve plot for one learner in an SL ensemble, plus AUC and CI.
 - TMLE
   * `tmle_parallel` - allows the SuperLearner estimation in TMLE to be customized, esp. to support parallel estimation via mcSuperLearner and snowSuperLearner.
   * `setup_parallel_tmle` - helper function to start a cluster and setup SuperLearner and tmle_parallel to use the created cluster.
