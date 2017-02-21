@@ -6,6 +6,7 @@
 #'
 #' @param sl CV.SuperLearner object
 #' @param Y Outcome vector, if not already added to SL object.
+#' @param sort Sort table by order of AUC.
 #'
 #' @return Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5).
 #'
@@ -42,7 +43,7 @@
 #' @importFrom stats pnorm
 #'
 #' @export
-sl_auc = function(sl, Y = sl$Y) {
+sl_auc = function(sl, Y = sl$Y, sort = T) {
 
   # Vector to save the fold id for each observation.
   fold_ids = rep(NA, length(sl$SL.predict))
@@ -79,6 +80,12 @@ sl_auc = function(sl, Y = sl$Y) {
   }
 
   rownames(aucs) = names(sl$cvRisk)
+
+  if (sort) {
+    # Sort in ascending order so best AUCs are at bottom of table.
+    aucs = aucs[order(aucs$auc), ]
+
+  }
 
   return(aucs)
 }

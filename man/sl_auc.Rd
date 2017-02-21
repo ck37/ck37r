@@ -4,12 +4,14 @@
 \alias{sl_auc}
 \title{Table of cross-validated AUCs from SuperLearner result}
 \usage{
-sl_auc(sl, Y = sl$Y)
+sl_auc(sl, Y = sl$Y, sort = T)
 }
 \arguments{
 \item{sl}{CV.SuperLearner object}
 
 \item{Y}{Outcome vector, if not already added to SL object.}
+
+\item{sort}{Sort table by order of AUC.}
 }
 \value{
 Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5).
