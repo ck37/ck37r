@@ -9,7 +9,8 @@
 #' @param title Title to use in the plot.
 #' @param digits Digits to use when rounding AUC and CI for plot.
 #'
-#' @return List with plotted AUC & CI, plus the table of AUC results for all learners.
+#' @return List with plotted AUC & CI, table of AUC results for all learners, and
+#'    the name of the best learner.
 #'
 #' @examples
 #'
@@ -60,9 +61,12 @@ sl_plot_roc = function(sl,
 
   auc_table = ck37r::sl_auc(sl, Y)
 
-  auc = auc_table[learner, "auc"]
-  ci_upper = auc_table[learner, "ci_upper"]
-  ci_lower = auc_table[learner, "ci_lower"]
+  # We need to index using learner name because auc_table() has been sorted.
+  learner_name = names(sl$cvRisk)[learner]
+
+  auc = auc_table[learner_name, "auc"]
+  ci_upper = auc_table[learner_name, "ci_upper"]
+  ci_lower = auc_table[learner_name, "ci_lower"]
 
   txt = paste0("AUC = ",
                sprintf(paste0("%0.", digits, "f"), round(auc, digits)),
@@ -83,7 +87,8 @@ sl_plot_roc = function(sl,
   # Return AUC, AUC CI, and full table of AUC results.
   results = list(auc = auc,
                  auc_ci = c(ci_lower, ci_upper),
-                 auc_table = auc_table)
+                 auc_table = auc_table,
+                 learner_best = learner_name)
 
   # Return results invisibly.
   invisible(results)

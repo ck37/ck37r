@@ -20,7 +20,8 @@ sl_plot_roc(sl, Y = sl$Y, learner = which.min(sl$cvRisk),
 \item{digits}{Digits to use when rounding AUC and CI for plot.}
 }
 \value{
-List with plotted AUC & CI, plus the table of AUC results for all learners.
+List with plotted AUC & CI, table of AUC results for all learners, and
+   the name of the best learner.
 }
 \description{
 Plots the ROC curve for a single learner from a SuperLearner object,
