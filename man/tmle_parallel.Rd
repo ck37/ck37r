@@ -6,7 +6,8 @@
 \usage{
 tmle_parallel(Y, A, W, family, g.SL.library, Q.SL.library, id = 1:length(Y),
   verbose = F, V = 5, sl_fn = SuperLearner::SuperLearner,
-  cvsl_fn = SuperLearner::CV.SuperLearner, cvQinit = F, ...)
+  cvsl_fn = SuperLearner::CV.SuperLearner, cvQinit = F,
+  conserve_memory = T, ...)
 }
 \arguments{
 \item{Y}{Outcome}
@@ -39,6 +40,9 @@ setup_parallel_tmle() does.}
 \item{cvsl_fn}{CV.SuperLearner equivalent, can be used for estimating Q.}
 
 \item{cvQinit}{If T, estimate Q using cvsl_fn, otherwise use sl_fn.}
+
+\item{conserve_memory}{If T, remove the fitLibrary elements to save memory
+after we have done the relevant prediction.}
 
 \item{...}{Remaining arguments are passed through to tmle::tmle().}
 }

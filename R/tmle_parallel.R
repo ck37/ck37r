@@ -24,6 +24,8 @@
 #'   setup_parallel_tmle() does.
 #' @param cvsl_fn CV.SuperLearner equivalent, can be used for estimating Q.
 #' @param cvQinit If T, estimate Q using cvsl_fn, otherwise use sl_fn.
+#' @param conserve_memory If T, remove the fitLibrary elements to save memory
+#'   after we have done the relevant prediction.
 #' @param ... Remaining arguments are passed through to tmle::tmle().
 #'
 #' @importFrom stats predict
@@ -39,6 +41,7 @@ tmle_parallel = function(Y, A, W, family,
                          sl_fn = SuperLearner::SuperLearner,
                          cvsl_fn = SuperLearner::CV.SuperLearner,
                          cvQinit = F,
+                         conserve_memory = T,
                          ...) {
 
   # Time our function execution.
@@ -48,6 +51,15 @@ tmle_parallel = function(Y, A, W, family,
 
   # TODO: get cvQinit working!
   if (cvQinit) stop("cvQinit = T not supported yet unfortunately.\n")
+
+  # Create stacked dataframe with A = 1 and A = 0
+  stacked_df = rbind(cbind(A = 1, W), cbind(A = 0, W))
+
+  if (verbose) {
+    cat("Stacked df dimensions:", dim(stacked_df), "\n")
+    cat("Stacked dataframe object size: ", pryr::object_size(stacked_df), "\n")
+    #print(object.size(stacked_df), units = "MB")
+  }
 
   # Estimate Q
   if (verbose) cat("Estimating Q using custom SuperLearner.\n")
@@ -62,17 +74,9 @@ tmle_parallel = function(Y, A, W, family,
     print(Q_init)
     cat("\nQ init times:\n")
     print(Q_init$times)
-    # pryr doesn't support "..." arguments, ugh :/
-    #cat("\nQ object size:", pryr::object_size(Q_init), "\n")
-  }
-
-  # Create stacked dataframe with A = 1 and A = 0
-  stacked_df = rbind(cbind(A = 1, W), cbind(A = 0, W))
-
-  if (verbose) {
-    cat("Stacked df dimensions:", dim(stacked_df), "\n")
-    # pryr doesn't support "..." arguments, ugh :/
-    #cat("Stacked dataframe object size:", pryr::object_size(stacked_df), "\n")
+    # pryr::object_size() fails on RF, so use object.size().
+    cat("\nQ object size: ")
+    print(object.size(Q_init), units = "MB")
   }
 
   # Predict Q_1 and Q_0
@@ -81,6 +85,16 @@ tmle_parallel = function(Y, A, W, family,
   # Q should be an nx2 matrix (E(Y|A=0,W), E(Y|A=1,W))
   Q = cbind(pred$pred[seq(nrow(W) + 1, nrow(stacked_df))],
             pred$pred[1:nrow(W)])
+
+  rm(stacked_df, pred)
+
+  if (conserve_memory) {
+    # Remove fit library, which uses a lot of RAM.
+    Q_init$fitLibrary = NULL
+  }
+
+  # Free up memory, esp. for clusters like Savio.
+  gc()
 
   # Estimate g
   if (verbose) cat("Estimating g using custom SuperLearner.\n")
@@ -93,12 +107,20 @@ tmle_parallel = function(Y, A, W, family,
     print(g_fit)
     cat("\ng times:\n")
     print(g_fit$times)
-    # pryr doesn't support "..." arguments, ugh :/
-    #cat("\ng object size:", pryr::object_size(g_fit), "\n")
+    cat("\ng object size: ")
+    print(object.size(g_fit), units = "MB")
   }
 
   # Predict g1W: P(A = 1 | W)
   g1W = predict(g_fit, W, onlySL = TRUE)$pred
+
+  if (conserve_memory) {
+    # Remove fitLibrary, which uses a lot of memory.
+    g_fit$fitLibrary = NULL
+  }
+
+  # Free up memory, esp. for clusters like Savio.
+  gc()
 
   # Pass results to tmle
   if (verbose) cat("Passing results to tmle.\n")
