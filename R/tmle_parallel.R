@@ -2,6 +2,9 @@
 #' @description
 #' This is needed to use Savio or any multicore system effectively.
 #'
+#' Another benefit is that the SuperLearner objects for the Q and g estimation
+#' are saved. This allows one to examine the risk estimates for example.
+#'
 #' @param Y Outcome
 #' @param A Treatment indicator
 #' @param W Covariates
@@ -11,6 +14,7 @@
 #' @param id Optional list of subject-specific ids.
 #' @param verbose If TRUE outputs additional information during execution.
 #' @param V Number of cross-validation folds to use when estimating g and Q.
+#'   Defaults to 5 as tmle package does.
 #' @param sl_fn SuperLearner function to use for estimation of g and possibly Q.
 #'   By default this uses the normal SuperLearner function which is sequential.
 #'   Other options would be to pass in mcSuperLearner, snowSuperLearner, or
@@ -23,6 +27,7 @@
 #' @param ... Remaining arguments are passed through to tmle::tmle().
 #'
 #' @importFrom stats predict
+#' @importFrom pryr object_size
 #' @export
 #' @seealso setup_parallel_tmle
 #'
@@ -55,10 +60,20 @@ tmle_parallel = function(Y, A, W, family,
   if (verbose) {
     cat("Q init fit:\n\n")
     print(Q_init)
+    cat("\nQ init times:\n")
+    print(Q_init$times)
+    # pryr doesn't support "..." arguments, ugh :/
+    #cat("\nQ object size:", pryr::object_size(Q_init), "\n")
   }
 
   # Create stacked dataframe with A = 1 and A = 0
   stacked_df = rbind(cbind(A = 1, W), cbind(A = 0, W))
+
+  if (verbose) {
+    cat("Stacked df dimensions:", dim(stacked_df), "\n")
+    # pryr doesn't support "..." arguments, ugh :/
+    #cat("Stacked dataframe object size:", pryr::object_size(stacked_df), "\n")
+  }
 
   # Predict Q_1 and Q_0
   pred = predict(Q_init, stacked_df, onlySL = T)
@@ -76,6 +91,10 @@ tmle_parallel = function(Y, A, W, family,
   if (verbose) {
     cat("g fit:\n\n")
     print(g_fit)
+    cat("\ng times:\n")
+    print(g_fit$times)
+    # pryr doesn't support "..." arguments, ugh :/
+    #cat("\ng object size:", pryr::object_size(g_fit), "\n")
   }
 
   # Predict g1W: P(A = 1 | W)

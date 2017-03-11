@@ -15,6 +15,7 @@ Imports:
     ggplot2,
     methods,
     parallel,
+    pryr,
     randomForest,
     RANN,
     reader,

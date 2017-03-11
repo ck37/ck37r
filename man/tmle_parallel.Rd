@@ -25,7 +25,8 @@ tmle_parallel(Y, A, W, family, g.SL.library, Q.SL.library, id = 1:length(Y),
 
 \item{verbose}{If TRUE outputs additional information during execution.}
 
-\item{V}{Number of cross-validation folds to use when estimating g and Q.}
+\item{V}{Number of cross-validation folds to use when estimating g and Q.
+Defaults to 5 as tmle package does.}
 
 \item{sl_fn}{SuperLearner function to use for estimation of g and possibly Q.
 By default this uses the normal SuperLearner function which is sequential.
@@ -43,6 +44,9 @@ setup_parallel_tmle() does.}
 }
 \description{
 This is needed to use Savio or any multicore system effectively.
+
+Another benefit is that the SuperLearner objects for the Q and g estimation
+are saved. This allows one to examine the risk estimates for example.
 }
 \seealso{
 setup_parallel_tmle
