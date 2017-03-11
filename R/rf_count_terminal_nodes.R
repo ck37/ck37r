@@ -20,6 +20,10 @@
 #' data(Boston, package = "MASS")
 #'
 #' set.seed(1)
+#'
+#' # Downsample to 100 observations speed up example.
+#' Boston = Boston[sample(nrow(Boston), 100L), ]
+#'
 #' sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
 #'                  cvControl = list(V = 3),
 #'                  SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest"))
