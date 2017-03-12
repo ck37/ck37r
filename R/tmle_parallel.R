@@ -48,9 +48,16 @@ tmle_parallel = function(Y, A, W, family,
   # Time our function execution.
   time_start = proc.time()
 
+  # Dataframe used for initial Q estimation.
   X = cbind(A = A, W)
 
-  # TODO: get cvQinit working!
+  if (verbose) {
+    cat("X dataframe object size: ",
+        prettyNum(pryr::object_size(X) / 1024^2,
+                  big.mark = ",", digits = 1), " MB\n")
+  }
+
+  # TODO: get cvQinit working if anyone requests it.
   if (cvQinit) stop("cvQinit = T not supported yet unfortunately.\n")
 
   # Create stacked dataframe with A = 1 and A = 0
@@ -58,7 +65,9 @@ tmle_parallel = function(Y, A, W, family,
 
   if (verbose) {
     cat("Stacked df dimensions:", dim(stacked_df), "\n")
-    cat("Stacked dataframe object size: ", pryr::object_size(stacked_df), "\n")
+    cat("Stacked dataframe object size: ",
+        prettyNum(pryr::object_size(stacked_df) / 1024^2,
+                  big.mark = ",", digits = 1), " MB\n")
     #print(object.size(stacked_df), units = "MB")
   }
 
@@ -87,7 +96,8 @@ tmle_parallel = function(Y, A, W, family,
   Q = cbind(pred$pred[seq(nrow(W) + 1, nrow(stacked_df))],
             pred$pred[1:nrow(W)])
 
-  rm(stacked_df, pred)
+  # Clean up to conserve memory.
+  rm(stacked_df, pred, X)
 
   if (conserve_memory) {
     # Remove fit library, which uses a lot of RAM.
