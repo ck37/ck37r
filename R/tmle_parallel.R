@@ -91,6 +91,9 @@ tmle_parallel = function(Y, A, W, family,
   if (conserve_memory) {
     # Remove fit library, which uses a lot of RAM.
     Q_init$fitLibrary = NULL
+    # Other items also contribute.
+    Q_init$library.predict = NULL
+    Q_init$SL.predict = NULL
   }
 
   # Free up memory, esp. for clusters like Savio.
@@ -117,6 +120,9 @@ tmle_parallel = function(Y, A, W, family,
   if (conserve_memory) {
     # Remove fitLibrary, which uses a lot of memory.
     g_fit$fitLibrary = NULL
+    # Other items also contribute.
+    g_fit$library.predict = NULL
+    g_fit$SL.predict = NULL
   }
 
   # Free up memory, esp. for clusters like Savio.

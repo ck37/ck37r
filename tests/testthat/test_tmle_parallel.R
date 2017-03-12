@@ -43,3 +43,16 @@ test_that("Confirm replicability compared to tmle::tmle()", {
   expect_lte(abs(tmle$estimates$ATE$var.psi - result$estimates$ATE$var.psi),
              .Machine$double.eps * 2)
 })
+
+set.seed(1, "L'Ecuyer-CMRG")
+# Test TMLE with conserve_memory disabled.
+result2 = run_tmle(Y = data$Y, A = data$A, W = W, family = "binomial",
+                  g.SL.library = sl_lib, Q.SL.library = sl_lib,
+                  conserve_memory = F, verbose = T)
+result2
+result2$time
+
+# Compare object sizes.
+print(object.size(result), units = "MB")  # 1.3 MB
+print(object.size(tmle), units = "MB")    # 0.5 MB
+print(object.size(result2), units = "MB") # 8.2 MB
