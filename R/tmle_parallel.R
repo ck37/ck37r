@@ -30,6 +30,7 @@
 #'
 #' @importFrom stats predict
 #' @importFrom pryr object_size
+#' @importFrom utils object.size
 #' @export
 #' @seealso setup_parallel_tmle
 #'
@@ -67,7 +68,7 @@ tmle_parallel = function(Y, A, W, family,
   # NOTE: tmle::tmle() can optionally run CV.SuperLearner for Q but not g.
   Q_init = sl_fn(Y = Y, X = X, family = family,
                 SL.library = Q.SL.library, id = id,
-                cvControl = list(V = V))
+                cvControl = list(V = V), verbose = verbose)
 
   if (verbose) {
     cat("Q init fit:\n\n")
@@ -103,7 +104,7 @@ tmle_parallel = function(Y, A, W, family,
   if (verbose) cat("Estimating g using custom SuperLearner.\n")
   g_fit = sl_fn(Y = A, X = W, family = "binomial",
                 SL.library = g.SL.library, id = id,
-                cvControl = list(V = V))
+                cvControl = list(V = V), verbose = verbose)
 
   if (verbose) {
     cat("g fit:\n\n")
