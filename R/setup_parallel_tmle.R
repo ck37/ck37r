@@ -13,6 +13,7 @@
 #'   If F, it will only use the current node even if multiple nodes are detected.
 #' @param env Environment in which to save the functions, defaulting to the
 #'   global environment. Set to NULL to disable.
+#' @importFrom parallel clusterEvalQ
 #' @export
 #' @seealso parallelize, tmle_parallel, gen_superlearner
 # TODO: add examples to the code, document return object.
@@ -25,6 +26,16 @@ setup_parallel_tmle = function(parallel = "multicore", max_cores = NULL,
 
   # If we find multiple nodes and allow_multinode is T, switch to snow.
   # TODO: update ck37r::parallelize() to make this easier.
+
+  # If using doSNOW, export SuperLearner::All()
+  # TODO: fix the need for this by improving SuperLearner package.
+  if (foreach::getDoParName() == "doSNOW") {
+    # Load the SuperLearner package on all workers so they can find
+    # SuperLearner::All().
+    parallel::clusterEvalQ(cl, library(Superlearner))
+
+    # clusterExport(cl, SuperLearner::All)
+  }
 
   # Create SuperLearner function.
   sl_functions = ck37r::gen_superlearner(parallel = parallel, cluster = cl)
