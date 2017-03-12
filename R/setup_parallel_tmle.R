@@ -32,7 +32,7 @@ setup_parallel_tmle = function(parallel = "multicore", max_cores = NULL,
   if (foreach::getDoParName() == "doSNOW") {
     # Load the SuperLearner package on all workers so they can find
     # SuperLearner::All().
-    parallel::clusterEvalQ(cl, library(Superlearner))
+    parallel::clusterEvalQ(cl, library(SuperLearner))
 
     # clusterExport(cl, SuperLearner::All)
   }
