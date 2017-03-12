@@ -1,7 +1,7 @@
 #' Setup a SuperLearner() based on parallel configuration.
 #' @description Create custom SL and CV.SL functions that automatically use
 #'   parallelization based on the provided configuration.
-#' @param parallel Can be "multicore", "snow", or "seq"/NULL.
+#' @param parallel Can be "multicore", "doSNOW"/"snow" or "seq"/NULL.
 #' @param cluster Optional cluster, e.g. from SNOW.
 #' @param outer_cv_folds How many folds to use for CV.SuperLearner
 #' @param verbose If TRUE will output additional details during execution.
@@ -37,7 +37,7 @@ gen_superlearner = function(parallel = "multicore",
                                     parallel = parallel)
       #SuperLearner::CV.SuperLearner(..., parallel = parallel)
     }
-  } else if (parallel == "snow") {
+  } else if (parallel %in% c("doSNOW", "snow")) {
     if (verbose) {
       cat("Running SL via snow\n")
     }

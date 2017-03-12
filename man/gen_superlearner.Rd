@@ -8,7 +8,7 @@ gen_superlearner(parallel = "multicore", cluster = NULL,
   outer_cv_folds = NULL, verbose = T)
 }
 \arguments{
-\item{parallel}{Can be "multicore", "snow", or "seq"/NULL.}
+\item{parallel}{Can be "multicore", "doSNOW"/"snow" or "seq"/NULL.}
 
 \item{cluster}{Optional cluster, e.g. from SNOW.}
 

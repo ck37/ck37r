@@ -23,6 +23,9 @@ setup_parallel_tmle = function(parallel = "multicore", max_cores = NULL,
   cl = ck37r::parallelize(type = parallel, max_cores = max_cores,
                             allow_multinode = allow_multinode)
 
+  # If we find multiple nodes and allow_multinode is T, switch to snow.
+  # TODO: update ck37r::parallelize() to make this easier.
+
   # Create SuperLearner function.
   sl_functions = ck37r::gen_superlearner(parallel = parallel, cluster = cl)
 
