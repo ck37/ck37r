@@ -64,7 +64,8 @@ tmle_parallel = function(Y, A, W, family,
   stacked_df = rbind(cbind(A = 1, W), cbind(A = 0, W))
 
   if (verbose) {
-    cat("Stacked df dimensions:", dim(stacked_df), "\n")
+    cat("Stacked df dimensions:",
+        prettyNum(dim(stacked_df), big.mark = ","), "\n")
     cat("Stacked dataframe object size: ",
         prettyNum(pryr::object_size(stacked_df) / 1024^2,
                   big.mark = ",", digits = 1), " MB\n")
