@@ -59,7 +59,7 @@ sl_plot_roc = function(sl,
   pred = ROCR::prediction(preds, Y)
   perf1 = ROCR::performance(pred, "sens", "spec")
 
-  auc_table = ck37r::sl_auc(sl, Y)
+  auc_table = ck37r::sl_auc_table(sl, Y)
 
   # We need to index using learner name because auc_table() has been sorted.
   learner_name = names(sl$cvRisk)[learner]
