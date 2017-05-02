@@ -34,7 +34,7 @@ devtools::install_github("ck37/ck37r")
   * `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
   * `cvsl_plot_roc` - ROC plot with AUC for a CV.SuperLearner analysis.
   * `plot.SuperLearner` - plot risk estimates and CIs for a SuperLearner, similar to CV.Superlearner except without SL or Discrete SL.
-  * `sl_auc` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
+  * `sl_auc_table` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
   * `sl_stderr` - calculate standard error for each learner's risk in SL.
   * `sl_plot_roc` - ROC curve plot for one learner in an SL ensemble, plus AUC and CI.
 - TMLE
