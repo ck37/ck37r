@@ -20,7 +20,7 @@
 #' sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
 #'                  SL.library = c("SL.mean", "SL.glmnet"))
 #'
-#' sl_auc(sl, Y = Boston$chas)
+#' sl_auc_table(sl, Y = Boston$chas)
 #'
 #' @references
 #' LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
@@ -43,7 +43,7 @@
 #' @importFrom stats pnorm
 #'
 #' @export
-sl_auc = function(sl, Y = sl$Y, sort = T) {
+sl_auc_table = function(sl, Y = sl$Y, sort = T) {
 
   # Vector to save the fold id for each observation.
   fold_ids = rep(NA, length(sl$SL.predict))
