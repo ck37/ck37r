@@ -3,10 +3,19 @@ library(ck37r)
 
 data(Boston, package = "MASS")
 
-set.seed(1)
-sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
+set.seed(1, "L'Ecuyer-CMRG")
+
+# Subset rows to speed up example computation.
+row_subset = sample(nrow(Boston), 200)
+
+Boston = Boston[row_subset, ]
+
+# Outcome needs to be a binary variable.
+X = subset(Boston, select = -chas)
+
+sl = SuperLearner(Boston$medv, X[, 1:3], family = gaussian(),
                   cvControl = list(V = 3),
-                  SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest"))
+                  SL.library = c("SL.mean", "SL.glm", "SL.randomForest"))
 
 sl
 
@@ -24,12 +33,12 @@ maxnode_seq = unique(round(exp(log(max_terminal_nodes) * exp(c(-0.97, -0.7, -0.4
 maxnode_seq
 
 rf = SuperLearner::create.Learner("SL.randomForest", detailed_names = T, name_prefix = "rf",
-                             params = list(ntree = 100), # fewer trees for testing speed only.
+                             params = list(ntree = 10), # fewer trees for testing speed only.
                              tune = list(maxnodes = maxnode_seq))
 
-sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
+sl = SuperLearner(Boston$medv, X[, 1:3], family = gaussian(),
                   cvControl = list(V = 3),
-                  SL.library = c("SL.mean", "SL.glmnet", rf$names))
+                  SL.library = c("SL.mean", "SL.glm", rf$names))
 
 sl
 
