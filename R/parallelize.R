@@ -77,9 +77,9 @@ parallelize = function(type="any", max_cores = NULL, allow_multinode = T,
     foreach::registerDoSEQ()
     cl = NA
     parallel_type = "seq"
-  } else if (type %in% c("doParallel") || (type %in% c("doMC", "multcore") &&
+  } else if (type %in% c("doParallel") ||
              # doMC can't be used on Windows, so default to doParallel if doMC not installed.
-             !"doMC" %in% rownames(installed.packages()))) {
+             !"doMC" %in% rownames(installed.packages())) {
     # Outfile = "" allows output from within foreach to be displayed.
     # TODO: figure out how to suppress the output from makeCluster()
     capture.output({ cl = parallel::makeCluster(cores, outfile = outfile) })
