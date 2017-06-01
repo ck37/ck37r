@@ -2,10 +2,17 @@ language: r
 cache: packages
 sudo: false
 
+# Test on 3 versions of R.
+r:
+  - release
+  - devel
+  - oldrel
+
 ##########################
 # Code coverage
 
 r_github_packages:
  - jimhester/covr
+
 after_success:
  - Rscript -e 'covr::codecov()'
