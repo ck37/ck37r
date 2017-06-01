@@ -22,7 +22,13 @@ library(SuperLearner)
 library(ck37r)
 data(Boston, package = "MASS")
 
-set.seed(1)
+set.seed(1, "L'Ecuyer-CMRG")
+
+# Subset rows to speed up example computation.
+row_subset = sample(nrow(Boston), 30)
+
+Boston = Boston[row_subset, ]
+
 cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
                       cvControl = list(V = 2, stratifyCV = TRUE),
                       SL.library = c("SL.mean", "SL.glmnet"))
