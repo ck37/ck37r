@@ -15,7 +15,8 @@ W = subset(data, select = -c(Y, A))
 # Use multiple cores as available.
 # CRAN check requires at most 2 cores.
 # We use doParallel so that this should work on both windows and unix.
-parallel = setup_parallel_tmle(parallel = "doParallel", max_cores = 2)
+#parallel = setup_parallel_tmle(parallel = "doParallel", max_cores = 2)
+parallel = setup_parallel_tmle(parallel = "seq", max_cores = 2)
 
 # Basic SL library.
 sl_lib = c("SL.mean", "SL.glm")
