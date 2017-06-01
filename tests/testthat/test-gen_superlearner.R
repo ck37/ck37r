@@ -3,7 +3,9 @@ library(testthat)
 
 #################
 # Multicore
+if (F) {
 sl = gen_superlearner(parallel = "multicore", verbose = T)
+}
 
 # TODO: test out sl and cvsl elements.
 # NOTE: multicore needs to be skipped on windows systems.
@@ -16,7 +18,8 @@ sl = gen_superlearner(parallel = "seq", verbose = T)
 
 #################
 # Snow
-
+if (F) {
 sl = gen_superlearner(parallel = "snow", verbose = T)
+}
 
 # TODO: test out sl and cvsl elements.
