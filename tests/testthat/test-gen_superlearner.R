@@ -6,6 +6,7 @@ library(testthat)
 sl = gen_superlearner(parallel = "multicore", verbose = T)
 
 # TODO: test out sl and cvsl elements.
+# NOTE: multicore needs to be skipped on windows systems.
 
 #################
 # Sequential
