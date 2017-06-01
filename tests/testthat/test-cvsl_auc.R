@@ -17,3 +17,5 @@ cvsl = CV.SuperLearner(Boston$chas, X[, 1:3], family = binomial(),
                        cvControl = list(V = 2, stratifyCV = T),
                        SL.library = c("SL.mean", "SL.glm"))
 cvsl_auc(cvsl)
+
+# TODO: cause an error in cvAUC::ci.cvAUC for testing purposes.
