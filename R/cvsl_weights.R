@@ -23,6 +23,13 @@
 #'
 #' data(Boston, package = "MASS")
 #'
+#' set.seed(1, "L'Ecuyer-CMRG")
+#'
+#' # Subset rows to speed up example computation.
+#' row_subset = sample(nrow(Boston), 50)
+#'
+#' Boston = Boston[row_subset, ]
+#'
 #' set.seed(1)
 #' cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
 #'                       cvControl = list(V = 2, stratifyCV = TRUE),
