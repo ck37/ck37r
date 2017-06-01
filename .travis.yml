@@ -1,3 +1,4 @@
+
 language: r
 cache: packages
 sudo: false
@@ -9,9 +10,15 @@ r:
   - oldrel
 
 # Test on both linux and OSX.
+# See details at https://docs.travis-ci.com/user/multi-os/
 os:
   - linux
   - osx
+
+# Allow failures on OSX.
+matrix:
+  allow_failures:
+    - os: osx
 
 ##########################
 # Code coverage
