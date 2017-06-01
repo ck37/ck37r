@@ -38,7 +38,7 @@
 #'
 #' @seealso \code{\link[SuperLearner]{SuperLearner}}
 #'
-#' @importFrom ggplot2 ggplot aes geom_pointrange coord_flip ylab xlab
+#' @importFrom ggplot2 ggplot aes_ geom_pointrange coord_flip ylab xlab
 #' @importFrom stats qnorm
 #'
 #' @export
@@ -67,8 +67,10 @@ plot.SuperLearner <- function(x, Y = x$Y,
 
   rownames(table) = NULL
 
+  # We use aes_() and the tildes to avoid an R CMD check note about
+  # "no visible binding for global variable".
   p = ggplot(table,
-             aes(x = Learner, y = Risk, ymin = ci_lower, ymax = ci_upper)) +
+             aes_(x = ~Learner, y = ~Risk, ymin = ~ci_lower, ymax = ~ci_upper)) +
     ggplot2::geom_pointrange(fatten = 2) +
     ggplot2::coord_flip() +
     ggplot2::ylab(paste0(length(sl$validRows), "-fold CV Risk Estimate")) +
