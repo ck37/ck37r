@@ -25,11 +25,12 @@ data(Boston, package = "MASS")
 set.seed(1, "L'Ecuyer-CMRG")
 
 # Subset rows to speed up example computation.
-row_subset = sample(nrow(Boston), 30)
+row_subset = sample(nrow(Boston), 100)
 
 Boston = Boston[row_subset, ]
+X = subset(Boston, select = -chas)
 
-cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
+cvsl = CV.SuperLearner(Boston$chas, X[, 1:2], family = binomial(),
                       cvControl = list(V = 2, stratifyCV = TRUE),
                       SL.library = c("SL.mean", "SL.glmnet"))
 cvsl_auc(cvsl)
