@@ -31,9 +31,6 @@ Suggests:
     MASS,
     mlbench,
     testthat
-Enhances:
-    SuperLearner,
-    tmle
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
