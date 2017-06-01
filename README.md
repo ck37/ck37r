@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/ck37/ck37r.svg?branch=master)](https://travis-ci.org/ck37/ck37r)
+[![Build Status: appveyor](https://ci.appveyor.com/api/projects/status/github/ck37/ck37r?branch=master&svg=true)](https://ci.appveyor.com/api/projects/status/github/ck37/ck37r?branch=master&svg=true)
 [![codecov](https://codecov.io/gh/ck37/ck37r/branch/master/graph/badge.svg)](https://codecov.io/gh/ck37/ck37r)
 
 # ck37r
