@@ -8,6 +8,11 @@ r:
   - devel
   - oldrel
 
+# Test on both linux and OSX.
+os:
+  - linux
+  - osx
+
 ##########################
 # Code coverage
 
