@@ -1,4 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.travis\.yml$
 ^TODO\.md$
+
+# Automated testing files.
+^\.travis\.yml$
+^appveyor\.yml$
