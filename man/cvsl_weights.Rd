@@ -48,7 +48,7 @@ X = subset(Boston, select = -chas)
 
 cvsl = CV.SuperLearner(Boston$chas, X[, 1:2], family = binomial(),
                       cvControl = list(V = 2, stratifyCV = TRUE),
-                      SL.library = c("SL.mean", "SL.glmnet"))
+                      SL.library = c("SL.mean", "SL.glm"))
 cvsl_weights(cvsl)
 
 }

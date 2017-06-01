@@ -21,7 +21,7 @@
 #'
 #' set.seed(1)
 #' sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
-#'                  SL.library = c("SL.mean", "SL.glmnet"))
+#'                  SL.library = c("SL.mean", "SL.glm"), V = 2)
 #'
 #' sl
 #'
