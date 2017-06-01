@@ -15,8 +15,10 @@ os:
   - linux
   - osx
 
-# Allow failures on OSX.
 matrix:
+  # Report build completion status once non-"allow_failures" builds are done.
+  fast_finish: true
+  # Allow failures on OSX.
   allow_failures:
     - os: osx
 
