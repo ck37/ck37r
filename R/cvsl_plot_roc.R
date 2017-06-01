@@ -19,7 +19,7 @@
 #' set.seed(1, "L'Ecuyer-CMRG")
 #'
 #' # Subset rows to speed up example computation.
-#' row_subset = sample(nrow(Boston), 50)
+#' row_subset = sample(nrow(Boston), 100)
 #'
 #' Boston = Boston[row_subset, ]
 #'
