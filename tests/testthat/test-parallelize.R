@@ -6,10 +6,12 @@ max_cores = 2
 
 ###########
 # Defaults
+if (F) {
 cl = parallelize(max_cores = max_cores)
 
 # No effect for doMC but shuts down cluster for doSNOW or Windows-doParallel.
 stop_cluster(cl)
+}
 
 ###########
 # doSNOW
