@@ -10,10 +10,14 @@ load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"))
 #load_packages(c("MASS"), update = T)
 
 # Load these 4 packages and install them if necessary.
+if (F) {
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
+}
 
 # Try to install a non-existent package.
 # This will generate warnings.
+if (F) {
 suppressWarnings(try({
   load_packages("ck37_blah123", auto_install = T)
 }))
+}
