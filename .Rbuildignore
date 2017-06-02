@@ -6,4 +6,3 @@
 # Automated testing files.
 ^\.travis\.yml$
 ^appveyor\.yml$
-^NEWS\.md$
