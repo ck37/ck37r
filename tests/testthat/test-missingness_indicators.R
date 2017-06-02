@@ -1,3 +1,8 @@
+library(ck37r)
+library(testthat)
+
+context("Missingness indicators")
+
 # Load a test dataset.
 data(PimaIndiansDiabetes2, package = "mlbench")
 

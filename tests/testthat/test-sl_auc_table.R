@@ -1,5 +1,8 @@
-library(SuperLearner)
 library(ck37r)
+library(SuperLearner)
+library(testthat)
+
+context("SL auc table")
 
 data(Boston, package = "MASS")
 

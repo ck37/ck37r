@@ -1,3 +1,8 @@
+library(ck37r)
+library(testthat)
+
+context("Impute missing values")
+
 # Load a test dataset.
 data(PimaIndiansDiabetes2, package = "mlbench")
 
@@ -15,7 +20,8 @@ colSums(is.na(result$data))
 #############
 # K-nearest neighbors imputation
 
-result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn", skip_vars = "diabetes")
+result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn",
+                                skip_vars = "diabetes")
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))

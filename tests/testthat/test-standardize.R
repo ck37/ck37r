@@ -1,4 +1,7 @@
 library(ck37r)
+library(testthat)
+
+context("Standardize")
 
 data(Boston, package = "MASS")
 
