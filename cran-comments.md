@@ -1,3 +1,10 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Converted the DESCRIPTION title to title case.
+
+* Simplified the LICENSE file to reflect the copyright holder and year directly.
+  
 ## Test environments
 
 * Local
