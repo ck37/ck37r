@@ -19,7 +19,3 @@ NOTEs (1):
 1. Package suggested but not available for checking: 'doMC'
 
 -- Windows-only; occurs because doMC is not available for Windows.
-
-## Thanks
-
-Thank you very much for the review, your service is appreciated.
