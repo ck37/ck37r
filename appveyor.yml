@@ -67,5 +67,3 @@ artifacts:
 
 cache:
   - C:\RLibrary
-  # NOTE: may need to clear out appveyor cache whenever R or Rtools are updated.
-  - C:\Rtools
