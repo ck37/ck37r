@@ -18,8 +18,6 @@ sl = gen_superlearner(parallel = "seq", verbose = T)
 
 #################
 # Snow
-if (F) {
 sl = gen_superlearner(parallel = "snow", verbose = T)
-}
 
 # TODO: test out sl and cvsl elements.
