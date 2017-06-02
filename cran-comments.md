@@ -2,7 +2,7 @@
 This is a resubmission. In this version I have:
 
 * Updated the package DESCRIPTION with a more detailed description, with
-inspiration from Frank Harell's Hmisc package descripton.
+inspiration from Frank Harrell's Hmisc package description.
   
 ## Test environments
 
