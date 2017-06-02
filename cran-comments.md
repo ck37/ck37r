@@ -1,9 +1,8 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Converted the DESCRIPTION title to title case.
-
-* Simplified the LICENSE file to reflect the copyright holder and year directly.
+* Updated the package DESCRIPTION with a more detailed description, with
+inspiration from Frank Harell's Hmisc package descripton.
   
 ## Test environments
 

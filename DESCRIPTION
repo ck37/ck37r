@@ -1,9 +1,14 @@
 Package: ck37r
 Title: Chris Kennedy's R Toolkit
 Version: 1.0.0
-Authors@R: person("Chris", "Kennedy", email = "chrisken@gmail.com", role = c("aut", "cre"))
-Description: R functions for project organization, data cleaning,
-    parallelization, and targeted learning.
+Authors@R: person("Chris", "Kennedy", email = "chrisken@gmail.com",
+  role = c("aut", "cre"))
+Description: Toolkit for statistical, machine learning, and targeted learning
+  analyses. Functionality includes loading & auto-installing packages,
+  standardizing datasets, creating missingness indicators, imputing missing
+  values, creating multicore or multinode clusters, automatic SLURM integration,
+  enhancing SuperLearner and TMLE with automatic parallelization, and many other
+  SuperLearner analysis & plotting enhancements.
 Depends:
     R (>= 3.1.0)
 Imports:
