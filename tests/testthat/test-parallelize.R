@@ -15,11 +15,11 @@ stop_cluster(cl)
 
 ###########
 # doSNOW
-#if (F) {
+if (F) {
 cl = parallelize("doSNOW", max_cores = max_cores)
 
 stop_cluster(cl)
-#}
+}
 
 ###########
 # doParallel.
@@ -38,9 +38,9 @@ cl = parallelize(NULL)
 
 ###########
 # Multinode
-#if (F) {
+if (F) {
 cl = parallelize("doSNOW", max_cores = max_cores,
                  machine_list = rep("localhost", 2), cpus_per_node = 1)
 
 stop_cluster(cl)
-#}
+}
