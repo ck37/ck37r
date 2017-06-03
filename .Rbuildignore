@@ -1,0 +1,8 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^TODO\.md$
+^cran-comments.md$
+
+# Automated testing files.
+^\.travis\.yml$
+^appveyor\.yml$

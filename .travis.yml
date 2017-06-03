@@ -1,0 +1,63 @@
+# Docs: https://docs.travis-ci.com/user/languages/r/
+
+language: r
+
+cran: http://cran.cnr.berkeley.edu
+
+# This repos setting doesn't seem to be working :/
+#repos:
+#  CRAN: http://cran.rstudio.com
+
+cache: packages
+sudo: false
+
+# We don't need Latex so save time by telling Travis not to install it.
+# Via https://docs.travis-ci.com/user/languages/r/#LaTeX-TexLive-Packages
+latex: false
+
+# Test on 3 versions of R.
+r:
+  - release
+  - devel
+  - oldrel
+
+r_check_args: "--as-cran --timings"
+# Build the manual.
+r_build_args: ""
+
+# Test on both linux and OSX.
+# See details at https://docs.travis-ci.com/user/multi-os/
+os:
+  - linux
+  - osx
+
+env:
+  global:
+    # From https://github.com/tidyverse/dplyr/blob/master/.travis.yml
+    - MAKEFLAGS="-j 2"
+    # Via https://gist.github.com/domenic/ec8b0fc8ab45f39403dd#create-your-travisyml-file
+    - ENCRYPTION_LABEL: "99d96023b074"
+    - COMMIT_AUTHOR_EMAIL: "chrisken@gmail.com"
+
+matrix:
+  # Report build completion status once non-"allow_failures" builds are done.
+  fast_finish: true
+  # Allow failures on OSX.
+  allow_failures:
+    - os: osx
+
+##########################
+# Code coverage
+
+r_github_packages:
+  - jimhester/covr
+  - hadley/pkgdown
+
+after_success:
+  # Update pkgdown documentation.
+  - bash scripts/deploy_pkgdown.sh
+  - Rscript -e 'covr::codecov()'
+  # Send to netlify?
+
+after_failure:
+  - ./travis-tool.sh dump_logs
