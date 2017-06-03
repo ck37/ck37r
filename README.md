@@ -9,7 +9,13 @@ My R toolkit for organizing analyses, parallelizing code for multiple cores or i
 
 ## Installation
 
-Install from github:
+Install the latest release from CRAN:
+
+```{r}
+install.packages("ck37r") 
+```
+
+Install the development version from github:
 
 ```{r}
 install.packages("devtools") # Install devtools if needed.
