@@ -6,3 +6,5 @@
 # Automated testing files.
 ^\.travis\.yml$
 ^appveyor\.yml$
+^deploy_key\.enc$
+^scripts$
