@@ -1,5 +1,7 @@
 
 language: r
+repos:
+  CRAN: http://cran.rstudio.com
 cache: packages
 sudo: false
 
