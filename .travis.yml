@@ -2,11 +2,11 @@
 
 language: r
 
-cran: https://cloud.r-project.org
+cran: http://cran.cnr.berkeley.edu
 
 # This repos setting doesn't seem to be working :/
-repos:
-  CRAN: http://cran.rstudio.com
+#repos:
+#  CRAN: http://cran.rstudio.com
 
 cache: packages
 sudo: false
