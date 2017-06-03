@@ -126,11 +126,7 @@ trees than the minimum node size hyperparameter.</p>
 
 <span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(),
                  <span class='kw'>cvControl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>3</span>),
-                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>, <span class='st'>"SL.randomForest"</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: randomForest</span></div><div class='output co'>#&gt; <span class='message'>randomForest 4.6-12</span></div><div class='output co'>#&gt; <span class='message'>Type rfNews() to see new features/changes/bug fixes.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
-#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
-#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
-#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet  on full data </span>
-#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: coefficients already 0 for all failed algorithm(s)</span></div><div class='input'>
+                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>, <span class='st'>"SL.randomForest"</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: randomForest</span></div><div class='output co'>#&gt; <span class='message'>randomForest 4.6-12</span></div><div class='output co'>#&gt; <span class='message'>Type rfNews() to see new features/changes/bug fixes.</span></div><div class='input'>
 <span class='no'>sl</span></div><div class='output co'>#&gt; 
 #&gt; Call:  
 #&gt; SuperLearner(Y = Boston$medv, X = subset(Boston, select = -medv), family = gaussian(),  
@@ -140,10 +136,10 @@ trees than the minimum node size hyperparameter.</p>
 #&gt; 
 #&gt;                         Risk Coef
 #&gt; SL.mean_All         82.41584    0
-#&gt; SL.glmnet_All             NA    0
-#&gt; SL.randomForest_All 34.87371    1</div><div class='input'>
+#&gt; SL.glmnet_All       61.37041    0
+#&gt; SL.randomForest_All 34.91833    1</div><div class='input'>
 <span class='fu'>summary</span>(<span class='fu'>rf_count_terminal_nodes</span>(<span class='no'>sl</span>$<span class='no'>fitLibrary</span>$<span class='no'>SL.randomForest_All</span>$<span class='no'>object</span>))</div><div class='output co'>#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#&gt;    26.0    32.0    33.0    33.3    35.0    41.0 </div><div class='input'>
+#&gt;   26.00   32.00   33.00   33.29   35.00   41.00 </div><div class='input'>
 <span class='no'>max_terminal_nodes</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='fu'>rf_count_terminal_nodes</span>(<span class='no'>sl</span>$<span class='no'>fitLibrary</span>$<span class='no'>SL.randomForest_All</span>$<span class='no'>object</span>))
 
 <span class='no'>max_terminal_nodes</span></div><div class='output co'>#&gt; [1] 41</div><div class='input'>
@@ -159,11 +155,8 @@ trees than the minimum node size hyperparameter.</p>
 
 <span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(),
                  <span class='kw'>cvControl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>3</span>),
-                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>, <span class='no'>rf</span>$<span class='no'>names</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
-#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
-#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
-#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet  on full data </span>
-#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: coefficients already 0 for all failed algorithm(s)</span></div><div class='input'>
+                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>, <span class='no'>rf</span>$<span class='no'>names</span>))
+
 <span class='no'>sl</span></div><div class='output co'>#&gt; 
 #&gt; Call:  
 #&gt; SuperLearner(Y = Boston$medv, X = subset(Boston, select = -medv), family = gaussian(),  
@@ -171,14 +164,14 @@ trees than the minimum node size hyperparameter.</p>
 #&gt; 
 #&gt; 
 #&gt; 
-#&gt;                   Risk      Coef
-#&gt; SL.mean_All   82.20832 0.0000000
-#&gt; SL.glmnet_All       NA 0.0000000
-#&gt; rf_4_All      32.67405 0.0000000
-#&gt; rf_6_All      26.56812 0.0000000
-#&gt; rf_11_All     23.40124 0.2861234
-#&gt; rf_24_All     23.07783 0.3243657
-#&gt; rf_41_All     23.10118 0.3895109</div><div class='input'>
+#&gt;                   Risk Coef
+#&gt; SL.mean_All   80.06636    0
+#&gt; SL.glmnet_All 44.33263    0
+#&gt; rf_4_All      31.41665    0
+#&gt; rf_6_All      28.75390    0
+#&gt; rf_11_All     22.85659    0
+#&gt; rf_24_All     22.90193    0
+#&gt; rf_41_All     21.89887    1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
