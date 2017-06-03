@@ -21,6 +21,8 @@ r:
   - devel
   - oldrel
 
+r_check_args: "--as-cran --timings"
+
 # Test on both linux and OSX.
 # See details at https://docs.travis-ci.com/user/multi-os/
 os:
@@ -38,7 +40,10 @@ matrix:
 # Code coverage
 
 r_github_packages:
- - jimhester/covr
+  - jimhester/covr
 
 after_success:
- - Rscript -e 'covr::codecov()'
+  - Rscript -e 'covr::codecov()'
+
+after_failure:
+  - ./travis-tool.sh dump_logs
