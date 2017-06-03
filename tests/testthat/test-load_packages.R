@@ -7,7 +7,7 @@ context("test_load_packages")
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"))
 
 # Load packages and update installed packages.
-# load_packages(c("MASS"), update = T)
+load_packages(c("MASS"), update = T)
 
 # Load these 4 packages and install them if necessary.
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = T)
