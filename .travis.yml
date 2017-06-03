@@ -18,6 +18,8 @@ latex: false
 # Test on 3 versions of R.
 r:
   - release
+    env:
+      - RVER: release
   - devel
   - oldrel
 
@@ -29,6 +31,8 @@ r_build_args: ""
 # See details at https://docs.travis-ci.com/user/multi-os/
 os:
   - linux
+    env:
+      - OS: linux
   - osx
 
 env:
@@ -55,7 +59,7 @@ r_github_packages:
 
 after_success:
   # Update pkgdown documentation.
-  - bash scripts/deploy_pkgdown.sh
+  - if [[ "$RVER" == "release" -a "$OS" == "linux" ]]]; then bash scripts/deploy_pkgdown.sh; fi
   - Rscript -e 'covr::codecov()'
   # Send to netlify?
 
