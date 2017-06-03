@@ -48,9 +48,12 @@ matrix:
 
 r_github_packages:
   - jimhester/covr
+  - hadley/pkgdown
 
 after_success:
+  - pkgdown::build_site()
   - Rscript -e 'covr::codecov()'
+  # Send to netlify?
 
 after_failure:
   - ./travis-tool.sh dump_logs
