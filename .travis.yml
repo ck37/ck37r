@@ -60,7 +60,7 @@ r_github_packages:
 
 after_success:
   # Update pkgdown documentation.
-  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]]; then bash scripts/deploy_pkgdown.sh; fi
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then bash scripts/deploy_pkgdown.sh; fi
   - Rscript -e 'covr::codecov()'
   # Send to netlify?
 
