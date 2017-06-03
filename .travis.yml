@@ -1,5 +1,11 @@
 # Docs: https://docs.travis-ci.com/user/languages/r/
 
+sudo: false
+
+branches:
+  except:
+    - gh-pages
+
 language: r
 
 cran: http://cran.cnr.berkeley.edu
@@ -9,7 +15,6 @@ cran: http://cran.cnr.berkeley.edu
 #  CRAN: http://cran.rstudio.com
 
 cache: packages
-sudo: false
 
 # We don't need Latex so save time by telling Travis not to install it.
 # Via https://docs.travis-ci.com/user/languages/r/#LaTeX-TexLive-Packages
@@ -18,8 +23,6 @@ latex: false
 # Test on 3 versions of R.
 r:
   - release
-    env:
-      - RVER: release
   - devel
   - oldrel
 
@@ -31,8 +34,6 @@ r_build_args: ""
 # See details at https://docs.travis-ci.com/user/multi-os/
 os:
   - linux
-    env:
-      - OS: linux
   - osx
 
 env:
@@ -59,7 +60,7 @@ r_github_packages:
 
 after_success:
   # Update pkgdown documentation.
-  - if [[ "$RVER" == "release" -a "$OS" == "linux" ]]]; then bash scripts/deploy_pkgdown.sh; fi
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]]; then bash scripts/deploy_pkgdown.sh; fi
   - Rscript -e 'covr::codecov()'
   # Send to netlify?
 
