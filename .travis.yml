@@ -22,6 +22,8 @@ r:
   - oldrel
 
 r_check_args: "--as-cran --timings"
+# Build the manual.
+r_build_args: ""
 
 # Test on both linux and OSX.
 # See details at https://docs.travis-ci.com/user/multi-os/
