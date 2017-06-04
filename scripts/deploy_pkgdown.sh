@@ -13,7 +13,11 @@
 # pbcopy < ~/deploy_key.pub
 # travis encrypt-file deploy_key
 
-# set -e # Exit with nonzero exit code if anything fails
+# Via https://docs.travis-ci.com/user/customizing-the-build/#Implementing-Complex-Build-Steps
+# -e causes the script to exit as soon as one command returns a non-zero exit code.
+# -v flag makes the shell print all lines in the script before executing them,
+# which helps identify which steps failed.
+set -ev
 
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
@@ -56,6 +60,9 @@ doCompile
 cd out
 git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
+
+# Disable the set -e behavior for the rest of the script.
+set +e
 
 # If there are no changes to the compiled out (e.g. this is a README update) then just bail.
 if [ -z `git status -uno --porcelain` ]; then
