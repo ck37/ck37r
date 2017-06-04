@@ -81,5 +81,14 @@ ssh-add deploy_key
 # Now that we're all set up, we can push.
 git push $SSH_REPO $TARGET_BRANCH
 
+#################
+# Cleanup
+
 # Remove decrypted deploy_key just in case.
 rm deploy_key
+
+# Return to the main directory.
+cd ..
+
+# Remove out directory.
+rm -rf out
