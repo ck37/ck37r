@@ -4,7 +4,7 @@
 #' This will help understand risk estimates of learners in SL, similar to CV.SL.
 #'
 #' @param sl SuperLearner result object
-#' @param Y Outcome vector
+#' @param y Outcome vector
 #' @param obsWeights Observation weights
 #'
 #' @return Vector of the standard errors of the risk estimate for each learner
@@ -24,7 +24,7 @@
 #'
 #' sl
 #'
-#' sl_stderr(sl, Y = Boston$medv)
+#' sl_stderr(sl, y = Boston$medv)
 #'
 #' @seealso \code{\link{plot.SuperLearner}}
 #'    \code{\link[SuperLearner]{summary.CV.SuperLearner}}
@@ -45,14 +45,14 @@
 #' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
 #'
 #' @export
-sl_stderr = function(sl, Y, obsWeights = rep(1, length(Y))) {
+sl_stderr = function(sl, y, obsWeights = rep(1, length(y))) {
   # Each column is sl$Z is a learner's prediction.
   # We can use that to calculate the loss on each observation.
 
   # See Dudoit and vDL 2005 section 4.3 and Polley & vdL 2010 equation 5.
   # And https://github.com/ecpolley/SuperLearner/blob/master/R/summary.CV.SuperLearner.R
   SEs = apply(sl$Z, MARGIN = 2, FUN = function(predicted) {
-    sd(obsWeights * (Y - predicted)^2) / sqrt(length(Y))
+    sd(obsWeights * (y - predicted)^2) / sqrt(length(y))
   })
 
   names(SEs) = names(sl$cvRisk)

@@ -5,7 +5,7 @@
 #' CV.SuperLearner to estimate the standard errors.
 #'
 #' @param x SuperLearner result object
-#' @param Y Outcome vector
+#' @param y Outcome vector
 #' @param constant Multiplier of the standard error for confidence interval
 #'   construction.
 #' @param sort If TRUE re-orders the results by risk estimate.
@@ -22,10 +22,10 @@
 #' set.seed(1)
 #' sl = SuperLearner(Boston$medv, subset(Boston, select = -medv),
 #'                   family = gaussian(),
-#'                   SL.library = c("SL.mean", "SL.glmnet"))
+#'                   SL.library = c("SL.mean", "SL.glm"))
 #'
 #' sl
-#' plot(sl, Y = Boston$chas)
+#' plot(sl, y = Boston$chas)
 #'
 #' @references
 #'
@@ -43,17 +43,18 @@
 #' @importFrom stats qnorm
 #'
 #' @export
-plot.SuperLearner <- function(x, Y = x$Y,
+plot.SuperLearner <- function(x, y = x$Y,
                               constant = qnorm(0.975),
-                              sort = TRUE, ...) {
+                              sort = T, ...) {
 
   # Use a clearer object name.
   sl = x
 
-  # Need to pass in Y for now - should calculate SE during SuperLearner() to avoid this.
+  # Need to pass in y for now - should calculate SE during SuperLearner() to
+  # avoid this.
   table = data.frame(Learner = names(sl$cvRisk),
                      Risk = sl$cvRisk,
-                     Risk_SE = sl_stderr(sl, Y),
+                     Risk_SE = sl_stderr(sl, y),
                      Coef = sl$coef)
   if (sort) {
     table = table[order(table$Risk, decreasing = T), ]

@@ -4,13 +4,13 @@
 \alias{plot.SuperLearner}
 \title{Plot estimated risk and confidence interval for each learner}
 \usage{
-\method{plot}{SuperLearner}(x, Y = x$Y, constant = qnorm(0.975),
-  sort = TRUE, ...)
+\method{plot}{SuperLearner}(x, y = x$Y, constant = qnorm(0.975), sort = T,
+  ...)
 }
 \arguments{
 \item{x}{SuperLearner result object}
 
-\item{Y}{Outcome vector}
+\item{y}{Outcome vector}
 
 \item{constant}{Multiplier of the standard error for confidence interval
 construction.}
@@ -35,10 +35,10 @@ data(Boston, package = "MASS")
 set.seed(1)
 sl = SuperLearner(Boston$medv, subset(Boston, select = -medv),
                   family = gaussian(),
-                  SL.library = c("SL.mean", "SL.glmnet"))
+                  SL.library = c("SL.mean", "SL.glm"))
 
 sl
-plot(sl, Y = Boston$chas)
+plot(sl, y = Boston$chas)
 
 }
 \references{

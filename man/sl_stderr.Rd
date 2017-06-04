@@ -4,12 +4,12 @@
 \alias{sl_stderr}
 \title{Calculate the SE of individual SL learners}
 \usage{
-sl_stderr(sl, Y, obsWeights = rep(1, length(Y)))
+sl_stderr(sl, y, obsWeights = rep(1, length(y)))
 }
 \arguments{
 \item{sl}{SuperLearner result object}
 
-\item{Y}{Outcome vector}
+\item{y}{Outcome vector}
 
 \item{obsWeights}{Observation weights}
 }
@@ -34,7 +34,7 @@ sl = SuperLearner(Boston$medv, subset(Boston, select = -medv),
 
 sl
 
-sl_stderr(sl, Y = Boston$medv)
+sl_stderr(sl, y = Boston$medv)
 
 }
 \references{

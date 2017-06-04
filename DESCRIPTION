@@ -34,9 +34,11 @@ Imports:
     tmle
 Suggests:
     doMC,
+    dplyr,
     glmnet,
     lintr,
     MASS,
+    magrittr,
     mlbench,
     testthat
 License: MIT + file LICENSE

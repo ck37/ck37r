@@ -4,7 +4,7 @@
 library(ck37r)
 library(testthat)
 
-if (requireNamespace("lintr", quietly = TRUE)) {
+if (requireNamespace("lintr", quietly = T)) {
   context("lints")
   test_that("Package Style", {
     lintr::expect_lint_free()
@@ -18,7 +18,7 @@ if (F) {
   lintr::lint_package() %>%
     as.data.frame %>%
     group_by(linter) %>%
-    tally(sort = TRUE) %$%
+    tally(sort = T) %$%
     sprintf("linters: with_defaults(\n    %s\n    NULL\n  )\n",
           paste0(linter, " = NULL, # ", n, collapse = "\n    ")) %>%
     cat(file = ".lintr-defaults")
