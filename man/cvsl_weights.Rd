@@ -10,7 +10,7 @@ cvsl_weights(cvsl, sort = T, nonzero = F, clean_names = T, rank = T,
 \arguments{
 \item{cvsl}{CV.SuperLearner result object}
 
-\item{sort}{If TRUE, sort rows (learners) in descending order by mean weight.}
+\item{sort}{If TRUE sort rows (learners) in descending order by mean weight.}
 
 \item{nonzero}{Restrict to learners with a non-zero mean weight.}
 

@@ -4,17 +4,17 @@
 \alias{sl_auc_table}
 \title{Table of cross-validated AUCs from SuperLearner result}
 \usage{
-sl_auc_table(sl, Y = sl$Y, sort = T)
+sl_auc_table(sl, y = sl$Y, sort = T)
 }
 \arguments{
 \item{sl}{CV.SuperLearner object}
 
-\item{Y}{Outcome vector, if not already added to SL object.}
+\item{y}{Outcome vector, if not already added to SL object.}
 
 \item{sort}{Sort table by order of AUC.}
 }
 \value{
-Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5).
+Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5)
 }
 \description{
 Calculates cross-validated AUC for each learner in the SuperLearner. Also
@@ -28,10 +28,11 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
-                 SL.library = c("SL.mean", "SL.glmnet"))
+sl = SuperLearner(Boston$chas, subset(Boston, select = -chas),
+                  family = binomial(),
+                  SL.library = c("SL.mean", "SL.glm"))
 
-sl_auc_table(sl, Y = Boston$chas)
+sl_auc_table(sl, y = Boston$chas)
 
 }
 \references{
@@ -51,5 +52,6 @@ Statistical Applications of Genetics and Molecular Biology, 6, article 25.
 http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
 }
 \seealso{
-\code{\link{cvsl_auc}} \code{\link{sl_plot_roc}} \code{\link[cvAUC]{ci.cvAUC}}
+\code{\link{cvsl_auc}} \code{\link{sl_plot_roc}}
+   \code{\link[cvAUC]{ci.cvAUC}}
 }

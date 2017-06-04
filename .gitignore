@@ -5,3 +5,4 @@
 
 # Travis
 deploy_key
+.lintr-defaults

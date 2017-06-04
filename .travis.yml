@@ -1,4 +1,5 @@
 # Docs: https://docs.travis-ci.com/user/languages/r/
+# Validate your .travis.yml file at http://lint.travis-ci.org/
 
 sudo: false
 
@@ -19,6 +20,7 @@ cache: packages
 # We don't need Latex so save time by telling Travis not to install it.
 # Via https://docs.travis-ci.com/user/languages/r/#LaTeX-TexLive-Packages
 latex: false
+r_check_args: "--as-cran --timings"
 
 # Test on 3 versions of R.
 r:
@@ -26,7 +28,6 @@ r:
   - devel
   - oldrel
 
-r_check_args: "--as-cran --timings"
 # Build the manual.
 r_build_args: ""
 

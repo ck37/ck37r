@@ -20,4 +20,4 @@ sl = SuperLearner(Boston$chas, X[, 1:3], family = binomial(),
                   cvControl = list(V = 2, stratifyCV = T),
                   SL.library = c("SL.mean", "SL.glm"))
 
-sl_auc_table(sl, Y = Boston$chas)
+sl_auc_table(sl, y = Boston$chas)

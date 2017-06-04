@@ -5,10 +5,10 @@
 #' code by Alan Hubbard.
 #'
 #' @param sl CV.SuperLearner object
-#' @param Y Outcome vector, if not already added to SL object.
+#' @param y Outcome vector, if not already added to SL object.
 #' @param sort Sort table by order of AUC.
 #'
-#' @return Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5).
+#' @return Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5)
 #'
 #' @examples
 #' library(SuperLearner)
@@ -17,10 +17,11 @@
 #' data(Boston, package = "MASS")
 #'
 #' set.seed(1)
-#' sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
-#'                  SL.library = c("SL.mean", "SL.glmnet"))
+#' sl = SuperLearner(Boston$chas, subset(Boston, select = -chas),
+#'                   family = binomial(),
+#'                   SL.library = c("SL.mean", "SL.glm"))
 #'
-#' sl_auc_table(sl, Y = Boston$chas)
+#' sl_auc_table(sl, y = Boston$chas)
 #'
 #' @references
 #' LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
@@ -38,12 +39,13 @@
 #' Statistical Applications of Genetics and Molecular Biology, 6, article 25.
 #' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
 #'
-#' @seealso \code{\link{cvsl_auc}} \code{\link{sl_plot_roc}} \code{\link[cvAUC]{ci.cvAUC}}
+#' @seealso \code{\link{cvsl_auc}} \code{\link{sl_plot_roc}}
+#'    \code{\link[cvAUC]{ci.cvAUC}}
 #'
 #' @importFrom stats pnorm
 #'
 #' @export
-sl_auc_table = function(sl, Y = sl$Y, sort = T) {
+sl_auc_table = function(sl, y = sl$Y, sort = T) {
 
   # Vector to save the fold id for each observation.
   fold_ids = rep(NA, length(sl$SL.predict))
@@ -63,7 +65,7 @@ sl_auc_table = function(sl, Y = sl$Y, sort = T) {
     # if successful.
     result = list(cvAUC = NA, se = NA, ci = c(NA, NA))
     try({
-      result = cvAUC::ci.cvAUC(sl$Z[, learner_i], Y, folds = fold_ids)
+      result = cvAUC::ci.cvAUC(sl$Z[, learner_i], y, folds = fold_ids)
     }, silent = T)
     aucs[learner_i, "auc"] = result$cvAUC
     aucs[learner_i, "se"] = result$se

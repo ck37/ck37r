@@ -6,7 +6,8 @@
 #' @param data Dataframe or matrix to analyze for missingness.
 #' @param prefix Name prefix for new indicator columns.
 #' @param remove_constant Remove any indicators that are all 0 or all 1.
-#' @param remove_collinear Remove any indicators that are collinear with each other.
+#' @param remove_collinear Remove any indicators that are collinear with each
+#'                         other.
 #' @param skip_vars Vector of variable names to skip.
 #' @param verbose If TRUE, print additional information.
 #'
@@ -21,7 +22,8 @@
 #' colSums(is.na(PimaIndiansDiabetes2))
 #'
 #' # Generate missingness indicators; skip outcome variable.
-#' indicators = missingness_indicators(PimaIndiansDiabetes2, skip_vars = "diabetes")
+#' indicators = missingness_indicators(PimaIndiansDiabetes2,
+#'                                     skip_vars = "diabetes")
 #'
 #' # Check missingness.
 #' colSums(indicators)
@@ -38,9 +40,11 @@ missingness_indicators = function(data, prefix = "miss_",
                                   verbose = F) {
 
   # Create indicators.
-  indicators = sapply(data[, !colnames(data) %in% skip_vars], FUN = function(col) as.numeric(is.na(col)) )
+  indicators = sapply(data[, !colnames(data) %in% skip_vars],
+                      FUN = function(col) as.numeric(is.na(col)))
 
-  colnames(indicators) = paste0(prefix, colnames(data)[!colnames(data) %in% skip_vars])
+  colnames(indicators) = paste0(prefix,
+                                colnames(data)[!colnames(data) %in% skip_vars])
 
   # Remove any indicators that are all 0 or all 1.
   if (remove_constant) {
@@ -66,8 +70,10 @@ missingness_indicators = function(data, prefix = "miss_",
 
     if (length(linear_combos$remove) > 0) {
       if (verbose) {
-        cat("Removing", length(linear_combos$remove), "indicators due to collinearity:\n")
-        cat(paste0(colnames(indicators)[linear_combos$remove], collapse = ", "), "\n")
+        cat("Removing", length(linear_combos$remove),
+            "indicators due to collinearity:\n")
+        cat(paste0(colnames(indicators)[linear_combos$remove], collapse = ", "),
+            "\n")
       }
 
       # Make sure we don't switch to a vector if only 1 column remains.

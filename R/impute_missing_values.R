@@ -17,7 +17,8 @@
 #' \itemize{
 #' \item $data - imputed dataset.
 #' \item $impute_info - if knn, caret preprocess element for imputing test data.
-#' \item $impute_values - if standard, list of imputation values for each variable.
+#' \item $impute_values - if standard, list of imputation values for each
+#'   variable.
 #' }
 #'
 #' @examples
@@ -39,7 +40,8 @@
 #' #############
 #' # K-nearest neighbors imputation
 #'
-#' result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn", skip_vars = "diabetes")
+#' result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn",
+#'                                 skip_vars = "diabetes")
 #'
 #' # Confirm we have no missing data.
 #' colSums(is.na(result2$data))
@@ -73,7 +75,6 @@ impute_missing_values = function(data,
     if (verbose) {
       cat("Running standard imputation.\n")
     }
-    preprocess = NA
 
     # List to save the imputation values used.
     # We need a list because it can contain numerics and factors.
@@ -86,7 +87,6 @@ impute_missing_values = function(data,
     for (i in 1:ncol(data)) {
       # Use double brackets rather than [, i] to support tibbles.
       nas = sum(is.na(data[[i]]))
-      # cat("Processing", colnames(data)[i], "class:", class(data[[i]]), "\n")
 
       col_class = class(data[[i]])
       if (col_class == "factor") {
@@ -112,7 +112,8 @@ impute_missing_values = function(data,
         next
       } else if (nas == nrow(data)) {
         if (verbose) {
-          cat("Note: skipping", colnames(data)[i], "because all values are NA.\n")
+          cat("Note: skipping", colnames(data)[i], "because all values are NA.",
+              "\n")
         }
         next
       } else {
@@ -133,7 +134,8 @@ impute_missing_values = function(data,
 
   if (add_indicators) {
     # Create missingness indicators from original dataframe.
-    missing_indicators = missingness_indicators(data, prefix = prefix, verbose = verbose)
+    missing_indicators = missingness_indicators(data, prefix = prefix,
+                                                verbose = verbose)
 
     if (verbose) {
       cat("Indicators added:", ncol(missing_indicators), "\n")

@@ -3,7 +3,7 @@
 #' Based on initial code by Alan Hubbard.
 #'
 #' @param cvsl CV.SuperLearner object
-#' @param Y Outcome vector if not already included in the SL object.
+#' @param y Outcome vector if not already included in the SL object.
 #' @param title Title to use in the plot.
 #' @param digits Digits to use when rounding AUC and CI for plot.
 #'
@@ -46,14 +46,15 @@
 #' Statistical Applications of Genetics and Molecular Biology, 6, article 25.
 #' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
 #'
-#' @seealso \code{\link{cvsl_auc}} \code{\link{sl_plot_roc}} \code{\link[cvAUC]{ci.cvAUC}}
+#' @seealso \code{\link{cvsl_auc}} \code{\link{sl_plot_roc}}
+#'   \code{\link[cvAUC]{ci.cvAUC}}
 #'
 #' @export
-cvsl_plot_roc = function(cvsl, Y = cvsl$Y,
+cvsl_plot_roc = function(cvsl, y = cvsl$Y,
                          title = "CV-SuperLearner cross-validated ROC",
                          digits = 4) {
   preds = cvsl$SL.predict
-  pred = ROCR::prediction(preds, Y)
+  pred = ROCR::prediction(preds, y)
   perf1 = ROCR::performance(pred, "sens", "spec")
 
   ciout = ck37r::cvsl_auc(cvsl)
@@ -64,8 +65,8 @@ cvsl_plot_roc = function(cvsl, Y = cvsl$Y,
                " - ", sprintf("%0.3f", round(ciout$ci[2], digits)))
 
   # ggplot version.
-  print(ggplot2::qplot(1 - methods::slot(perf1,"x.values")[[1]],
-                       methods::slot(perf1,"y.values")[[1]],
+  print(ggplot2::qplot(1 - methods::slot(perf1, "x.values")[[1]],
+                       methods::slot(perf1, "y.values")[[1]],
                        xlab = "1 - Specificity (false positives)",
                        ylab = "Sensitivity (true positives)",
                        geom = "line",

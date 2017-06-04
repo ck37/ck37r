@@ -1,7 +1,8 @@
 #' @title Plot a ROC curve from cross-validated AUC from SuperLearner
 #' @description
 #' Plots the ROC curve for a single learner from a SuperLearner object,
-#' defaulting to the minimum estimated risk learner. Based on code by Alan Hubbard.
+#' defaulting to the minimum estimated risk learner. Based on code by Alan
+#' Hubbard.
 #'
 #' @param sl SuperLearner object
 #' @param Y Outcome vector if not already included in the SL object.
@@ -9,8 +10,8 @@
 #' @param title Title to use in the plot.
 #' @param digits Digits to use when rounding AUC and CI for plot.
 #'
-#' @return List with plotted AUC & CI, table of AUC results for all learners, and
-#'    the name of the best learner.
+#' @return List with plotted AUC & CI, table of AUC results for all learners,
+#'       and the name of the best learner.
 #'
 #' @examples
 #'
@@ -75,8 +76,8 @@ sl_plot_roc = function(sl,
                " - ", sprintf("%0.3f", round(ci_upper, digits)))
 
   # ggplot version.
-  print(ggplot2::qplot(1 - methods::slot(perf1,"x.values")[[1]],
-                       methods::slot(perf1,"y.values")[[1]],
+  print(ggplot2::qplot(1 - methods::slot(perf1, "x.values")[[1]],
+                       methods::slot(perf1, "y.values")[[1]],
                        xlab = "1 - Specificity (false positives)",
                        ylab = "Sensitivity (true positives)",
                        geom = "line",

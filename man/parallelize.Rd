@@ -31,8 +31,9 @@ printed to the console.}
 obj Cluster object that can be passed to stop_cluster().
 }
 \description{
-By default it uses a multinode cluster if available, otherwise sets up multicore via doMC.
-Libraries required: parallel, doSNOW, doMC, RhpcBLASctl, foreach
+By default it uses a multinode cluster if available, otherwise sets up
+multicore via doMC. Libraries required: parallel, doSNOW, doMC, RhpcBLASctl,
+foreach
 }
 \seealso{
 stop_cluster

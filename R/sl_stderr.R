@@ -7,7 +7,8 @@
 #' @param Y Outcome vector
 #' @param obsWeights Observation weights
 #'
-#' @return Vector of the standard errors of the risk estimate for each learner in the SL object.
+#' @return Vector of the standard errors of the risk estimate for each learner
+#'   in the SL object.
 #'
 #' @examples
 #'
@@ -25,7 +26,8 @@
 #'
 #' sl_stderr(sl, Y = Boston$medv)
 #'
-#' @seealso \code{\link{plot.SuperLearner}} \code{\link[SuperLearner]{summary.CV.SuperLearner}}
+#' @seealso \code{\link{plot.SuperLearner}}
+#'    \code{\link[SuperLearner]{summary.CV.SuperLearner}}
 #'
 #'
 #' @references

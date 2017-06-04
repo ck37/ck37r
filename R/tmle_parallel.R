@@ -69,7 +69,6 @@ tmle_parallel = function(Y, A, W, family,
     cat("Stacked dataframe object size: ",
         prettyNum(pryr::object_size(stacked_df) / 1024^2,
                   big.mark = ",", digits = 1), " MB\n")
-    #print(object.size(stacked_df), units = "MB")
   }
 
   # Estimate Q

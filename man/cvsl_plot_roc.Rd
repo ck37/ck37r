@@ -4,13 +4,13 @@
 \alias{cvsl_plot_roc}
 \title{Plot a ROC curve from cross-validated AUC from CV.SuperLearner}
 \usage{
-cvsl_plot_roc(cvsl, Y = cvsl$Y,
+cvsl_plot_roc(cvsl, y = cvsl$Y,
   title = "CV-SuperLearner cross-validated ROC", digits = 4)
 }
 \arguments{
 \item{cvsl}{CV.SuperLearner object}
 
-\item{Y}{Outcome vector if not already included in the SL object.}
+\item{y}{Outcome vector if not already included in the SL object.}
 
 \item{title}{Title to use in the plot.}
 
@@ -60,5 +60,6 @@ Statistical Applications of Genetics and Molecular Biology, 6, article 25.
 http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
 }
 \seealso{
-\code{\link{cvsl_auc}} \code{\link{sl_plot_roc}} \code{\link[cvAUC]{ci.cvAUC}}
+\code{\link{cvsl_auc}} \code{\link{sl_plot_roc}}
+  \code{\link[cvAUC]{ci.cvAUC}}
 }

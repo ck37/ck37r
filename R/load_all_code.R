@@ -21,7 +21,7 @@ load_all_code = function(lib_dir = "lib",
                          recursive = T,
                          verbose = T) {
   # Load all .R files in the lib directory.
-  lib_files =  list.files(path=lib_dir, file_pattern, full.names = F,
+  lib_files =  list.files(path = lib_dir, file_pattern, full.names = F,
                           recursive = recursive)
 
   # Exclude any files that we don't need to load.

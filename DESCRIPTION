@@ -35,6 +35,7 @@ Imports:
 Suggests:
     doMC,
     glmnet,
+    lintr,
     MASS,
     mlbench,
     testthat

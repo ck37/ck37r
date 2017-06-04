@@ -20,7 +20,6 @@ gen_superlearner = function(parallel = "multicore",
       SuperLearner::CV.SuperLearner(...,
                                     V = outer_cv_folds,
                                     innerCvControl = list(cvControl))
-      #SuperLearner::CV.SuperLearner(...)
     }
   } else if (parallel == "multicore") {
     if (verbose) {
@@ -35,7 +34,6 @@ gen_superlearner = function(parallel = "multicore",
                                     V = outer_cv_folds,
                                     innerCvControl = list(cvControl),
                                     parallel = parallel)
-      #SuperLearner::CV.SuperLearner(..., parallel = parallel)
     }
   } else if (parallel %in% c("doSNOW", "snow")) {
     if (verbose) {

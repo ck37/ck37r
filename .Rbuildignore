@@ -6,5 +6,8 @@
 # Automated testing files.
 ^\.travis\.yml$
 ^appveyor\.yml$
+^deploy_key$
 ^deploy_key\.enc$
 ^scripts$
+^.lintr$
+^.lintr-defaults$

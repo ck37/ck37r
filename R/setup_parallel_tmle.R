@@ -10,7 +10,8 @@
 #'   substantial amount of memory.
 #' @param allow_multinode If T, will create a multinode cluster if it finds
 #'   multiple machines listed in the "SLURM_NODELIST" environmental variable.
-#'   If F, it will only use the current node even if multiple nodes are detected.
+#'   If F, it will only use the current node even if multiple nodes are
+#'   detected.
 #' @param env Environment in which to save the functions, defaulting to the
 #'   global environment. Set to NULL to disable.
 #' @importFrom parallel clusterEvalQ

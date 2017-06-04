@@ -27,7 +27,8 @@ List with the following elements:
 \itemize{
 \item $data - imputed dataset.
 \item $impute_info - if knn, caret preprocess element for imputing test data.
-\item $impute_values - if standard, list of imputation values for each variable.
+\item $impute_values - if standard, list of imputation values for each
+  variable.
 }
 }
 \description{
@@ -53,7 +54,8 @@ colSums(is.na(result$data))
 #############
 # K-nearest neighbors imputation
 
-result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn", skip_vars = "diabetes")
+result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn",
+                                skip_vars = "diabetes")
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))

@@ -1,8 +1,9 @@
 #' @title Setup parallel processing, either multinode or multicore.
 #'
 #' @description
-#' By default it uses a multinode cluster if available, otherwise sets up multicore via doMC.
-#' Libraries required: parallel, doSNOW, doMC, RhpcBLASctl, foreach
+#' By default it uses a multinode cluster if available, otherwise sets up
+#' multicore via doMC. Libraries required: parallel, doSNOW, doMC, RhpcBLASctl,
+#' foreach
 #'
 #' @param type "any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq"
 #' @param max_cores Restrict to this many cores, even if more are available.
@@ -20,10 +21,12 @@
 #' @importFrom utils installed.packages
 #' @seealso stop_cluster
 #' @export
-parallelize = function(type="any", max_cores = NULL, allow_multinode = T,
-                       machine_list = Sys.getenv("SLURM_NODELIST"),
-                       cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
-                       outfile = "" , verbose = F) {
+parallelize =
+  function(type = "any", max_cores = NULL, allow_multinode = T,
+           machine_list = Sys.getenv("SLURM_NODELIST"),
+           cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
+           outfile = "", verbose = F) {
+
   # Indicator for multi-node parallelism.
   multinode = F
 
@@ -34,7 +37,8 @@ parallelize = function(type="any", max_cores = NULL, allow_multinode = T,
       cat("Have multi-node access for parallelism with", length(machines),
           "machines:", machines, "\n")
 
-      # Restrict the number of cores used, e.g. if we need a lot of memory per core.
+      # Restrict the number of cores used, e.g. if we need a lot of memory per
+      # core.
       if (!is.null(max_cores)) {
         cpus_per_node = min(cpus_per_node, max_cores)
       }
@@ -47,7 +51,8 @@ parallelize = function(type="any", max_cores = NULL, allow_multinode = T,
   }
 
   if (!multinode) {
-    # Count of physical cores, unlike parallel::detectCores() which is logical cores (threads).
+    # Count of physical cores, unlike parallel::detectCores() which is logical
+    # cores (threads).
     cores = RhpcBLASctl::get_num_cores()
     cat("Local physical cores detected:", cores, "\n")
 
@@ -61,11 +66,14 @@ parallelize = function(type="any", max_cores = NULL, allow_multinode = T,
   }
 
   if (multinode || (!is.null(type) && type %in% c("cluster", "doSNOW"))) {
-    # Outfile = "" allows output from within foreach to be displayed while in RStudio.
+    # Outfile = "" allows output from within foreach to be displayed while in
+    # RStudio.
     # TODO: figure out how to suppress the output from makeCluster()
     #capture.output({ cl = parallel::makeCluster(cores, outfile = outfile) })
     cat("Starting multinode cluster with cores:", cores, "\n")
-    capture.output({ cl = snow::makeCluster(cores, type="SOCK", outfile = outfile) })
+    capture.output({
+      cl = snow::makeCluster(cores, type = "SOCK", outfile = outfile)
+    })
     # doParallel supports multicore and multinode parallelism, but may require
     # explicitly exporting functions and libraries across the cluster.
     doSNOW::registerDoSNOW(cl)
@@ -78,11 +86,14 @@ parallelize = function(type="any", max_cores = NULL, allow_multinode = T,
     cl = NA
     parallel_type = "seq"
   } else if (type %in% c("doParallel") ||
-             # doMC can't be used on Windows, so default to doParallel if doMC not installed.
+             # doMC can't be used on Windows, so default to doParallel if doMC
+             # not installed.
              !"doMC" %in% rownames(installed.packages())) {
     # Outfile = "" allows output from within foreach to be displayed.
     # TODO: figure out how to suppress the output from makeCluster()
-    capture.output({ cl = parallel::makeCluster(cores, outfile = outfile) })
+    capture.output({
+      cl = parallel::makeCluster(cores, outfile = outfile)
+    })
     doParallel::registerDoParallel(cl)
     parallel::setDefaultCluster(cl)
     parallel_type = "multicore"
@@ -101,12 +112,14 @@ parallelize = function(type="any", max_cores = NULL, allow_multinode = T,
     RhpcBLASctl::omp_set_num_threads(1)
   }
 
-  # TODO: need to figure out difference between get_max_threads and get_num_procs.
+  # TODO: need to figure out difference between get_max_threads and
+  # get_num_procs.
   # They are not always both consistently set to 1 (i.e. on Benten).
   omp_threads = RhpcBLASctl::omp_get_max_threads()
   # If omp_threads is NULL we can safely plan on using 1 thread.
   omp_threads = ifelse(is.null(omp_threads), 1, omp_threads)
-  cat("Our BLAS is setup for", RhpcBLASctl::blas_get_num_procs(), "threads and OMP is", omp_threads, "threads.\n")
+  cat("Our BLAS is setup for", RhpcBLASctl::blas_get_num_procs(),
+      "threads and OMP is", omp_threads, "threads.\n")
 
   cat("doPar backend registered:", foreach::getDoParName(), "\n")
   cat("Workers enabled:", foreach::getDoParWorkers(), "\n")

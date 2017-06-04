@@ -154,10 +154,11 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
-                       SL.library = c("SL.mean", "SL.glmnet"))
+sl = SuperLearner(Boston$chas, subset(Boston, select = -chas),
+                  family = binomial(),
+                  SL.library = c("SL.mean", "SL.glm"))
 
-sl_auc(sl, Y = Boston$chas)
+sl_auc_table(sl, y = Boston$chas)
 ```
 
 ### SuperLearner plot of risk estimates
@@ -171,11 +172,12 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
-                  SL.library = c("SL.mean", "SL.glmnet"))
+sl = SuperLearner(Boston$medv, subset(Boston, select = -medv),
+                  family = gaussian(),
+                  SL.library = c("SL.mean", "SL.glm"))
 
 sl
-plot(sl, Y = Boston$chas)
+plot(sl, y = Boston$chas)
 ```
 
 ### SuperLearner ROC plot
@@ -187,12 +189,13 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Boston$chas, subset(Boston, select = -chas), family = binomial(),
-                  SL.library = c("SL.mean", "SL.glmnet"))
+sl = SuperLearner(Boston$chas, subset(Boston, select = -chas),
+                  family = binomial(),
+                  SL.library = c("SL.mean", "SL.glm"))
 
 sl
 
-sl_plot_roc(sl, Y = Boston$chas)
+sl_plot_roc(sl, y = Boston$chas)
 ```
 
 ### CV.SuperLearner AUC

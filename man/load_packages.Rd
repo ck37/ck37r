@@ -24,6 +24,7 @@ Load packages and install them from CRAN if they aren't already available.
 \examples{
 
 # Load these 4 packages and install them if necessary.
-load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
+load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"),
+              auto_install = TRUE)
 
 }

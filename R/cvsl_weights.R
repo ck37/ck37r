@@ -7,7 +7,7 @@
 #'   function may eventually be moved into the SuperLearner package.
 #'
 #' @param cvsl CV.SuperLearner result object
-#' @param sort  If TRUE, sort rows (learners) in descending order by mean weight.
+#' @param sort  If TRUE sort rows (learners) in descending order by mean weight.
 #' @param nonzero Restrict to learners with a non-zero mean weight.
 #' @param clean_names Remove "SL." from the front and "_All" from the end of
 #'   learner names.
