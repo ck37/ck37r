@@ -140,16 +140,27 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
 
 <span class='fu'>set.seed</span>(<span class='fl'>1</span>)
 <span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(),
-                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: glmnet</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Loaded glmnet 2.0-10</span></div><div class='input'>
+                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: glmnet</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Loaded glmnet 2.0-10</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet  on full data </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: coefficients already 0 for all failed algorithm(s)</span></div><div class='input'>
 <span class='no'>sl</span></div><div class='output co'>#&gt; 
 #&gt; Call:  
 #&gt; SuperLearner(Y = Boston$medv, X = subset(Boston, select = -medv), family = gaussian(),  
 #&gt;     SL.library = c("SL.mean", "SL.glmnet")) 
 #&gt; 
 #&gt; 
-#&gt;                   Risk        Coef
-#&gt; SL.mean_All   84.83418 0.006114587
-#&gt; SL.glmnet_All 23.55172 0.993885413</div><div class='input'><span class='fu'>plot</span>(<span class='no'>sl</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>chas</span>)</div><img src='plot.SuperLearner-8.png' alt='' width='540' height='400' /><div class='input'>
+#&gt;                   Risk Coef
+#&gt; SL.mean_All   84.83418    1
+#&gt; SL.glmnet_All       NA    0</div><div class='input'><span class='fu'>plot</span>(<span class='no'>sl</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>chas</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_pointrange).</span></div><img src='plot.SuperLearner-21.png' alt='' width='540' height='400' /><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -135,11 +135,21 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
 
 <span class='fu'>set.seed</span>(<span class='fl'>1</span>)
 <span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>chas</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>chas</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>binomial</span>(),
-                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>))
-
-<span class='fu'>sl_auc_table</span>(<span class='no'>sl</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>chas</span>)</div><div class='output co'>#&gt;                    auc         se  ci_lower  ci_upper      p-value
-#&gt; SL.mean_All   0.500000 0.08753416 0.3284362 0.6715638 5.000000e-01
-#&gt; SL.glmnet_All 0.703465 0.03039462 0.6438926 0.7630373 1.084922e-11</div><div class='input'>
+                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Error in algorithm SL.glmnet  on full data </span>
+#&gt; <span class='warning'>  The Algorithm will be removed from the Super Learner (i.e. given weight 0) </span></div><div class='output co'>#&gt; <span class='warning'>Warning: coefficients already 0 for all failed algorithm(s)</span></div><div class='input'>
+<span class='fu'>sl_auc_table</span>(<span class='no'>sl</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>chas</span>)</div><div class='output co'>#&gt;               auc         se  ci_lower  ci_upper p-value
+#&gt; SL.mean_All   0.5 0.08753416 0.3284362 0.6715638     0.5
+#&gt; SL.glmnet_All 0.5 0.08753416 0.3284362 0.6715638     0.5</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
