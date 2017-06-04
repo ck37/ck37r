@@ -13,7 +13,7 @@
 # pbcopy < ~/deploy_key.pub
 # travis encrypt-file deploy_key
 
-set -e # Exit with nonzero exit code if anything fails
+# set -e # Exit with nonzero exit code if anything fails
 
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
