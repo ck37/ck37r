@@ -85,7 +85,7 @@ defaulting to the minimum estimated risk learner. Based on code by Alan
 Hubbard.</p>
     
 
-    <pre class="usage"><span class='fu'>sl_plot_roc</span>(<span class='no'>sl</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>sl</span>$<span class='no'>Y</span>, <span class='kw'>learner</span> <span class='kw'>=</span> <span class='fu'>which.min</span>(<span class='no'>sl</span>$<span class='no'>cvRisk</span>),
+    <pre class="usage"><span class='fu'>sl_plot_roc</span>(<span class='no'>sl</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>sl</span>$<span class='no'>Y</span>, <span class='kw'>learner</span> <span class='kw'>=</span> <span class='fu'>which.min</span>(<span class='no'>sl</span>$<span class='no'>cvRisk</span>),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'>paste0</span>(<span class='st'>"SuperLearner cross-validated ROC: "</span>,
   <span class='fu'>names</span>(<span class='no'>sl</span>$<span class='no'>cvRisk</span>)[<span class='no'>learner</span>]), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>)</pre>
     
@@ -97,7 +97,7 @@ Hubbard.</p>
       <td><p>SuperLearner object</p></td>
     </tr>
     <tr>
-      <th>Y</th>
+      <th>y</th>
       <td><p>Outcome vector if not already included in the SL object.</p></td>
     </tr>
     <tr>
@@ -154,7 +154,7 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
 #&gt;                   Risk     Coef
 #&gt; SL.mean_All 0.06495962 0.823176
 #&gt; SL.glm_All  0.07167617 0.176824</div><div class='input'>
-<span class='fu'>sl_plot_roc</span>(<span class='no'>sl</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>chas</span>)</div><img src='sl_plot_roc-6.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>sl_plot_roc</span>(<span class='no'>sl</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>chas</span>)</div><img src='sl_plot_roc-6.png' alt='' width='540' height='400' /><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

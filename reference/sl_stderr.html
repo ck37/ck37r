@@ -83,7 +83,7 @@
     <p>This will help understand risk estimates of learners in SL, similar to CV.SL.</p>
     
 
-    <pre class="usage"><span class='fu'>sl_stderr</span>(<span class='no'>sl</span>, <span class='no'>Y</span>, <span class='kw'>obsWeights</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fu'>length</span>(<span class='no'>Y</span>)))</pre>
+    <pre class="usage"><span class='fu'>sl_stderr</span>(<span class='no'>sl</span>, <span class='no'>y</span>, <span class='kw'>obsWeights</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fu'>length</span>(<span class='no'>y</span>)))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -93,7 +93,7 @@
       <td><p>SuperLearner result object</p></td>
     </tr>
     <tr>
-      <th>Y</th>
+      <th>y</th>
       <td><p>Outcome vector</p></td>
     </tr>
     <tr>
@@ -146,7 +146,7 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
 #&gt;                 Risk       Coef
 #&gt; SL.mean_All 84.45075 0.01029329
 #&gt; SL.glm_All  25.05347 0.98970671</div><div class='input'>
-<span class='fu'>sl_stderr</span>(<span class='no'>sl</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>medv</span>)</div><div class='output co'>#&gt; SL.mean_All  SL.glm_All 
+<span class='fu'>sl_stderr</span>(<span class='no'>sl</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>medv</span>)</div><div class='output co'>#&gt; SL.mean_All  SL.glm_All 
 #&gt;    7.008043    3.134710 </div><div class='input'>
 </div></pre>
   </div>
