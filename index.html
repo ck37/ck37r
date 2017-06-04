@@ -215,10 +215,11 @@ result =<span class="st"> </span><span class="kw">run_tmle</span>(<span class="d
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas), <span class="dt">family =</span> <span class="kw">binomial</span>(),
-                       <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glmnet"</span>))
+sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas),
+                  <span class="dt">family =</span> <span class="kw">binomial</span>(),
+                  <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>))
 
-<span class="kw">sl_auc</span>(sl, <span class="dt">Y =</span> Boston$chas)</code></pre></div>
+<span class="kw"><a href="reference/sl_auc_table.html">sl_auc_table</a></span>(sl, <span class="dt">y =</span> Boston$chas)</code></pre></div>
 </div>
 <div id="superlearner-plot-of-risk-estimates" class="section level3">
 <h3 class="hasAnchor">
@@ -230,11 +231,12 @@ sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$chas, <
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$medv, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -medv), <span class="dt">family =</span> <span class="kw">gaussian</span>(),
-                  <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glmnet"</span>))
+sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$medv, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -medv),
+                  <span class="dt">family =</span> <span class="kw">gaussian</span>(),
+                  <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>))
 
 sl
-<span class="kw">plot</span>(sl, <span class="dt">Y =</span> Boston$chas)</code></pre></div>
+<span class="kw">plot</span>(sl, <span class="dt">y =</span> Boston$chas)</code></pre></div>
 </div>
 <div id="superlearner-roc-plot" class="section level3">
 <h3 class="hasAnchor">
@@ -245,12 +247,13 @@ sl
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas), <span class="dt">family =</span> <span class="kw">binomial</span>(),
-                  <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glmnet"</span>))
+sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas),
+                  <span class="dt">family =</span> <span class="kw">binomial</span>(),
+                  <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>))
 
 sl
 
-<span class="kw"><a href="reference/sl_plot_roc.html">sl_plot_roc</a></span>(sl, <span class="dt">Y =</span> Boston$chas)</code></pre></div>
+<span class="kw"><a href="reference/sl_plot_roc.html">sl_plot_roc</a></span>(sl, <span class="dt">y =</span> Boston$chas)</code></pre></div>
 </div>
 <div id="cv-superlearner-auc" class="section level3">
 <h3 class="hasAnchor">

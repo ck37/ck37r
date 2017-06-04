@@ -104,7 +104,8 @@
     </tr>
     <tr>
       <th>remove_collinear</th>
-      <td><p>Remove any indicators that are collinear with each other.</p></td>
+      <td><p>Remove any indicators that are collinear with each
+other.</p></td>
     </tr>
     <tr>
       <th>skip_vars</th>
@@ -136,7 +137,8 @@
 #&gt; diabetes 
 #&gt;        0 </div><div class='input'>
 <span class='co'># Generate missingness indicators; skip outcome variable.</span>
-<span class='no'>indicators</span> <span class='kw'>=</span> <span class='fu'>missingness_indicators</span>(<span class='no'>PimaIndiansDiabetes2</span>, <span class='kw'>skip_vars</span> <span class='kw'>=</span> <span class='st'>"diabetes"</span>)
+<span class='no'>indicators</span> <span class='kw'>=</span> <span class='fu'>missingness_indicators</span>(<span class='no'>PimaIndiansDiabetes2</span>,
+                                    <span class='kw'>skip_vars</span> <span class='kw'>=</span> <span class='st'>"diabetes"</span>)
 
 <span class='co'># Check missingness.</span>
 <span class='fu'>colSums</span>(<span class='no'>indicators</span>)</div><div class='output co'>#&gt;  miss_glucose miss_pressure  miss_triceps  miss_insulin     miss_mass 

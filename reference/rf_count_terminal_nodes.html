@@ -109,7 +109,8 @@ trees than the minimum node size hyperparameter.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/randomForest/topics/getTree'>getTree</a></code> <code><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></code></p>
+    <p><code><a href='http://www.rdocumentation.org/packages/randomForest/topics/getTree'>getTree</a></code>
+   <code><a href='http://www.rdocumentation.org/packages/randomForest/topics/randomForest'>randomForest</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -124,54 +125,60 @@ trees than the minimum node size hyperparameter.</p>
 <span class='co'># Downsample to 100 observations speed up example.</span>
 <span class='no'>Boston</span> <span class='kw'>=</span> <span class='no'>Boston</span>[<span class='fu'>sample</span>(<span class='fu'>nrow</span>(<span class='no'>Boston</span>), <span class='fl'>100L</span>), ]
 
-<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(),
-                 <span class='kw'>cvControl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>3</span>),
-                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>, <span class='st'>"SL.randomForest"</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: randomForest</span></div><div class='output co'>#&gt; <span class='message'>randomForest 4.6-12</span></div><div class='output co'>#&gt; <span class='message'>Type rfNews() to see new features/changes/bug fixes.</span></div><div class='input'>
+<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>),
+                  <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(),
+                  <span class='kw'>cvControl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>3</span>),
+                  <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glm"</span>, <span class='st'>"SL.randomForest"</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: randomForest</span></div><div class='output co'>#&gt; <span class='message'>randomForest 4.6-12</span></div><div class='output co'>#&gt; <span class='message'>Type rfNews() to see new features/changes/bug fixes.</span></div><div class='input'>
 <span class='no'>sl</span></div><div class='output co'>#&gt; 
 #&gt; Call:  
 #&gt; SuperLearner(Y = Boston$medv, X = subset(Boston, select = -medv), family = gaussian(),  
-#&gt;     SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest"), cvControl = list(V = 3)) 
+#&gt;     SL.library = c("SL.mean", "SL.glm", "SL.randomForest"), cvControl = list(V = 3)) 
 #&gt; 
 #&gt; 
 #&gt; 
 #&gt;                         Risk Coef
 #&gt; SL.mean_All         82.41584    0
-#&gt; SL.glmnet_All       61.37041    0
-#&gt; SL.randomForest_All 34.91833    1</div><div class='input'>
+#&gt; SL.glm_All          55.88575    0
+#&gt; SL.randomForest_All 34.87371    1</div><div class='input'>
 <span class='fu'>summary</span>(<span class='fu'>rf_count_terminal_nodes</span>(<span class='no'>sl</span>$<span class='no'>fitLibrary</span>$<span class='no'>SL.randomForest_All</span>$<span class='no'>object</span>))</div><div class='output co'>#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#&gt;   26.00   32.00   33.00   33.29   35.00   41.00 </div><div class='input'>
-<span class='no'>max_terminal_nodes</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='fu'>rf_count_terminal_nodes</span>(<span class='no'>sl</span>$<span class='no'>fitLibrary</span>$<span class='no'>SL.randomForest_All</span>$<span class='no'>object</span>))
+#&gt;    26.0    32.0    33.0    33.3    35.0    41.0 </div><div class='input'>
+<span class='no'>max_terminal_nodes</span> <span class='kw'>=</span>
+       <span class='fu'>max</span>(<span class='fu'>rf_count_terminal_nodes</span>(<span class='no'>sl</span>$<span class='no'>fitLibrary</span>$<span class='no'>SL.randomForest_All</span>$<span class='no'>object</span>))
 
 <span class='no'>max_terminal_nodes</span></div><div class='output co'>#&gt; [1] 41</div><div class='input'>
 <span class='co'># Now run create.Learner() based on that maximum.</span>
 
-<span class='co'># It is often handy to convert to log scale of a hyperparameter before testing a ~linear grid.</span>
+<span class='co'># It is often handy to convert to log scale of a hyperparameter before</span>
+<span class='co'># testing a ~linear grid.</span>
 <span class='co'># NOTE: -0.7 ~ 0.69 ~ log(0.5) which is the multiplier that yields sqrt(max)</span>
-<span class='no'>maxnode_seq</span> <span class='kw'>=</span> <span class='fu'>unique</span>(<span class='fu'>round</span>(<span class='fu'>exp</span>(<span class='fu'>log</span>(<span class='no'>max_terminal_nodes</span>) * <span class='fu'>exp</span>(<span class='fu'>c</span>(-<span class='fl'>0.97</span>, -<span class='fl'>0.7</span>, -<span class='fl'>0.45</span>, -<span class='fl'>0.15</span>, <span class='fl'>0</span>)))))
+<span class='no'>maxnode_seq</span> <span class='kw'>=</span> <span class='fu'>unique</span>(<span class='fu'>round</span>(<span class='fu'>exp</span>(<span class='fu'>log</span>(<span class='no'>max_terminal_nodes</span>) *
+                               <span class='fu'>exp</span>(<span class='fu'>c</span>(-<span class='fl'>0.97</span>, -<span class='fl'>0.7</span>, -<span class='fl'>0.45</span>, -<span class='fl'>0.15</span>, <span class='fl'>0</span>)))))
 <span class='no'>maxnode_seq</span></div><div class='output co'>#&gt; [1]  4  6 11 24 41</div><div class='input'>
-<span class='no'>rf</span> <span class='kw'>=</span> <span class='kw'>SuperLearner</span><span class='kw'>::</span><span class='fu'>create.Learner</span>(<span class='st'>"SL.randomForest"</span>, <span class='kw'>detailed_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>name_prefix</span> <span class='kw'>=</span> <span class='st'>"rf"</span>,
-                                 <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>ntree</span> <span class='kw'>=</span> <span class='fl'>100</span>), <span class='co'># fewer trees for testing speed only.</span>
-                                 <span class='kw'>tune</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>maxnodes</span> <span class='kw'>=</span> <span class='no'>maxnode_seq</span>))
+<span class='no'>rf</span> <span class='kw'>=</span> <span class='kw'>SuperLearner</span><span class='kw'>::</span><span class='fu'>create.Learner</span>(<span class='st'>"SL.randomForest"</span>, <span class='kw'>detailed_names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                                  <span class='kw'>name_prefix</span> <span class='kw'>=</span> <span class='st'>"rf"</span>,
+                                  <span class='co'># fewer trees for testing speed only.</span>
+                                  <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>ntree</span> <span class='kw'>=</span> <span class='fl'>100</span>),
+                                  <span class='kw'>tune</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>maxnodes</span> <span class='kw'>=</span> <span class='no'>maxnode_seq</span>))
 
-<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(),
-                 <span class='kw'>cvControl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>3</span>),
-                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>, <span class='no'>rf</span>$<span class='no'>names</span>))
+<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>),
+                  <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(),
+                  <span class='kw'>cvControl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>3</span>),
+                  <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glm"</span>, <span class='no'>rf</span>$<span class='no'>names</span>))
 
 <span class='no'>sl</span></div><div class='output co'>#&gt; 
 #&gt; Call:  
 #&gt; SuperLearner(Y = Boston$medv, X = subset(Boston, select = -medv), family = gaussian(),  
-#&gt;     SL.library = c("SL.mean", "SL.glmnet", rf$names), cvControl = list(V = 3)) 
+#&gt;     SL.library = c("SL.mean", "SL.glm", rf$names), cvControl = list(V = 3)) 
 #&gt; 
 #&gt; 
-#&gt; 
-#&gt;                   Risk Coef
-#&gt; SL.mean_All   80.06636    0
-#&gt; SL.glmnet_All 44.33263    0
-#&gt; rf_4_All      31.41665    0
-#&gt; rf_6_All      28.75390    0
-#&gt; rf_11_All     22.85659    0
-#&gt; rf_24_All     22.90193    0
-#&gt; rf_41_All     21.89887    1</div><div class='input'>
+#&gt;                 Risk      Coef
+#&gt; SL.mean_All 82.20832 0.0000000
+#&gt; SL.glm_All  44.96435 0.0000000
+#&gt; rf_4_All    32.67405 0.0000000
+#&gt; rf_6_All    26.56812 0.0000000
+#&gt; rf_11_All   23.40124 0.2861234
+#&gt; rf_24_All   23.07783 0.3243657
+#&gt; rf_41_All   23.10118 0.3895109</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

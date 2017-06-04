@@ -123,7 +123,8 @@ indicator.</p></td>
     <p>List with the following elements:</p><ul>
 <li><p>$data - imputed dataset.</p></li>
 <li><p>$impute_info - if knn, caret preprocess element for imputing test data.</p></li>
-<li><p>$impute_values - if standard, list of imputation values for each variable.</p></li>
+<li><p>$impute_values - if standard, list of imputation values for each
+  variable.</p></li>
 </ul>
 
     
@@ -157,7 +158,8 @@ indicator.</p></td>
 <span class='co'>#############</span>
 <span class='co'># K-nearest neighbors imputation</span>
 
-<span class='no'>result2</span> <span class='kw'>=</span> <span class='fu'>impute_missing_values</span>(<span class='no'>PimaIndiansDiabetes2</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"knn"</span>, <span class='kw'>skip_vars</span> <span class='kw'>=</span> <span class='st'>"diabetes"</span>)
+<span class='no'>result2</span> <span class='kw'>=</span> <span class='fu'>impute_missing_values</span>(<span class='no'>PimaIndiansDiabetes2</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"knn"</span>,
+                                <span class='kw'>skip_vars</span> <span class='kw'>=</span> <span class='st'>"diabetes"</span>)
 
 <span class='co'># Confirm we have no missing data.</span>
 <span class='fu'>colSums</span>(<span class='fu'>is.na</span>(<span class='no'>result2</span>$<span class='no'>data</span>))</div><div class='output co'>#&gt;      pregnant       glucose      pressure       triceps       insulin 

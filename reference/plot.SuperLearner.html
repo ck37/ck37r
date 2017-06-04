@@ -139,8 +139,9 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
 <span class='fu'>data</span>(<span class='no'>Boston</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"MASS"</span>)
 
 <span class='fu'>set.seed</span>(<span class='fl'>1</span>)
-<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(),
-                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: glmnet</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Loaded glmnet 2.0-10</span></div><div class='input'>
+<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>),
+                  <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(),
+                  <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: glmnet</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Loaded glmnet 2.0-10</span></div><div class='input'>
 <span class='no'>sl</span></div><div class='output co'>#&gt; 
 #&gt; Call:  
 #&gt; SuperLearner(Y = Boston$medv, X = subset(Boston, select = -medv), family = gaussian(),  

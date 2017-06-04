@@ -85,7 +85,7 @@ calculates standard-error, confidence interval and p-value. Based on initial
 code by Alan Hubbard.</p>
     
 
-    <pre class="usage"><span class='fu'>sl_auc_table</span>(<span class='no'>sl</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>sl</span>$<span class='no'>Y</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='no'>T</span>)</pre>
+    <pre class="usage"><span class='fu'>sl_auc_table</span>(<span class='no'>sl</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>sl</span>$<span class='no'>Y</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='no'>T</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -95,7 +95,7 @@ code by Alan Hubbard.</p>
       <td><p>CV.SuperLearner object</p></td>
     </tr>
     <tr>
-      <th>Y</th>
+      <th>y</th>
       <td><p>Outcome vector, if not already added to SL object.</p></td>
     </tr>
     <tr>
@@ -106,7 +106,7 @@ code by Alan Hubbard.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5).</p>
+    <p>Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5)</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -124,7 +124,8 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='cvsl_auc.html'>cvsl_auc</a></code> <code><a href='sl_plot_roc.html'>sl_plot_roc</a></code> <code><a href='http://www.rdocumentation.org/packages/cvAUC/topics/ci.cvAUC'>ci.cvAUC</a></code></p>
+    <p><code><a href='cvsl_auc.html'>cvsl_auc</a></code> <code><a href='sl_plot_roc.html'>sl_plot_roc</a></code>
+   <code><a href='http://www.rdocumentation.org/packages/cvAUC/topics/ci.cvAUC'>ci.cvAUC</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -134,12 +135,12 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
 <span class='fu'>data</span>(<span class='no'>Boston</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"MASS"</span>)
 
 <span class='fu'>set.seed</span>(<span class='fl'>1</span>)
-<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>chas</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>chas</span>), <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>binomial</span>(),
-                 <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glmnet"</span>))
-
-<span class='fu'>sl_auc_table</span>(<span class='no'>sl</span>, <span class='kw'>Y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>chas</span>)</div><div class='output co'>#&gt;                    auc         se  ci_lower  ci_upper      p-value
-#&gt; SL.mean_All   0.500000 0.08753416 0.3284362 0.6715638 5.000000e-01
-#&gt; SL.glmnet_All 0.703465 0.03039462 0.6438926 0.7630373 1.084922e-11</div><div class='input'>
+<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>chas</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>chas</span>),
+                  <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>binomial</span>(),
+                  <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glm"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='input'>
+<span class='fu'>sl_auc_table</span>(<span class='no'>sl</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>chas</span>)</div><div class='output co'>#&gt;                   auc         se  ci_lower  ci_upper      p-value
+#&gt; SL.mean_All 0.5000000 0.08753416 0.3284362 0.6715638 5.000000e-01
+#&gt; SL.glm_All  0.7489385 0.03024381 0.6896617 0.8082153 9.278529e-17</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
