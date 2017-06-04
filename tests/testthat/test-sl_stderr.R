@@ -10,4 +10,4 @@ sl = SuperLearner(Boston$medv, subset(Boston, select = -medv),
 
 sl
 
-sl_stderr(sl, Y = Boston$medv)
+sl_stderr(sl, y = Boston$medv)
