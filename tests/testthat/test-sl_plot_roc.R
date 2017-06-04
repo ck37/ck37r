@@ -10,4 +10,4 @@ sl = SuperLearner(Boston$chas, subset(Boston, select = -chas),
 
 sl
 
-sl_plot_roc(sl, Y = Boston$chas)
+sl_plot_roc(sl, y = Boston$chas)

@@ -5,7 +5,7 @@
 #' Hubbard.
 #'
 #' @param sl SuperLearner object
-#' @param Y Outcome vector if not already included in the SL object.
+#' @param y Outcome vector if not already included in the SL object.
 #' @param learner Which learner to plot - defaults to minimum risk learner.
 #' @param title Title to use in the plot.
 #' @param digits Digits to use when rounding AUC and CI for plot.
@@ -27,7 +27,7 @@
 #'
 #' sl
 #'
-#' sl_plot_roc(sl, Y = Boston$chas)
+#' sl_plot_roc(sl, y = Boston$chas)
 #'
 #' @references
 #' LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
@@ -51,17 +51,17 @@
 #'
 #' @export
 sl_plot_roc = function(sl,
-           Y = sl$Y,
+           y = sl$Y,
            learner = which.min(sl$cvRisk),
            title = paste0("SuperLearner cross-validated ROC: ",
                           names(sl$cvRisk)[learner]),
            digits = 4) {
 
   preds = sl$Z[, learner]
-  pred = ROCR::prediction(preds, Y)
+  pred = ROCR::prediction(preds, y)
   perf1 = ROCR::performance(pred, "sens", "spec")
 
-  auc_table = ck37r::sl_auc_table(sl, Y)
+  auc_table = ck37r::sl_auc_table(sl, y)
 
   # We need to index using learner name because auc_table() has been sorted.
   learner_name = names(sl$cvRisk)[learner]
