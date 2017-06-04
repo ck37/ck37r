@@ -61,7 +61,7 @@ r_github_packages:
 
 after_success:
   # Update pkgdown documentation if we're on the linux build and R version = release.
-  - test ${TRAVIS_OS_NAME} == "linux" && test ${TRAVIS_R_VERSION_STRING} == "release" && bash scripts/deploy_pkgdown.sh
+  - test ${TRAVIS_OS_NAME} == "linux" && test ${TRAVIS_R_VERSION_STRING} == "release" && ./scripts/deploy_pkgdown.sh
   # Only check test coverage for R = release.
   - test ${TRAVIS_R_VERSION_STRING} == "release" && Rscript -e 'covr::codecov()'
 
