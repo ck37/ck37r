@@ -59,10 +59,9 @@ r_github_packages:
   - hadley/pkgdown
 
 after_success:
-  # Update pkgdown documentation.
-  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then bash scripts/deploy_pkgdown.sh; fi
+  # Update pkgdown documentation if we're on the linux build and R version = release.
+  - test ${TRAVIS_OS_NAME} == "linux" && test ${TRAVIS_R_VERSION_STRING} == "release" && source scripts/deploy_pkgdown.sh
   - Rscript -e 'covr::codecov()'
-  # Send to netlify?
 
 after_failure:
   - ./travis-tool.sh dump_logs
