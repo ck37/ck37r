@@ -108,7 +108,7 @@ impute_missing_values = function(data,
       col_class = col_classes[colname]
 
       if (verbose) {
-        cat("Imputing ", colname, paste0("(", col_class, ")"),
+        cat("Imputing", colname, paste0("(", col_class, ")"),
             "with", prettyNum(nas, big.mark = ","), "NAs.\n")
       }
 
