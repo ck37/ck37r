@@ -29,7 +29,9 @@ load_packages = function(pkgs = NULL, auto_install = F, update = F,
 
   # Try to load each package, and save whether or not it succeeded.
   capture.output({
-    result = sapply(pkgs, require, character.only = T, quietly = T)
+    suppressWarnings({
+      result = sapply(pkgs, require, character.only = T, quietly = T)
+    })
   })
 
   install_result = NULL
@@ -44,7 +46,9 @@ load_packages = function(pkgs = NULL, auto_install = F, update = F,
     cat(install_code, "\n")
 
     if (auto_install) {
-      cat("Auto-installing from repository:", getOption("repos")[1], "\n")
+      if (verbose) {
+        cat("Auto-installing from repository:", getOption("repos")[1], "\n")
+      }
       install_result = install.packages(pkgs[!result], ...)
       # Try to load newly installed packages.
       capture.output({
