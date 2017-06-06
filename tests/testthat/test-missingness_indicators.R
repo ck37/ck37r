@@ -13,6 +13,7 @@ colSums(is.na(PimaIndiansDiabetes2))
 indicators = missingness_indicators(PimaIndiansDiabetes2,
                                     skip_vars = "diabetes", verbose = T)
 
+# TODO: test with a single-column dataframe (drop = F issue).
 # TODO: test removal of constant columns.
 # TODO: test removal of collinear columns.
 
