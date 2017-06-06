@@ -43,15 +43,15 @@ missingness_indicators = function(data, prefix = "miss_",
   any_nas = which(sapply(data[!colnames(data) %in% skip_vars],
                          function(col) anyNA(col)))
 
+  if (verbose) {
+    cat("Generating", length(any_nas), "missingness indicators.\n")
+  }
+
   # Create indicators.
   # Use [[i]] to support tibbles in addition to dataframes.
   indicators = sapply(any_nas, FUN = function(i) as.numeric(is.na(data[[i]])))
 
   colnames(indicators) = paste0(prefix, colnames(data[, any_nas]))
-
-  if (verbose) {
-    cat("Generated", ncol(indicators), "missingness indicators.\n")
-  }
 
   # Remove any indicators that are all 0 or all 1.
   # We should not have any that are all 0 though.
