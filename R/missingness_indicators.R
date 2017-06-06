@@ -62,6 +62,9 @@ missingness_indicators = function(data, prefix = "miss_",
 
   # Remove any collinear indicators.
   if (remove_collinear) {
+    if (verbose) {
+      cat("Checking for collinearity of indicators.\n")
+    }
 
     # Use caret to identify collinearity.
     linear_combos = caret::findLinearCombos(indicators)

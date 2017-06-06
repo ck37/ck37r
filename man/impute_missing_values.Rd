@@ -5,7 +5,8 @@
 \title{Impute missing values in a dataframe and add missingness indicators.}
 \usage{
 impute_missing_values(data, type = "standard", add_indicators = T,
-  prefix = "miss_", skip_vars = c(), verbose = F)
+  prefix = "miss_", skip_vars = c(), remove_constant = T,
+  remove_collinear = T, verbose = F)
 }
 \arguments{
 \item{data}{Dataframe or matrix.}
@@ -19,6 +20,11 @@ data being centered and scaled!}
 indicator.}
 
 \item{skip_vars}{List of variable names to exclude from the imputation.}
+
+\item{remove_constant}{Remove constant missingness indicators, if applicable.}
+
+\item{remove_collinear}{Remove collinear missingness indicators, if
+applicable.}
 
 \item{verbose}{If True display extra information during execution.}
 }

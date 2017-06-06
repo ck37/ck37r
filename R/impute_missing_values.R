@@ -10,6 +10,9 @@
 #' @param prefix String to add at the beginning of the name of each missingness
 #'   indicator.
 #' @param skip_vars List of variable names to exclude from the imputation.
+#' @param remove_constant Remove constant missingness indicators, if applicable.
+#' @param remove_collinear Remove collinear missingness indicators, if
+#'   applicable.
 #' @param verbose If True display extra information during execution.
 #'
 #'
@@ -57,6 +60,8 @@ impute_missing_values = function(data,
                                  add_indicators = T,
                                  prefix = "miss_",
                                  skip_vars = c(),
+                                 remove_constant = T,
+                                 remove_collinear = T,
                                  verbose = F) {
   # Loop over each feature.
   missing_indicators = NULL
@@ -103,8 +108,7 @@ impute_missing_values = function(data,
       col_class = col_classes[colname]
 
       if (verbose) {
-        cat("Creating missingness indicators for", colname,
-            paste0("(", col_class, ")"),
+        cat("Imputing ", colname, paste0("(", col_class, ")"),
             "with", prettyNum(nas, big.mark = ","), "NAs.\n")
       }
 
@@ -151,16 +155,24 @@ impute_missing_values = function(data,
   }
 
   if (add_indicators) {
+    # Append indicators.
+    if (verbose) {
+      cat("Generating missingness indicators.\n")
+    }
+
     # Create missingness indicators from original dataframe.
+    # This already incorporates the skip_vars argument via "any_nas".
     missing_indicators =
       missingness_indicators(data[, any_nas], prefix = prefix,
+                             remove_constant = remove_constant,
+                             remove_collinear = remove_collinear,
                              verbose = verbose)
 
     if (verbose) {
       cat("Indicators added:", ncol(missing_indicators), "\n")
     }
 
-    # Append indicators.
+
     new_data = cbind(new_data, missing_indicators)
   }
 
