@@ -2,6 +2,7 @@
 
 S3method(plot,SuperLearner)
 export(Mode)
+export(categoricals_to_factors)
 export(cvsl_auc)
 export(cvsl_plot_roc)
 export(cvsl_weights)
