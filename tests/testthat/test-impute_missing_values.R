@@ -11,7 +11,8 @@ colSums(is.na(PimaIndiansDiabetes2))
 
 # Impute missing data and add missingness indicators.
 # Don't impute the outcome though.
-result = impute_missing_values(PimaIndiansDiabetes2, skip_vars = "diabetes")
+result = impute_missing_values(PimaIndiansDiabetes2, skip_vars = "diabetes",
+                               verbose = T)
 
 # Confirm we have no missing data.
 colSums(is.na(result$data))

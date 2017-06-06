@@ -71,6 +71,10 @@ impute_missing_values = function(data,
                  skip_vars = skip_vars,
                  prefix = prefix)
 
+  # Identify columns with any NAs.
+  any_nas = which(sapply(data[!colnames(data) %in% skip_vars],
+                         function(col) anyNA(col)))
+
   if (type == "standard") {
     if (verbose) {
       cat("Running standard imputation.\n")
@@ -83,12 +87,27 @@ impute_missing_values = function(data,
     # Copy variable names into the imputed values vector.
     names(impute_values) = colnames(data)
 
-    # TODO: vectorize, and support parallelization.
-    for (i in 1:ncol(data)) {
-      # Use double brackets rather than [, i] to support tibbles.
-      nas = sum(is.na(data[[i]]))
+    # Calculate number of NAs in advance.
+    sum_nas = sapply(any_nas, function(i) sum(is.na(data[, i])))
 
-      col_class = class(data[[i]])
+    # Use double brackets rather than [, i] to support tibbles.
+    col_classes = sapply(any_nas, function(i) class(data[[i]]))
+
+    # TODO: vectorize, and support parallelization.
+    #lapply(any_nas, function(i) {
+    for (i in any_nas) {
+      # Slightly aroundabout because any_nas contains column indices.
+      colname = names(any_nas)[any_nas == i]
+
+      nas = sum_nas[colname]
+      col_class = col_classes[colname]
+
+      if (verbose) {
+        cat("Creating missingness indicators for", colname,
+            paste0("(", col_class, ")"),
+            "with", prettyNum(nas, big.mark = ","), "NAs.\n")
+      }
+
       if (col_class == "factor") {
         # Impute factors to the mode.
         # Choose the first mode in case of ties.
@@ -102,19 +121,18 @@ impute_missing_values = function(data,
                       col_class))
       }
 
+      # TODO: separate function to generate imputation values.
       # Save the imputed value even if there is no missingness.
       # We may need this for future data.
       impute_values[[i]] = impute_value
 
       # Nothing to impute, continue to next column.
-      # TODO: add note and also skip if nas are 100% of the data.
-      if (nas == 0 || names(data)[i] %in% skip_vars) {
-        next
-      } else if (nas == nrow(data)) {
+      if (nas == nrow(data)) {
         if (verbose) {
           cat("Note: skipping", colnames(data)[i], "because all values are NA.",
               "\n")
         }
+        # TODO: return columns that are all NA.
         next
       } else {
         # Make the imputation.
@@ -134,8 +152,9 @@ impute_missing_values = function(data,
 
   if (add_indicators) {
     # Create missingness indicators from original dataframe.
-    missing_indicators = missingness_indicators(data, prefix = prefix,
-                                                verbose = verbose)
+    missing_indicators =
+      missingness_indicators(data[, any_nas], prefix = prefix,
+                             verbose = verbose)
 
     if (verbose) {
       cat("Indicators added:", ncol(missing_indicators), "\n")
