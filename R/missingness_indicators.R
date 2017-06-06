@@ -47,11 +47,11 @@ missingness_indicators = function(data, prefix = "miss_",
     cat("Generating", length(any_nas), "missingness indicators.\n")
   }
 
-  # Create indicators.
-  # Use [[i]] to support tibbles in addition to dataframes.
-  indicators = sapply(any_nas, FUN = function(i) as.numeric(is.na(data[[i]])))
+  # Create indicator matrix. Much faster than an sapply.
+  # But would this be faster? matrix(as.integer(is.na(data[, any_nas, drop = F])), dim(data))
+  indicators = 1 * is.na(data[, any_nas, drop = F])
 
-  colnames(indicators) = paste0(prefix, colnames(data[, any_nas]))
+  colnames(indicators) = paste0(prefix, colnames(data[, any_nas, drop = F]))
 
   # Remove any indicators that are all 0 or all 1.
   # We should not have any that are all 0 though.
