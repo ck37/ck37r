@@ -49,6 +49,10 @@ missingness_indicators = function(data, prefix = "miss_",
 
   colnames(indicators) = paste0(prefix, colnames(data[, any_nas]))
 
+  if (verbose) {
+    cat("Generated", ncol(indicators), "missingness indicators.\n")
+  }
+
   # Remove any indicators that are all 0 or all 1.
   # We should not have any that are all 0 though.
   if (remove_constant) {
