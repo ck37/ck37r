@@ -9,7 +9,7 @@ My R toolkit for organizing analyses, parallelizing code for multiple cores or i
 
 ## Installation
 
-Install the latest release from CRAN:
+Install the [latest release from CRAN](https://cran.r-project.org/package=ck37r):
 
 ```r
 install.packages("ck37r") 
