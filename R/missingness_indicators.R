@@ -39,14 +39,18 @@ missingness_indicators = function(data, prefix = "miss_",
                                   skip_vars = c(),
                                   verbose = F) {
 
-  # Create indicators.
-  indicators = sapply(data[, !colnames(data) %in% skip_vars],
-                      FUN = function(col) as.numeric(is.na(col)))
+  # First restrict to columns that have NAs. This is a major speedup.
+  any_nas = which(sapply(data[!colnames(data) %in% skip_vars],
+                         function(col) anyNA(col)))
 
-  colnames(indicators) = paste0(prefix,
-                                colnames(data)[!colnames(data) %in% skip_vars])
+  # Create indicators.
+  # Use [[i]] to support tibbles in addition to dataframes.
+  indicators = sapply(any_nas, FUN = function(i) as.numeric(is.na(data[[i]])))
+
+  colnames(indicators) = paste0(prefix, colnames(data[, any_nas]))
 
   # Remove any indicators that are all 0 or all 1.
+  # We should not have any that are all 0 though.
   if (remove_constant) {
     col_means = colMeans(indicators)
     if (verbose) {
