@@ -71,17 +71,24 @@ devtools::<span class="kw">install_github</span>(<span class="st">"ck37/ck37r"</
 <h2 class="hasAnchor">
 <a href="#functions" class="anchor"></a>Functions</h2>
 <ul>
-<li>General</li>
+<li>Project Utilities</li>
 <li>
 <code>import_csvs</code> - import all CSV files in a given directory.</li>
-<li>
-<code>impute_missing_values</code> - impute missing values in a dataframe (median for numerics and mode for factors; or k-nearest neighbors), add missingness indicators.</li>
 <li>
 <code>load_all_code</code> - source() all R files in a given directory.</li>
 <li>
 <code>load_packages</code> - load a list of packages; for the ones that fail it can attempt to install them automatically from CRAN, then load them again.</li>
+<li>Machine Learning</li>
+<li>
+<code>categoricals_to_factors</code> - convert numeric categoricals into factors.</li>
+<li>
+<code>factors_to_indicators</code> - convert all factors in a dataframe to series of indicators (one-hot encoding).</li>
+<li>
+<code>impute_missing_values</code> - impute missing values in a dataframe (median for numerics and mode for factors; or k-nearest neighbors), add missingness indicators.</li>
 <li>
 <code>missingness_indicators</code> - return a matrix of missingness indicators for a dataframe, (optionally) omitting any constant or collinear columns.</li>
+<li>
+<code>rf_count_terminal_nodes</code> - count the number of terminal nodes in each tree in a random forest. That information can then be used to grid-search the maximum number of nodes allowed in a Random Forest (along with mtry).</li>
 <li>
 <code>standardize</code> - standardize a dataset (center, scale), optionally omitting certain variables.</li>
 <li>Parallelization</li>
@@ -89,9 +96,6 @@ devtools::<span class="kw">install_github</span>(<span class="st">"ck37/ck37r"</
 <code>parallelize</code> - starts a multicore or multinode parallel cluster. Automatically detects parallel nodes in a SLURM environment, which makes code work seemlessly on a laptop or a cluster.</li>
 <li>
 <code>stop_cluster</code> - stops a cluster started by <code><a href="reference/parallelize.html">parallelize()</a></code>.</li>
-<li>Random Forest</li>
-<li>
-<code>rf_count_terminal_nodes</code> - count the number of terminal nodes in each tree in a random forest. That information can then be used to grid-search the maximum number of nodes allowed in a Random Forest (along with mtry).</li>
 <li>SuperLearner</li>
 <li>
 <code>gen_superlearner</code> - create a SuperLearner and CV.SuperLearner function setup to transparently use a certain parallelization configuration.</li>
