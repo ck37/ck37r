@@ -11,16 +11,14 @@ data = PimaIndiansDiabetes2
 # Check for missing values.
 colSums(is.na(data))
 
-# Convert day_of_week to a factor
-data$day_of_week = as.factor(data$day_of_week)
+# Convert pregnant to a factor
+data$pregnant = as.factor(data$pregnant)
 
 # Add some missing values.
-data$day_of_week[1:3] = NA
+data$pregnant[1:3] = NA
 
-# Convert visibility to a character for testing purposes.
-data$visibility = as.character(data$visibility)
-# Add include some missingness.
-data$visibility[5:10] = NA
+# Convert mass to a character for testing purposes.
+data$mass = as.character(data$mass)
 
 # Impute missing data and add missingness indicators.
 # Don't impute the outcome though.
