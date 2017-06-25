@@ -39,6 +39,7 @@ Suggests:
     lintr,
     MASS,
     magrittr,
+    microbenchmark,
     mlbench,
     testthat
 License: MIT + file LICENSE
