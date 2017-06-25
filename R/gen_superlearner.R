@@ -40,7 +40,7 @@ gen_superlearner = function(parallel = "multicore",
       cat("Running SL via snow\n")
     }
     sl_fn = function(...) {
-      SuperLearner::snowSuperLearner(cluster, ...)
+      SuperLearner::snowSuperLearner(cluster = cluster, ...)
     }
     cv_sl_fn = function(cvControl = list(), ...) {
       SuperLearner::CV.SuperLearner(...,
