@@ -80,7 +80,9 @@ impute_missing_values = function(data,
                  prefix = prefix)
 
   # Identify columns with any NAs.
-  any_nas = which(sapply(data[vars], function(col) anyNA(col)))
+  # We apply skip_vars within the function so that which() indices are correct.
+  any_nas = which(sapply(colnames(data),
+                         function(col) !col %in% skip_vars && anyNA(data[, col])))
 
   if (type == "standard") {
     if (verbose) {
@@ -95,10 +97,11 @@ impute_missing_values = function(data,
     names(impute_values) = colnames(data[vars])
 
     # Calculate number of NAs in advance.
-    sum_nas = sapply(any_nas, function(i) sum(is.na(data[vars][[i]])))
+    # benchmark comparison in tests/performance/perf-impute_missing_values.R
+    sum_nas = sapply(any_nas, function(i) sum(is.na(data[[i]])))
 
     # Use double brackets rather than [, i] to support tibbles.
-    col_classes = sapply(any_nas, function(i) class(data[vars][[i]]))
+    col_classes = sapply(any_nas, function(i) class(data[[i]]))
 
     # TODO: vectorize, and support parallelization.
     #lapply(any_nas, function(i) {
@@ -117,10 +120,10 @@ impute_missing_values = function(data,
       if (col_class %in% c("factor")) {
         # Impute factors to the mode.
         # Choose the first mode in case of ties.
-        impute_value = Mode(data[vars][[i]])[1]
+        impute_value = Mode(data[[i]])[1]
       } else if (col_class %in% c("integer", "numeric", "logical")) {
         # Impute numeric values to the median.
-        impute_value = median(data[vars][[i]], na.rm = T)
+        impute_value = median(data[[i]], na.rm = T)
       } else {
         warning(paste(colname,
                       "should be numeric or factor type. But its class is",
@@ -141,7 +144,7 @@ impute_missing_values = function(data,
         next
       } else {
         # Make the imputation.
-        new_data[is.na(data[vars][[i]]), i] = impute_value
+        new_data[is.na(data[[i]]), i] = impute_value
       }
 
     }
@@ -164,7 +167,7 @@ impute_missing_values = function(data,
     # Create missingness indicators from original dataframe.
     # This already incorporates the skip_vars argument via "any_nas".
     missing_indicators =
-      missingness_indicators(data[vars][, any_nas], prefix = prefix,
+      missingness_indicators(data[, any_nas], prefix = prefix,
                              remove_constant = remove_constant,
                              remove_collinear = remove_collinear,
                              verbose = verbose)
@@ -172,7 +175,6 @@ impute_missing_values = function(data,
     if (verbose) {
       cat("Indicators added:", ncol(missing_indicators), "\n")
     }
-
 
     new_data = cbind(new_data, missing_indicators)
   }
