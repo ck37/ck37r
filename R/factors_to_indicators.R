@@ -24,7 +24,7 @@ factors_to_indicators =
 
   for (i in factor_names) {
     if (verbose) {
-      cat("Converting", i, "from a factor to a matrix")
+      cat("Converting", i, "from a factor to a matrix.\n")
     }
 
     # First, convert it again to a factor because this will drop unused levels.
@@ -34,6 +34,9 @@ factors_to_indicators =
     # This should generally not be the case because we should have already
     # removed single-value (zero variation) columns.
     if (length(levels(data[[i]])) == 1) {
+      if (verbose) {
+        cat("Skipping", i, "because it has only 1 level.\n")
+      }
       # Remove that column from the list of predictors.
       predictors = predictors[!predictors == i]
       data[[i]] = NULL
