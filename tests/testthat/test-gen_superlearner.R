@@ -41,6 +41,8 @@ print(summary(result))
 
 # NOTE: multicore needs to be skipped on windows systems.
 if (Sys.info()[["sysname"]] != "Windows") {
+  cluster = parallelize(type = "multicore", max_cores = 2, verbose = 2)
+
   sl = gen_superlearner(parallel = "multicore", verbose = T)
 
   # Test out sl and cvsl functions that were returned.
@@ -57,6 +59,8 @@ if (Sys.info()[["sysname"]] != "Windows") {
                        SL.library = c("SL.mean", "SL.glm"))
   })
   print(summary(result))
+
+  stop_cluster(cluster, verbose = T)
 }
 
 #################
@@ -89,5 +93,5 @@ sl = gen_superlearner(parallel = "snow", cluster = cluster, verbose = T)
   })
   print(summary(result))
 
-  stop_cluster(cluster)
+  stop_cluster(cluster, verbose = T)
 }
