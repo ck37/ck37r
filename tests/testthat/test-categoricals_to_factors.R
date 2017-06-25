@@ -21,7 +21,14 @@ data[, categoricals] = sapply(data[, categoricals], as.numeric)
 
 str(data[, categoricals])
 
+# Convert first categorical to a factor in advance, for testing purposes.
+data[, categoricals[1]] = as.factor(data[, categoricals[1]])
+
+# Add a non-existent column for testing purposes.
+categoricals = c(categoricals, "blah123blah")
+
 # Now convert back to factors.
 new = categoricals_to_factors(data, categoricals, verbose = T)
 
-str(new[, categoricals])
+# Skip the random name we added at the end of the vector.
+str(new[, categoricals[-length(categoricals)]])
