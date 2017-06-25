@@ -69,6 +69,9 @@ impute_missing_values = function(data,
   # Make a copy to store the imputed dataframe.
   new_data = data
 
+  # Only check variables that we don't want to skip.
+  vars = !colnames(data) %in% skip_vars
+
   # List of results to populate.
   # Save our configuration first.
   results = list(type = type,
@@ -77,8 +80,7 @@ impute_missing_values = function(data,
                  prefix = prefix)
 
   # Identify columns with any NAs.
-  any_nas = which(sapply(data[!colnames(data) %in% skip_vars],
-                         function(col) anyNA(col)))
+  any_nas = which(sapply(data[vars], function(col) anyNA(col)))
 
   if (type == "standard") {
     if (verbose) {
@@ -87,16 +89,16 @@ impute_missing_values = function(data,
 
     # List to save the imputation values used.
     # We need a list because it can contain numerics and factors.
-    impute_values = vector("list", ncol(data))
+    impute_values = vector("list", sum(vars))
 
     # Copy variable names into the imputed values vector.
-    names(impute_values) = colnames(data)
+    names(impute_values) = colnames(data[vars])
 
     # Calculate number of NAs in advance.
-    sum_nas = sapply(any_nas, function(i) sum(is.na(data[, i])))
+    sum_nas = sapply(any_nas, function(i) sum(is.na(data[vars][[i]])))
 
     # Use double brackets rather than [, i] to support tibbles.
-    col_classes = sapply(any_nas, function(i) class(data[[i]]))
+    col_classes = sapply(any_nas, function(i) class(data[vars][[i]]))
 
     # TODO: vectorize, and support parallelization.
     #lapply(any_nas, function(i) {
@@ -108,19 +110,19 @@ impute_missing_values = function(data,
       col_class = col_classes[colname]
 
       if (verbose) {
-        cat("Imputing", colname, paste0("(", col_class, ")"),
+        cat("Imputing", colname, paste0("(", i, " ", col_class, ")"),
             "with", prettyNum(nas, big.mark = ","), "NAs.\n")
       }
 
-      if (col_class == "factor") {
+      if (col_class %in% c("factor")) {
         # Impute factors to the mode.
         # Choose the first mode in case of ties.
-        impute_value = Mode(data[[i]])[1]
-      } else if (col_class %in% c("integer", "numeric")) {
+        impute_value = Mode(data[vars][[i]])[1]
+      } else if (col_class %in% c("integer", "numeric", "logical")) {
         # Impute numeric values to the median.
-        impute_value = median(data[[i]], na.rm = T)
+        impute_value = median(data[vars][[i]], na.rm = T)
       } else {
-        warning(paste(colnames(data)[i],
+        warning(paste(colname,
                       "should be numeric or factor type. But its class is",
                       col_class))
       }
@@ -133,14 +135,13 @@ impute_missing_values = function(data,
       # Nothing to impute, continue to next column.
       if (nas == nrow(data)) {
         if (verbose) {
-          cat("Note: skipping", colnames(data)[i], "because all values are NA.",
-              "\n")
+          cat("Note: skipping", colname, "because all values are NA.\n")
         }
         # TODO: return columns that are all NA.
         next
       } else {
         # Make the imputation.
-        new_data[is.na(data[[i]]), i] = impute_value
+        new_data[is.na(data[vars][[i]]), i] = impute_value
       }
 
     }
@@ -163,7 +164,7 @@ impute_missing_values = function(data,
     # Create missingness indicators from original dataframe.
     # This already incorporates the skip_vars argument via "any_nas".
     missing_indicators =
-      missingness_indicators(data[, any_nas], prefix = prefix,
+      missingness_indicators(data[vars][, any_nas], prefix = prefix,
                              remove_constant = remove_constant,
                              remove_collinear = remove_collinear,
                              verbose = verbose)

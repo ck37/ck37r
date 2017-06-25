@@ -20,6 +20,10 @@ data$pregnant[1:3] = NA
 # Convert mass to a character for testing purposes.
 data$mass = as.character(data$mass)
 
+# Add a column that is all NAs.
+data$all_nas = NA
+str(data)
+
 # Impute missing data and add missingness indicators.
 # Don't impute the outcome though.
 # This will generate warnings due to data$visibility.
