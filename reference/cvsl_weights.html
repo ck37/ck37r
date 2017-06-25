@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -149,9 +156,9 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
 <span class='no'>Boston</span> <span class='kw'>=</span> <span class='no'>Boston</span>[<span class='no'>row_subset</span>, ]
 <span class='no'>X</span> <span class='kw'>=</span> <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>chas</span>)
 
-<span class='no'>cvsl</span> <span class='kw'>=</span> <span class='fu'>CV.SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>chas</span>, <span class='no'>X</span>[, <span class='fl'>1</span>:<span class='fl'>2</span>], <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>binomial</span>(),
+<span class='no'>cvsl</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/SuperLearner/topics/CV.SuperLearner'>CV.SuperLearner</a></span>(<span class='no'>Boston</span>$<span class='no'>chas</span>, <span class='no'>X</span>[, <span class='fl'>1</span>:<span class='fl'>2</span>], <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>binomial</span>(),
                       <span class='kw'>cvControl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>stratifyCV</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-                      <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glm"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='input'><span class='fu'>cvsl_weights</span>(<span class='no'>cvsl</span>)</div><div class='output co'>#&gt;   # Learner    Mean      SD     Min     Max
+                      <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glm"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='output co'>#&gt; <span class='warning'>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</span></div><div class='input'><span class='fu'><a href='http://www.rdocumentation.org/packages/ck37r/topics/cvsl_weights'>cvsl_weights</a></span>(<span class='no'>cvsl</span>)</div><div class='output co'>#&gt;   # Learner    Mean      SD     Min     Max
 #&gt; 1 1    mean 0.80159 0.04482 0.76990 0.83329
 #&gt; 2 2     glm 0.19841 0.04482 0.16671 0.23010</div><div class='input'>
 </div></pre>

@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -86,8 +93,8 @@ are saved. This allows one to examine the risk estimates for example.</p>
     
 
     <pre class="usage"><span class='fu'>tmle_parallel</span>(<span class='no'>Y</span>, <span class='no'>A</span>, <span class='no'>W</span>, <span class='no'>family</span>, <span class='no'>g.SL.library</span>, <span class='no'>Q.SL.library</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fu'>length</span>(<span class='no'>Y</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='no'>F</span>, <span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sl_fn</span> <span class='kw'>=</span> <span class='kw'>SuperLearner</span><span class='kw'>::</span><span class='no'>SuperLearner</span>,
-  <span class='kw'>cvsl_fn</span> <span class='kw'>=</span> <span class='kw'>SuperLearner</span><span class='kw'>::</span><span class='no'>CV.SuperLearner</span>, <span class='kw'>cvQinit</span> <span class='kw'>=</span> <span class='no'>F</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='no'>F</span>, <span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>sl_fn</span> <span class='kw'>=</span> <span class='kw pkg'>SuperLearner</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/SuperLearner/topics/SuperLearner'>SuperLearner</a></span>,
+  <span class='kw'>cvsl_fn</span> <span class='kw'>=</span> <span class='kw pkg'>SuperLearner</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/SuperLearner/topics/CV.SuperLearner'>CV.SuperLearner</a></span>, <span class='kw'>cvQinit</span> <span class='kw'>=</span> <span class='no'>F</span>,
   <span class='kw'>conserve_memory</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>

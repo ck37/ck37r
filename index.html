@@ -29,6 +29,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
+  <a href="/index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
@@ -71,14 +77,20 @@ devtools::<span class="kw">install_github</span>(<span class="st">"ck37/ck37r"</
 <h2 class="hasAnchor">
 <a href="#functions" class="anchor"></a>Functions</h2>
 <ul>
-<li>Project Utilities</li>
+<li>
+<strong>Project Utilities</strong>
+<ul>
 <li>
 <code>import_csvs</code> - import all CSV files in a given directory.</li>
 <li>
 <code>load_all_code</code> - source() all R files in a given directory.</li>
 <li>
 <code>load_packages</code> - load a list of packages; for the ones that fail it can attempt to install them automatically from CRAN, then load them again.</li>
-<li>Machine Learning</li>
+</ul>
+</li>
+<li>
+<strong>Machine Learning</strong>
+<ul>
 <li>
 <code>categoricals_to_factors</code> - convert numeric categoricals into factors.</li>
 <li>
@@ -91,12 +103,20 @@ devtools::<span class="kw">install_github</span>(<span class="st">"ck37/ck37r"</
 <code>rf_count_terminal_nodes</code> - count the number of terminal nodes in each tree in a random forest. That information can then be used to grid-search the maximum number of nodes allowed in a Random Forest (along with mtry).</li>
 <li>
 <code>standardize</code> - standardize a dataset (center, scale), optionally omitting certain variables.</li>
-<li>Parallelization</li>
+</ul>
+</li>
+<li>
+<strong>Parallelization</strong>
+<ul>
 <li>
 <code>parallelize</code> - starts a multicore or multinode parallel cluster. Automatically detects parallel nodes in a SLURM environment, which makes code work seemlessly on a laptop or a cluster.</li>
 <li>
-<code>stop_cluster</code> - stops a cluster started by <code><a href="reference/parallelize.html">parallelize()</a></code>.</li>
-<li>SuperLearner</li>
+<code>stop_cluster</code> - stops a cluster started by <code>parallelize()</code>.</li>
+</ul>
+</li>
+<li>
+<strong>SuperLearner</strong>
+<ul>
 <li>
 <code>gen_superlearner</code> - create a SuperLearner and CV.SuperLearner function setup to transparently use a certain parallelization configuration.</li>
 <li>
@@ -113,11 +133,17 @@ devtools::<span class="kw">install_github</span>(<span class="st">"ck37/ck37r"</
 <code>sl_stderr</code> - calculate standard error for each learner’s risk in SL.</li>
 <li>
 <code>sl_plot_roc</code> - ROC curve plot for one learner in an SL ensemble, plus AUC and CI.</li>
-<li>TMLE</li>
+</ul>
+</li>
+<li>
+<strong>TMLE</strong>
+<ul>
 <li>
 <code>tmle_parallel</code> - allows the SuperLearner estimation in TMLE to be customized, esp. to support parallel estimation via mcSuperLearner and snowSuperLearner.</li>
 <li>
 <code>setup_parallel_tmle</code> - helper function to start a cluster and setup SuperLearner and tmle_parallel to use the created cluster.</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="examples" class="section level2">
@@ -134,7 +160,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">"ck37/ck37r"</
 
 <span class="co"># Impute missing data and add missingness indicators.</span>
 <span class="co"># Don't impute the outcome though.</span>
-result =<span class="st"> </span><span class="kw"><a href="reference/impute_missing_values.html">impute_missing_values</a></span>(PimaIndiansDiabetes2, <span class="dt">skip_vars =</span> <span class="st">"diabetes"</span>)
+result =<span class="st"> </span><span class="kw">impute_missing_values</span>(PimaIndiansDiabetes2, <span class="dt">skip_vars =</span> <span class="st">"diabetes"</span>)
 
 <span class="co"># Confirm we have no missing data.</span>
 <span class="kw">colSums</span>(<span class="kw">is.na</span>(result$data))
@@ -142,7 +168,7 @@ result =<span class="st"> </span><span class="kw"><a href="reference/impute_miss
 #############
 <span class="co"># K-nearest neighbors imputation</span>
 
-result2 =<span class="st"> </span><span class="kw"><a href="reference/impute_missing_values.html">impute_missing_values</a></span>(PimaIndiansDiabetes2, <span class="dt">type =</span> <span class="st">"knn"</span>, <span class="dt">skip_vars =</span> <span class="st">"diabetes"</span>)
+result2 =<span class="st"> </span><span class="kw">impute_missing_values</span>(PimaIndiansDiabetes2, <span class="dt">type =</span> <span class="st">"knn"</span>, <span class="dt">skip_vars =</span> <span class="st">"diabetes"</span>)
 
 <span class="co"># Confirm we have no missing data.</span>
 <span class="kw">colSums</span>(<span class="kw">is.na</span>(result2$data))</code></pre></div>
@@ -152,7 +178,7 @@ result2 =<span class="st"> </span><span class="kw"><a href="reference/impute_mis
 <a href="#load-packages" class="anchor"></a>Load packages</h3>
 <p>This loads a vector of packages, automatically installing any packages that aren’t already installed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load these 4 packages and install them if necessary.</span>
-<span class="kw"><a href="reference/load_packages.html">load_packages</a></span>(<span class="kw">c</span>(<span class="st">"MASS"</span>, <span class="st">"SuperLearner"</span>, <span class="st">"tmle"</span>, <span class="st">"doParallel"</span>), <span class="dt">auto_install =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<span class="kw">load_packages</span>(<span class="kw">c</span>(<span class="st">"MASS"</span>, <span class="st">"SuperLearner"</span>, <span class="st">"tmle"</span>, <span class="st">"doParallel"</span>), <span class="dt">auto_install =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>
 <div id="random-forest-count-terminal-nodes" class="section level3">
 <h3 class="hasAnchor">
@@ -163,15 +189,15 @@ result2 =<span class="st"> </span><span class="kw"><a href="reference/impute_mis
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$medv, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -medv), <span class="dt">family =</span> <span class="kw">gaussian</span>(),
+sl =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/SuperLearner/topics/SuperLearner">SuperLearner</a></span>(Boston$medv, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -medv), <span class="dt">family =</span> <span class="kw">gaussian</span>(),
                   <span class="dt">cvControl =</span> <span class="kw">list</span>(<span class="dt">V =</span> <span class="dv">3</span>),
                   <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glmnet"</span>, <span class="st">"SL.randomForest"</span>))
 
 sl
 
-<span class="kw">summary</span>(<span class="kw"><a href="reference/rf_count_terminal_nodes.html">rf_count_terminal_nodes</a></span>(sl$fitLibrary$SL.randomForest_All$object))
+<span class="kw">summary</span>(<span class="kw">rf_count_terminal_nodes</span>(sl$fitLibrary$SL.randomForest_All$object))
 
-max_terminal_nodes =<span class="st"> </span><span class="kw">max</span>(<span class="kw"><a href="reference/rf_count_terminal_nodes.html">rf_count_terminal_nodes</a></span>(sl$fitLibrary$SL.randomForest_All$object))
+max_terminal_nodes =<span class="st"> </span><span class="kw">max</span>(<span class="kw">rf_count_terminal_nodes</span>(sl$fitLibrary$SL.randomForest_All$object))
 
 max_terminal_nodes
 
@@ -182,11 +208,11 @@ max_terminal_nodes
 maxnode_seq =<span class="st"> </span><span class="kw">unique</span>(<span class="kw">round</span>(<span class="kw">exp</span>(<span class="kw">log</span>(max_terminal_nodes) *<span class="st"> </span><span class="kw">exp</span>(<span class="kw">c</span>(-<span class="fl">0.97</span>, -<span class="fl">0.7</span>, -<span class="fl">0.45</span>, -<span class="fl">0.15</span>, <span class="dv">0</span>)))))
 maxnode_seq
 
-rf =<span class="st"> </span>SuperLearner::<span class="kw">create.Learner</span>(<span class="st">"SL.randomForest"</span>, <span class="dt">detailed_names =</span> T, <span class="dt">name_prefix =</span> <span class="st">"rf"</span>,
+rf =<span class="st"> </span>SuperLearner::<span class="kw"><a href="http://www.rdocumentation.org/packages/SuperLearner/topics/create.Learner">create.Learner</a></span>(<span class="st">"SL.randomForest"</span>, <span class="dt">detailed_names =</span> T, <span class="dt">name_prefix =</span> <span class="st">"rf"</span>,
                              <span class="dt">params =</span> <span class="kw">list</span>(<span class="dt">ntree =</span> <span class="dv">100</span>), <span class="co"># fewer trees for testing speed only.</span>
                              <span class="dt">tune =</span> <span class="kw">list</span>(<span class="dt">maxnodes =</span> maxnode_seq))
 
-sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$medv, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -medv), <span class="dt">family =</span> <span class="kw">gaussian</span>(),
+sl =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/SuperLearner/topics/SuperLearner">SuperLearner</a></span>(Boston$medv, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -medv), <span class="dt">family =</span> <span class="kw">gaussian</span>(),
                   <span class="dt">cvControl =</span> <span class="kw">list</span>(<span class="dt">V =</span> <span class="dv">3</span>),
                   <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glmnet"</span>, rf$names))
 
@@ -199,7 +225,7 @@ sl</code></pre></div>
 <span class="kw">library</span>(tmle)
 
 <span class="co"># Use multiple cores as available.</span>
-ck37r::<span class="kw"><a href="reference/setup_parallel_tmle.html">setup_parallel_tmle</a></span>()
+ck37r::<span class="kw">setup_parallel_tmle</span>()
 
 <span class="co"># Basic SL library.</span>
 sl_lib =<span class="st"> </span><span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.rpart"</span>, <span class="st">"SL.glmnet"</span>)
@@ -219,11 +245,11 @@ result =<span class="st"> </span><span class="kw">run_tmle</span>(<span class="d
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas),
+sl =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/SuperLearner/topics/SuperLearner">SuperLearner</a></span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas),
                   <span class="dt">family =</span> <span class="kw">binomial</span>(),
                   <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>))
 
-<span class="kw"><a href="reference/sl_auc_table.html">sl_auc_table</a></span>(sl, <span class="dt">y =</span> Boston$chas)</code></pre></div>
+<span class="kw">sl_auc_table</span>(sl, <span class="dt">y =</span> Boston$chas)</code></pre></div>
 </div>
 <div id="superlearner-plot-of-risk-estimates" class="section level3">
 <h3 class="hasAnchor">
@@ -235,7 +261,7 @@ sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$chas, <
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$medv, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -medv),
+sl =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/SuperLearner/topics/SuperLearner">SuperLearner</a></span>(Boston$medv, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -medv),
                   <span class="dt">family =</span> <span class="kw">gaussian</span>(),
                   <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>))
 
@@ -251,13 +277,13 @@ sl
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-sl =<span class="st"> </span><span class="kw">SuperLearner</span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas),
+sl =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/SuperLearner/topics/SuperLearner">SuperLearner</a></span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas),
                   <span class="dt">family =</span> <span class="kw">binomial</span>(),
                   <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>))
 
 sl
 
-<span class="kw"><a href="reference/sl_plot_roc.html">sl_plot_roc</a></span>(sl, <span class="dt">y =</span> Boston$chas)</code></pre></div>
+<span class="kw">sl_plot_roc</span>(sl, <span class="dt">y =</span> Boston$chas)</code></pre></div>
 </div>
 <div id="cv-superlearner-auc" class="section level3">
 <h3 class="hasAnchor">
@@ -269,10 +295,10 @@ sl
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-cvsl =<span class="st"> </span><span class="kw">CV.SuperLearner</span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas), <span class="dt">family =</span> <span class="kw">binomial</span>(),
+cvsl =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/SuperLearner/topics/CV.SuperLearner">CV.SuperLearner</a></span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas), <span class="dt">family =</span> <span class="kw">binomial</span>(),
                        <span class="dt">cvControl =</span> <span class="kw">list</span>(<span class="dt">V =</span> <span class="dv">2</span>, <span class="dt">stratifyCV =</span> T),
                        <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glmnet"</span>))
-<span class="kw"><a href="reference/cvsl_auc.html">cvsl_auc</a></span>(cvsl)</code></pre></div>
+<span class="kw">cvsl_auc</span>(cvsl)</code></pre></div>
 </div>
 <div id="cv-superlearner-plot-roc" class="section level3">
 <h3 class="hasAnchor">
@@ -283,10 +309,10 @@ cvsl =<span class="st"> </span><span class="kw">CV.SuperLearner</span>(Boston$ch
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-cvsl =<span class="st"> </span><span class="kw">CV.SuperLearner</span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas), <span class="dt">family =</span> <span class="kw">binomial</span>(),
+cvsl =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/SuperLearner/topics/CV.SuperLearner">CV.SuperLearner</a></span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas), <span class="dt">family =</span> <span class="kw">binomial</span>(),
                        <span class="dt">cvControl =</span> <span class="kw">list</span>(<span class="dt">V =</span> <span class="dv">2</span>, <span class="dt">stratifyCV =</span> T),
                        <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glmnet"</span>))
-<span class="kw"><a href="reference/cvsl_plot_roc.html">cvsl_plot_roc</a></span>(cvsl)</code></pre></div>
+<span class="kw">cvsl_plot_roc</span>(cvsl)</code></pre></div>
 </div>
 <div id="cv-superlearner-weight-table" class="section level3">
 <h3 class="hasAnchor">
@@ -298,10 +324,10 @@ cvsl =<span class="st"> </span><span class="kw">CV.SuperLearner</span>(Boston$ch
 <span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">"MASS"</span>)
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-cvsl =<span class="st"> </span><span class="kw">CV.SuperLearner</span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas), <span class="dt">family =</span> <span class="kw">binomial</span>(),
+cvsl =<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/SuperLearner/topics/CV.SuperLearner">CV.SuperLearner</a></span>(Boston$chas, <span class="kw">subset</span>(Boston, <span class="dt">select =</span> -chas), <span class="dt">family =</span> <span class="kw">binomial</span>(),
                        <span class="dt">cvControl =</span> <span class="kw">list</span>(<span class="dt">V =</span> <span class="dv">2</span>, <span class="dt">stratifyCV =</span> T),
                        <span class="dt">SL.library =</span> <span class="kw">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glmnet"</span>))
-<span class="kw"><a href="reference/cvsl_weights.html">cvsl_weights</a></span>(cvsl)</code></pre></div>
+<span class="kw">cvsl_weights</span>(cvsl)</code></pre></div>
 <p>More examples to be added.</p>
 </div>
 </div>
@@ -331,7 +357,7 @@ cvsl =<span class="st"> </span><span class="kw">CV.SuperLearner</span>(Boston$ch
 </li>
 </ul>
 <h2>License</h2>
-<p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE">LICENSE</a></p>
+<p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Chris Kennedy <br><small class="roles"> Author, maintainer </small> </li>

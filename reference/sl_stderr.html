@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -121,7 +128,7 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='plot.SuperLearner.html'>plot.SuperLearner</a></code>
+    <p><code><a href='http://www.rdocumentation.org/packages/ck37r/topics/plot.SuperLearner'>plot.SuperLearner</a></code>
    <code><a href='http://www.rdocumentation.org/packages/SuperLearner/topics/summary.CV.SuperLearner'>summary.CV.SuperLearner</a></code></p>
     
 
@@ -133,7 +140,7 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
 <span class='fu'>data</span>(<span class='no'>Boston</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"MASS"</span>)
 
 <span class='fu'>set.seed</span>(<span class='fl'>1</span>)
-<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'>SuperLearner</span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>),
+<span class='no'>sl</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/SuperLearner/topics/SuperLearner'>SuperLearner</a></span>(<span class='no'>Boston</span>$<span class='no'>medv</span>, <span class='fu'>subset</span>(<span class='no'>Boston</span>, <span class='kw'>select</span> <span class='kw'>=</span> -<span class='no'>medv</span>),
                   <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>gaussian</span>(), <span class='kw'>cvControl</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>V</span> <span class='kw'>=</span> <span class='fl'>2</span>),
                   <span class='kw'>SL.library</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"SL.mean"</span>, <span class='st'>"SL.glm"</span>))
 
@@ -146,7 +153,7 @@ http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2
 #&gt;                 Risk       Coef
 #&gt; SL.mean_All 84.45075 0.01029329
 #&gt; SL.glm_All  25.05347 0.98970671</div><div class='input'>
-<span class='fu'>sl_stderr</span>(<span class='no'>sl</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>medv</span>)</div><div class='output co'>#&gt; SL.mean_All  SL.glm_All 
+<span class='fu'><a href='http://www.rdocumentation.org/packages/ck37r/topics/sl_stderr'>sl_stderr</a></span>(<span class='no'>sl</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>Boston</span>$<span class='no'>medv</span>)</div><div class='output co'>#&gt; SL.mean_All  SL.glm_All 
 #&gt;    7.008043    3.134710 </div><div class='input'>
 </div></pre>
   </div>

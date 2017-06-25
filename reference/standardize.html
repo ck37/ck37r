@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -118,7 +125,7 @@
 <span class='fu'>data</span>(<span class='no'>Boston</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"MASS"</span>)
 
 <span class='co'># Don't scale our outcome variable.</span>
-<span class='no'>data</span> <span class='kw'>=</span> <span class='fu'>standardize</span>(<span class='no'>Boston</span>, <span class='kw'>skip_vars</span> <span class='kw'>=</span> <span class='st'>"medv"</span>)
+<span class='no'>data</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/ck37r/topics/standardize'>standardize</a></span>(<span class='no'>Boston</span>, <span class='kw'>skip_vars</span> <span class='kw'>=</span> <span class='st'>"medv"</span>)
 
 <span class='fu'>summary</span>(<span class='no'>data</span>)</div><div class='output co'>#&gt;       crim                 zn               indus              chas        
 #&gt;  Min.   :-0.419367   Min.   :-0.48724   Min.   :-1.5563   Min.   :-0.2723  
