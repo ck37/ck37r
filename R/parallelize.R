@@ -65,7 +65,8 @@ parallelize =
     }
   }
 
-  if (multinode || (!is.null(type) && type %in% c("cluster", "doSNOW"))) {
+  if (multinode ||
+      (!is.null(type) && type %in% c("cluster", "doSNOW", "snow"))) {
     # Outfile = "" allows output from within foreach to be displayed while in
     # RStudio.
     # TODO: figure out how to suppress the output from makeCluster()
