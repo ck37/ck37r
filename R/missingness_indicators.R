@@ -51,7 +51,10 @@ missingness_indicators = function(data, prefix = "miss_",
   # But would this be faster? matrix(as.integer(is.na(data[, any_nas, drop = F])), dim(data))
   indicators = 1 * is.na(data[, any_nas, drop = F])
 
-  colnames(indicators) = paste0(prefix, colnames(data[, any_nas, drop = F]))
+  # Make sure we have any indicators at all.
+  if (length(any_nas) > 0) {
+    colnames(indicators) = paste0(prefix, colnames(data[, any_nas, drop = F]))
+  }
 
   # Remove any indicators that are all 0 or all 1.
   # We should not have any that are all 0 though.
