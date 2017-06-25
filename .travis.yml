@@ -61,8 +61,8 @@ r_github_packages:
   - hadley/pkgdown
 
 after_success:
-  # Only check test coverage for R = release.
-  - test ${TRAVIS_R_VERSION_STRING} == "release" && Rscript -e 'covr::codecov()'
+  # Only check test coverage for R = release and OS = linux.
+  - test ${TRAVIS_R_VERSION_STRING} == "release" && test ${TRAVIS_OS_NAME} == "linux" && Rscript -e 'covr::codecov()'
   # Update pkgdown documentation if we're on the linux build and R version = release.
   - test ${TRAVIS_OS_NAME} == "linux" && test ${TRAVIS_R_VERSION_STRING} == "release" && ./scripts/deploy_pkgdown.sh
 
