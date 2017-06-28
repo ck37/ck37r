@@ -6,6 +6,7 @@
 #' @param file_pattern Regular expression for files to load, defaults to *.R
 #' @param recursive If TRUE also recurse into subdirectories.
 #' @param verbose If TRUE display additional output during execution.
+#' @param envir Environment in which to run the code; baseenv() by default.
 #'
 #' @examples
 #'
@@ -14,12 +15,15 @@
 #' # Here R is a subdirectory with a bunch of .R files to load.
 #' load_all_code("R")
 #'
+#' @seealso sys.source, source
+#'
 #' @export
 load_all_code = function(lib_dir = "lib",
                          exclude_files = c("function_library.R"),
                          file_pattern = "\\.R$",
                          recursive = T,
-                         verbose = T) {
+                         verbose = T,
+                         envir = baseenv()) {
   # Load all .R files in the lib directory.
   lib_files =  list.files(path = lib_dir, file_pattern, full.names = F,
                           recursive = recursive)
@@ -33,6 +37,7 @@ load_all_code = function(lib_dir = "lib",
     if (verbose) {
       cat("Sourcing", file_name, "\n")
     }
-    source(file_name)
+    #source(file_name)
+    sys.source(file_name, envir = envir)
   }
 }

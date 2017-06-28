@@ -7,7 +7,9 @@ print(getwd())
 
 # If running via devtools::check() or test(), working dir will be tests/testthat.
 if (dir.exists("R")) {
-  load_all_code("R", verbose = T)
+  # Do within a throwaway env so that we don't load separate copies of the functions.
+  load_all_code("R", verbose = T, envir = new.env())
 } else {
-  load_all_code("../../R", verbose = T)
+  # Do within a throwaway env so that we don't load separate copies of the functions.
+  load_all_code("../../R", verbose = T, envir = new.env())
 }
