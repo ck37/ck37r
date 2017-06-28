@@ -51,6 +51,12 @@ suppressWarnings({
                                  all_vars = T)
 })
 
+# Test with pre-specifying values.
+suppressWarnings({
+  result2 = impute_missing_values(data, skip_vars = "diabetes", verbose = T,
+                                 all_vars = T, values = result$impute_values)
+})
+
 
 #############
 # K-nearest neighbors imputation

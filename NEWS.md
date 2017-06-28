@@ -8,6 +8,9 @@
 even when variable is not missing data. This allows new datasets to be imputed
 to the values from the training data.
 
+* impute_misisng values - support supplying imputation values from another dataset,
+for use when scoring a model to a larger dataset.
+
 ## 1.0.0 (2017-06-03)
 
 Initial release on CRAN.

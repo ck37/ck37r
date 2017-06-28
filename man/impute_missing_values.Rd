@@ -6,7 +6,7 @@
 \usage{
 impute_missing_values(data, type = "standard", add_indicators = T,
   prefix = "miss_", skip_vars = NULL, all_vars = F, remove_constant = T,
-  remove_collinear = T, verbose = F)
+  remove_collinear = T, values = NULL, verbose = F)
 }
 \arguments{
 \item{data}{Dataframe or matrix.}
@@ -28,6 +28,8 @@ the imputation info may be used for future datasets.}
 
 \item{remove_collinear}{Remove collinear missingness indicators, if
 applicable.}
+
+\item{values}{Named list with imputation value to use from another dataset.}
 
 \item{verbose}{If True display extra information during execution.}
 }

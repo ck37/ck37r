@@ -15,6 +15,7 @@
 #' @param remove_constant Remove constant missingness indicators, if applicable.
 #' @param remove_collinear Remove collinear missingness indicators, if
 #'   applicable.
+#' @param values Named list with imputation value to use from another dataset.
 #' @param verbose If True display extra information during execution.
 #'
 #'
@@ -65,6 +66,7 @@ impute_missing_values = function(data,
                                  all_vars = F,
                                  remove_constant = T,
                                  remove_collinear = T,
+                                 values = NULL,
                                  verbose = F) {
   # Loop over each feature.
   missing_indicators = NULL
@@ -136,7 +138,12 @@ impute_missing_values = function(data,
             "with", prettyNum(nas, big.mark = ","), "NAs.")
       }
 
-      if (col_class %in% c("factor")) {
+      if (colname %in% names(values)) {
+        impute_value = values[[colname]]
+        if (verbose) {
+          cat(" Pre-filled.")
+        }
+      } else if (col_class %in% c("factor")) {
         # Impute factors to the mode.
         # Choose the first mode in case of ties.
         impute_value = Mode(data[[i]])[1]
