@@ -10,6 +10,8 @@
 #' @param prefix String to add at the beginning of the name of each missingness
 #'   indicator.
 #' @param skip_vars List of variable names to exclude from the imputation.
+#' @param all_vars Calculate imputation value for all variables, in cases where
+#'   the imputation info may be used for future datasets.
 #' @param remove_constant Remove constant missingness indicators, if applicable.
 #' @param remove_collinear Remove collinear missingness indicators, if
 #'   applicable.
@@ -59,7 +61,8 @@ impute_missing_values = function(data,
                                  type = "standard",
                                  add_indicators = T,
                                  prefix = "miss_",
-                                 skip_vars = c(),
+                                 skip_vars = NULL,
+                                 all_vars = F,
                                  remove_constant = T,
                                  remove_collinear = T,
                                  verbose = F) {
@@ -91,30 +94,46 @@ impute_missing_values = function(data,
 
     # List to save the imputation values used.
     # We need a list because it can contain numerics and factors.
-    impute_values = vector("list", sum(vars))
 
-    # Copy variable names into the imputed values vector.
-    names(impute_values) = colnames(data[vars])
+    if (all_vars) {
+      # We need to save imputation info for every variable, even if it has no
+      # missing data.
+      impute_values = vector("list", sum(vars))
+
+      # Copy variable names into the imputed values vector.
+      names(impute_values) = colnames(data[vars])
+
+      # Loop over all variables except exclusions.
+      loop_over = which(vars)
+      names(loop_over) = colnames(data)[vars]
+
+    } else {
+      # Only save imputation info for variables with missing data.
+      impute_values = vector("list", length(any_nas))
+
+      # Loop over only variables with missing data.
+      loop_over = any_nas
+    }
 
     # Calculate number of NAs in advance.
     # benchmark comparison in tests/performance/perf-impute_missing_values.R
-    sum_nas = sapply(any_nas, function(i) sum(is.na(data[[i]])))
+    sum_nas = sapply(loop_over, function(i) sum(is.na(data[[i]])))
 
     # Use double brackets rather than [, i] to support tibbles.
-    col_classes = sapply(any_nas, function(i) class(data[[i]]))
+    col_classes = sapply(loop_over, function(i) class(data[[i]]))
 
     # TODO: vectorize, and support parallelization.
     #lapply(any_nas, function(i) {
-    for (i in any_nas) {
+    for (i in loop_over) {
       # Slightly aroundabout because any_nas contains column indices.
-      colname = names(any_nas)[any_nas == i]
+      colname = names(loop_over)[loop_over == i]
 
       nas = sum_nas[colname]
       col_class = col_classes[colname]
 
       if (verbose) {
         cat("Imputing", colname, paste0("(", i, " ", col_class, ")"),
-            "with", prettyNum(nas, big.mark = ","), "NAs.\n")
+            "with", prettyNum(nas, big.mark = ","), "NAs.")
       }
 
       if (col_class %in% c("factor")) {
@@ -130,9 +149,11 @@ impute_missing_values = function(data,
                       col_class))
       }
 
+      if (verbose) {
+        cat(" Impute value:", impute_value, "\n")
+      }
+
       # TODO: separate function to generate imputation values.
-      # Save the imputed value even if there is no missingness.
-      # We may need this for future data.
       impute_values[[i]] = impute_value
 
       # Nothing to impute, continue to next column.
@@ -141,6 +162,9 @@ impute_missing_values = function(data,
           cat("Note: skipping", colname, "because all values are NA.\n")
         }
         # TODO: return columns that are all NA.
+        next
+      } else if (nas == 0) {
+        # Skip, there are no missing values for this var.
         next
       } else {
         # Make the imputation.

@@ -26,13 +26,30 @@ str(data)
 
 # Impute missing data and add missingness indicators.
 # Don't impute the outcome though.
-# This will generate warnings due to data$visibility.
+# This will generate warnings due to data$mass.
 suppressWarnings({
   result = impute_missing_values(data, skip_vars = "diabetes", verbose = T)
 })
 
 # Confirm we have no missing data.
 colSums(is.na(result$data))
+
+# Test with no skip_vars.
+test_that("Test that all_vars = T works, when skip_vars is NULL", {
+  suppressWarnings({
+    result = impute_missing_values(data, verbose = T, all_vars = T)
+  })
+
+  # Confirm that "diabetes" is in the impute_info even though it has no missingness.
+  expect_true("diabetes" %in% names(result$impute_values))
+})
+
+
+# Test all_vars = T
+suppressWarnings({
+  result = impute_missing_values(data, skip_vars = "diabetes", verbose = T,
+                                 all_vars = T)
+})
 
 
 #############
