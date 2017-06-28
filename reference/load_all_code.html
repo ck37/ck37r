@@ -91,7 +91,8 @@
     
 
     <pre class="usage"><span class='fu'>load_all_code</span>(<span class='kw'>lib_dir</span> <span class='kw'>=</span> <span class='st'>"lib"</span>, <span class='kw'>exclude_files</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"function_library.R"</span>),
-  <span class='kw'>file_pattern</span> <span class='kw'>=</span> <span class='st'>"\\.R$"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='no'>T</span>)</pre>
+  <span class='kw'>file_pattern</span> <span class='kw'>=</span> <span class='st'>"\\.R$"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='no'>T</span>,
+  <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>baseenv</span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -117,7 +118,15 @@ default because we presume that is the main R library file.</p></td>
       <th>verbose</th>
       <td><p>If TRUE display additional output during execution.</p></td>
     </tr>
+    <tr>
+      <th>envir</th>
+      <td><p>Environment in which to run the code; baseenv() by default.</p></td>
+    </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p>sys.source, source</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -131,7 +140,9 @@ default because we presume that is the main R library file.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
