@@ -98,16 +98,17 @@ SL.h2o_auto <- function(Y, X, newX, family, obsWeights, id,
 
   # TODO: check if this fails, e.g. due to lack of memory.
   # TODO: support obsWeights.
+  y_name = "_y"
   train <- as.h2o(cbind(Y, X))#, `_obsWeights` = obsWeights))
 
   x <- names(X)
-  y <- names(train)[1]
+  names(train)[1] = y_name
 
   # Append the cv_folds column to the training dataset.
   train <- h2o.cbind(train, cv_folds)
 
   if (family$family == "binomial") {
-    train[, y] <- as.factor(train[, y])
+    train[, y_name] <- h2o::as.factor(train[, y_name])
     if (is.null(stopping_metric)) {
       stopping_metric = "AUC"
     }
@@ -117,7 +118,7 @@ SL.h2o_auto <- function(Y, X, newX, family, obsWeights, id,
     cat("Running h2o.automl().\n")
   }
 
-  fit <- h2o::h2o.automl(y = y, x = x, training_frame = train,
+  fit <- h2o::h2o.automl(y = y_name, x = x, training_frame = train,
                          fold_column = cv_fold_name,
                          #weights_column = "_obsWeights",
                          max_runtime_secs = max_runtime_secs,
