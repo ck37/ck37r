@@ -2,6 +2,7 @@
 
 S3method(plot,SuperLearner)
 export(Mode)
+export(SL.h2o_auto)
 export(categoricals_to_factors)
 export(cvsl_auc)
 export(cvsl_plot_roc)
