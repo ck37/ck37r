@@ -2,6 +2,9 @@
 
 ## Development
 
+* load_all_code() - changed default environment from baseenv() to .GlobalEnv,
+which will make explicit package references unnecessary.
+
 * impute_missing_values - fixed important bug where incorrect column indices could be used when skip_vars was not blank.
 
 * impute_missing_values - add all_vars argument; if T save the imputation values

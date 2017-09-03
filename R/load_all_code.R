@@ -4,9 +4,10 @@
 #' @param exclude_files Exclude a list of files; exclude function_library.R by
 #'   default because we presume that is the main R library file.
 #' @param file_pattern Regular expression for files to load, defaults to *.R
-#' @param recursive If TRUE also recurse into subdirectories.
+#' @param recursive If TRUE also recurse into subdirectories. Defaults to TRUE.
 #' @param verbose If TRUE display additional output during execution.
-#' @param envir Environment in which to run the code; baseenv() by default.
+#' @param envir Environment in which to run the code; .GlobalEnv by default,
+#'  but baseenv() is a good option to force package references.
 #'
 #' @examples
 #'
@@ -23,7 +24,7 @@ load_all_code = function(lib_dir = "lib",
                          file_pattern = "\\.R$",
                          recursive = T,
                          verbose = T,
-                         envir = baseenv()) {
+                         envir = .GlobalEnv) {
   # Load all .R files in the lib directory.
   lib_files =  list.files(path = lib_dir, file_pattern, full.names = F,
                           recursive = recursive)
