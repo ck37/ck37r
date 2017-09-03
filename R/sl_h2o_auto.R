@@ -136,6 +136,10 @@ SL.h2o_auto <- function(Y, X, newX, family, obsWeights, id,
   }
   test <- as.h2o(newX)
 
+  if (verbose) {
+    cat("Predicting on test data.\n")
+  }
+
   # NOTE: this will yield a warning about missing column "_cv_fold_numbers".
   suppressWarnings({
     h2o_pred <- h2o.predict(object = fit, newdata = test)
