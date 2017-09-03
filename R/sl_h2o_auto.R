@@ -28,7 +28,7 @@
 #                cvControl = SuperLearner.CV.control(V = 10L, stratifyCV = T))
 # print(sl)
 #
-# h2o.shutdown(sl)
+# h2o.shutdown()
 #
 #' @noRd
 #' @export
