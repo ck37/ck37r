@@ -29,7 +29,7 @@
 # print(sl)
 #
 # h2o.shutdown()
-#
+#' @importFrom h2o h2o.init h2o.cbind as.h2o h2o.predict h2o.rm
 #' @noRd
 #' @export
 SL.h2o_auto <- function(Y, X, newX, family, obsWeights, id,
