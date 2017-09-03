@@ -92,7 +92,7 @@
 
     <pre class="usage"><span class='fu'>load_all_code</span>(<span class='kw'>lib_dir</span> <span class='kw'>=</span> <span class='st'>"lib"</span>, <span class='kw'>exclude_files</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"function_library.R"</span>),
   <span class='kw'>file_pattern</span> <span class='kw'>=</span> <span class='st'>"\\.R$"</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='no'>T</span>,
-  <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>baseenv</span>())</pre>
+  <span class='kw'>envir</span> <span class='kw'>=</span> <span class='no'>.GlobalEnv</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -112,7 +112,7 @@ default because we presume that is the main R library file.</p></td>
     </tr>
     <tr>
       <th>recursive</th>
-      <td><p>If TRUE also recurse into subdirectories.</p></td>
+      <td><p>If TRUE also recurse into subdirectories. Defaults to TRUE.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -120,7 +120,8 @@ default because we presume that is the main R library file.</p></td>
     </tr>
     <tr>
       <th>envir</th>
-      <td><p>Environment in which to run the code; baseenv() by default.</p></td>
+      <td><p>Environment in which to run the code; .GlobalEnv by default,
+but baseenv() is a good option to force package references.</p></td>
     </tr>
     </table>
     
