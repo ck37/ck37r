@@ -148,7 +148,7 @@ SL.h2o_auto <- function(Y, X, newX, family, obsWeights, id,
   # Clean up h2o objects to try to conserve memory.
   h2o.rm(train)
   h2o.rm(test)
-  h2o.rm(folds)
+  h2o.rm(cv_folds)
 
   #fit <- list(object = fit)
   class(fit) <- "SL.h2o"
