@@ -15,6 +15,7 @@ Depends:
     R (>= 3.1.0)
 Imports:
     caret,
+    checkmate,
     cvAUC,
     doParallel,
     doSNOW,
@@ -33,14 +34,17 @@ Imports:
     SuperLearner,
     tmle
 Suggests:
+    data.table,
     doMC,
     dplyr,
     glmnet,
+    h2o,
     lintr,
     MASS,
     magrittr,
     microbenchmark,
     mlbench,
+    slam,
     testthat
 License: MIT + file LICENSE
 Encoding: UTF-8
