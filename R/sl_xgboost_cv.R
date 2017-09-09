@@ -3,7 +3,7 @@
 # TODO: soup up family = gaussian() / integrate with family = binomial()
 # TOOD: add example
 #' @noRd
-#' @importFrom xgboost xgboost xgb.cv
+# @importFrom xgboost xgboost xgb.cv
 #' @export
 SL.xgboost_cv =
   function(Y, X, newX, family, obsWeights, id,
@@ -39,7 +39,7 @@ SL.xgboost_cv =
       model = xgboost::xgboost(data = xgmat, objective = "reg:linear",
                                nrounds = ntrees, max_depth = max_depth, min_child_weight = minobspernode,
                                eta = shrinkage, verbose = verbose, nthread = nthread,
-                               params = params, save_period = save_period)
+                               save_period = save_period)
     }
     if (family$family == "binomial") {
       model_cv =
@@ -75,7 +75,7 @@ SL.xgboost_cv =
       model = xgboost::xgboost(data = xgmat, objective = "multi:softmax",
                                nrounds = ntrees, max_depth = max_depth, min_child_weight = minobspernode,
                                eta = shrinkage, verbose = verbose, num_class = length(unique(Y)),
-                               nthread = nthread, params = params, save_period = save_period)
+                               nthread = nthread, save_period = save_period)
     }
     if (!is.matrix(newX)) {
       newX = stats::model.matrix(~ ., newX)[, -1]
