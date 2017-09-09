@@ -1,9 +1,54 @@
-# TODO: add roxygen
 # TODO: PR for SuperLearner
 # TODO: soup up family = gaussian() / integrate with family = binomial()
 # TOOD: add example
-#' @noRd
+#' XGBoost SuperLearner wrapper with internal cross-validation for early-stopping
+#'
+#' Supports the Extreme Gradient Boosting package for SuperLearnering, which is
+#' a variant of gradient boosted machines (GBM). Conducts internal cross-validation
+#' and stops when performance plateaus.
+#'
+#' The performance of XGBoost, like GBM, is sensitive to the configuration
+#' settings. Therefore it is best to create multiple configurations using
+#' create.SL.xgboost and allow the SuperLearner to choose the best weights based
+#' on cross-validated performance.
+#'
+#' If you run into errors please first try installing the latest version of
+#' XGBoost from drat as described here:
+#' \url{https://github.com/dmlc/xgboost/blob/master/doc/build.md#r-package-installation}
+#'
+#' @param Y Outcome variable
+#' @param X Covariate dataframe
+#' @param newX Optional dataframe to predict the outcome
+#' @param obsWeights Optional observation-level weights (supported but not tested)
+#' @param id Optional id to group observations from the same unit (not used
+#'   currently).
+#' @param family "gaussian" for regression, "binomial" for binary
+#'   classification, "multinomial" for multiple classification (not yet supported).
+#' @param ntrees How many trees to fit. Low numbers may underfit but high
+#'   numbers may overfit, depending also on the shrinkage.
+#' @param max_depth How deep each tree can be. 1 means no interactions, aka tree
+#'   stubs.
+#' @param shrinkage How much to shrink the predictions, in order to reduce
+#'   overfitting.
+#' @param minobspernode Minimum observations allowed per tree node, after which
+#'   no more splitting will occur.
+#' @param subsample Observation sub-sampling, to reduce tree correlation.
+#' @param colsample_bytree Column sub-sampling, to reduce tree correlation.
+#' @param gamma Metric for node-splitting, higher values result in less complex trees.
+#' @param stratified If stratified sampling should be used for binary outcomes, defaults
+#' to T.
+#' @param eval_metric Metric to use for early-stopping, defaults to AUC for
+#' classification and RMSE for regression.
+#' @param nthread How many threads (cores) should xgboost use. Generally we want
+#'   to keep this to 1 so that XGBoost does not compete with SuperLearner
+#'   parallelization.
+#' @param verbose Verbosity of XGB fitting.
+#' @param save_period How often (in tree iterations) to save current model to
+#'   disk during processing. If NULL does not save model, and if 0 saves model
+#'   at the end.
+#' @param ... Any remaining arguments (not used).
 # @importFrom xgboost xgboost xgb.cv
+# @examples
 #' @export
 SL.xgboost_cv =
   function(Y, X, newX, family, obsWeights, id,
@@ -21,8 +66,7 @@ SL.xgboost_cv =
            # Focus on AUC and see if we do better.
            eval_metric = ifelse(family$family == "binomial", "auc", "rmse"),
            print_every_n = 400L,
-           # Also set 4 threads while we're at it.
-           nthread = 4,
+           nthread = 1,
            verbose = 0, save_period = NULL, ...) {
     #.SL.require("xgboost")
     if (utils::packageVersion("xgboost") < 0.6)
