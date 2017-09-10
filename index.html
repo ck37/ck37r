@@ -133,6 +133,10 @@ devtools::<span class="kw">install_github</span>(<span class="st">"ck37/ck37r"</
 <code>sl_stderr</code> - calculate standard error for each learner’s risk in SL.</li>
 <li>
 <code>sl_plot_roc</code> - ROC curve plot for one learner in an SL ensemble, plus AUC and CI.</li>
+<li>
+<code>SL.h2o_auto()</code> - wrapper for h2o’s automatic machine learning system, to be added to SuperLearner.</li>
+<li>
+<code>SL.bartMachine2()</code> - wrapper for bartMachine, to be added to SuperLearner.</li>
 </ul>
 </li>
 <li>
@@ -142,6 +146,13 @@ devtools::<span class="kw">install_github</span>(<span class="st">"ck37/ck37r"</
 <code>tmle_parallel</code> - allows the SuperLearner estimation in TMLE to be customized, esp. to support parallel estimation via mcSuperLearner and snowSuperLearner.</li>
 <li>
 <code>setup_parallel_tmle</code> - helper function to start a cluster and setup SuperLearner and tmle_parallel to use the created cluster.</li>
+</ul>
+</li>
+<li>
+<strong>h2o</strong>
+<ul>
+<li>
+<code>h2o_init_multinode()</code> - function to start an h2o cluster on multiple nodes from within R, intended for use on SLURM or other multi-node clusters.</li>
 </ul>
 </li>
 </ul>
