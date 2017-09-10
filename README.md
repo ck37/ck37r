@@ -47,9 +47,14 @@ devtools::install_github("ck37/ck37r")
     * `sl_auc_table` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
     * `sl_stderr` - calculate standard error for each learner's risk in SL.
     * `sl_plot_roc` - ROC curve plot for one learner in an SL ensemble, plus AUC and CI.
+    * `SL.h2o_auto()` - wrapper for h2o's automatic machine learning system, to be added to SuperLearner.
+    * `SL.bartMachine2()` - wrapper for bartMachine, to be added to SuperLearner.
 - **TMLE**
     * `tmle_parallel` - allows the SuperLearner estimation in TMLE to be customized, esp. to support parallel estimation via mcSuperLearner and snowSuperLearner.
     * `setup_parallel_tmle` - helper function to start a cluster and setup SuperLearner and tmle_parallel to use the created cluster.
+- **h2o**
+    * `h2o_init_multinode()` - function to start an h2o cluster on multiple nodes
+    from within R, intended for use on SLURM or other multi-node clusters.
 
 ## Examples
 
