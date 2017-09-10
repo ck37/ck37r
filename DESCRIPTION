@@ -21,6 +21,7 @@ Imports:
     doSNOW,
     foreach,
     ggplot2,
+    h2o,
     methods,
     parallel,
     pryr,
@@ -34,18 +35,19 @@ Imports:
     SuperLearner,
     tmle
 Suggests:
+    bartMachine,
     data.table,
     doMC,
     dplyr,
     glmnet,
-    h2o,
     lintr,
     MASS,
     magrittr,
     microbenchmark,
     mlbench,
     slam,
-    testthat
+    testthat,
+    xgboost
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

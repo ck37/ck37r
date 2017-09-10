@@ -26,9 +26,10 @@ Can be used on a SLURM system or any cluster where h2o can take advantage
 of multiple computers.
 }
 \examples{
-
+\dontrun{
 cl = h2o_init_multinode("~/software/h2o-latest/h2o.jar")
 
 h2o.shutdown()
+}
 
 }

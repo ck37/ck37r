@@ -26,6 +26,9 @@
 #'   classification, "multinomial" for multiple classification (not yet supported).
 #' @param ntrees How many trees to fit. Low numbers may underfit but high
 #'   numbers may overfit, depending also on the shrinkage.
+#' @param early_stopping_rounds If performance has not improved in this many
+#'   rounds, stop.
+#' @param nfold Number of internal cross-validation folds.
 #' @param max_depth How deep each tree can be. 1 means no interactions, aka tree
 #'   stubs.
 #' @param shrinkage How much to shrink the predictions, in order to reduce
@@ -39,6 +42,7 @@
 #' to T.
 #' @param eval_metric Metric to use for early-stopping, defaults to AUC for
 #' classification and RMSE for regression.
+#' @param print_every_n Print estimation status every n rounds.
 #' @param nthread How many threads (cores) should xgboost use. Generally we want
 #'   to keep this to 1 so that XGBoost does not compete with SuperLearner
 #'   parallelization.

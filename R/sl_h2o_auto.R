@@ -1,36 +1,59 @@
 # PR to be added for SuperLearner package sometime soon.
 # By Chris Kennedy based on wrapper code by Erin LeDell.
 # TODO: add roxygen and test.
-# @examples
+#' Automatic machine learning using h2o
+#'
+#' Requires a recent version of h2o that has h2o.automl()
+#'
+#' @param Y Outcome variable
+#' @param X Covariate dataframe
+#' @param newX Optional dataframe to predict the outcome
+#' @param obsWeights Optional observation-level weights (supported but not tested)
+#' @param id Optional id to group observations from the same unit (not used
+#'   currently).
+#' @param family "gaussian" for regression, "binomial" for binary
+#'   classification, "multinomial" for multiple classification (not yet supported).
+#' @param nthreads Number of threads to use, if h2o cluster not alreay started.
+#' @param max_runtime_secs Maximum runtime in seconds, does not yield reproducible results.
+#' @param max_models Maximum number of models to fit, key parameter to improve performance.
+#' @param stopping_metric Metric to optimize towards.
+#' @param stopping_rounds Stop if metric does not improve for this many consecutive rounds.
+#' @param nfolds # of CV folds for internal cross-validation.
+#' @param verbose If TRUE display extra output.
+#' @param ... Any remaining arguments, not used.
+#' @examples
 #
-# # Enable data.table h2o import, which should be faster.
-# # Make sure data.table and slam R packages are installed too.
-# options("h2o.use.data.table" = TRUE)
+#' # Enable data.table h2o import, which should be faster.
+#' # Make sure data.table and slam R packages are installed too.
+#' options("h2o.use.data.table" = TRUE)
 #
-# library(h2o)
-# # Start an h2o server with all (physical) cores usable.
-# local_h2o = h2o.init(nthreads = RhpcBLASctl::get_num_cores(),
-#                      # May need to specify extra memory.
-#                      max_mem_size = "8g")
-#
-# h2o_auto = create.Learner("SL.h2o_auto",
-#         # Increase max models and stopping rounds for better models.
-#         # Decrease nfolds for faster training but less certainty.
-#                           params = list(max_models = 30,
-#                                         stopping_rounds = 5,
-#                                         nfolds = 10))
-# sl =
-#   SuperLearner(Y = Y, X = X,
-#                family = binomial(),
-#                SL.library = c("SL.mean", h2o_auto$names),
-#                verbose = T,
-#                # Stratify during CV in case of rare outcome.
-#                cvControl = SuperLearner.CV.control(V = 10L, stratifyCV = T))
-# print(sl)
-#
-# h2o.shutdown()
+#' \dontrun{
+#' library(h2o)
+#' # Start an h2o server with all (physical) cores usable.
+#' local_h2o = h2o.init(nthreads = RhpcBLASctl::get_num_cores(),
+#'                      # May need to specify extra memory.
+#'                       max_mem_size = "8g")
+#'
+#' library(SuperLearner)
+#' h2o_auto = create.Learner("SL.h2o_auto",
+#'         # Increase max models and stopping rounds for better models.
+#'         # Decrease nfolds for faster training but less certainty.
+#'                           params = list(max_models = 30,
+#'                                         stopping_rounds = 5,
+#'                                         nfolds = 10))
+#' sl =
+#'   SuperLearner(Y = Y, X = X,
+#'                family = binomial(),
+#'                SL.library = c("SL.mean", h2o_auto$names),
+#'                verbose = T,
+#'                # Stratify during CV in case of rare outcome.
+#'                cvControl = SuperLearner.CV.control(V = 10L, stratifyCV = T))
+#' print(sl)
+#'
+#' h2o.shutdown()
+#' }
 #' @importFrom h2o h2o.init h2o.cbind as.h2o h2o.predict h2o.rm
-#' @noRd
+#' @importFrom SuperLearner CVFolds
 #' @export
 SL.h2o_auto <- function(Y, X, newX, family, obsWeights, id,
                         nthreads = 1,
@@ -42,7 +65,8 @@ SL.h2o_auto <- function(Y, X, newX, family, obsWeights, id,
                         nfolds = 10,
                         verbose = T,
                         ...) {
-  require("h2o")
+  #.SL.require("h2o")
+  requireNamespace("h2o")
 
   # Start h2o server is one hasn't already been started, otherwise
   # connect to an existing server. Ideally the server would have

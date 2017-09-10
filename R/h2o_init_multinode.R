@@ -12,10 +12,11 @@
 #' @param ... Remaining arguments passed to h2o.init()
 #'
 #' @examples
-#'
+#' \dontrun{
 #' cl = h2o_init_multinode("~/software/h2o-latest/h2o.jar")
 #'
 #' h2o.shutdown()
+#' }
 #'
 #' @export
 h2o_init_multinode =
