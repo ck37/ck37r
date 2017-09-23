@@ -33,6 +33,9 @@ create_dataset = function(data, varsX = "", varY = "",
     eval(parse(text = config_code))
   }
 
+  # Remove any leading or trailing spaces from varsX names.
+  varsX = stringr::str_trim(varsX, side = "both")
+
   if (length(rename_vars) > 0) {
     # Only conduct the renaming if the original variable name is in varsX.
     good_renames = names(rename_vars) %in% varsX
