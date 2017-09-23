@@ -15,6 +15,10 @@
 #' @param ylevel Target level of y if y is a factor variable.
 #' @param primary_key Id variable, if any.
 #' @param verbose If TRUE display extra output.
+#'
+#' @export
+#
+# TODO: add examples
 create_dataset = function(data, varsX = "", varY = "",
                           config_code = NULL,
                           rename_vars = c(),
