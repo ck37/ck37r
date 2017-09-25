@@ -6,6 +6,7 @@
 #' @param y Outcome vector if not already included in the SL object.
 #' @param title Title to use in the plot.
 #' @param digits Digits to use when rounding AUC and CI for plot.
+#' @param show_plot If TRUE print the ggplot, otherwise just return in list.
 #'
 #' @return List with the AUC plus standard error and confidence interval.
 #'
@@ -52,7 +53,8 @@
 #' @export
 cvsl_plot_roc = function(cvsl, y = cvsl$Y,
                          title = "CV-SuperLearner cross-validated ROC",
-                         digits = 4) {
+                         digits = 4,
+                         show_plot = TRUE) {
   preds = cvsl$SL.predict
   pred = ROCR::prediction(preds, y)
   perf1 = ROCR::performance(pred, "sens", "spec")
@@ -65,7 +67,7 @@ cvsl_plot_roc = function(cvsl, y = cvsl$Y,
                " - ", sprintf("%0.3f", round(ciout$ci[2], digits)))
 
   # ggplot version.
-  print(ggplot2::qplot(1 - methods::slot(perf1, "x.values")[[1]],
+  p = ggplot2::qplot(1 - methods::slot(perf1, "x.values")[[1]],
                        methods::slot(perf1, "y.values")[[1]],
                        xlab = "1 - Specificity (false positives)",
                        ylab = "Sensitivity (true positives)",
@@ -73,12 +75,17 @@ cvsl_plot_roc = function(cvsl, y = cvsl$Y,
                        main = title) +
           ggplot2::theme_bw() +
           ggplot2::annotate("text", x = 0.63, y = 0.15, label = txt, size = 6) +
-          ggplot2::annotate("segment", x = 0, xend = 1, y = 0, yend = 1))
+          ggplot2::annotate("segment", x = 0, xend = 1, y = 0, yend = 1)
 
-  # Return AUC and AUC CI.
+  if (show_plot) {
+    print(p)
+  }
+
+  # Return AUC, AUC CI, and ggplot object.
   results = list(auc = ciout$cvAUC,
                  auc_se = ciout$se,
-                 auc_ci = ciout$ci)
+                 auc_ci = ciout$ci,
+                 plot = p)
 
   # Return results invisibly.
   invisible(results)

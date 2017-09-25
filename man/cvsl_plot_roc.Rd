@@ -5,7 +5,8 @@
 \title{Plot a ROC curve from cross-validated AUC from CV.SuperLearner}
 \usage{
 cvsl_plot_roc(cvsl, y = cvsl$Y,
-  title = "CV-SuperLearner cross-validated ROC", digits = 4)
+  title = "CV-SuperLearner cross-validated ROC", digits = 4,
+  show_plot = TRUE)
 }
 \arguments{
 \item{cvsl}{CV.SuperLearner object}
@@ -15,6 +16,8 @@ cvsl_plot_roc(cvsl, y = cvsl$Y,
 \item{title}{Title to use in the plot.}
 
 \item{digits}{Digits to use when rounding AUC and CI for plot.}
+
+\item{show_plot}{If TRUE print the ggplot, otherwise just return in list.}
 }
 \value{
 List with the AUC plus standard error and confidence interval.
