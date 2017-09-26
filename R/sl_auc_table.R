@@ -4,7 +4,7 @@
 #' calculates standard-error, confidence interval and p-value. Based on initial
 #' code by Alan Hubbard.
 #'
-#' @param sl CV.SuperLearner object
+#' @param sl SuperLearner object
 #' @param y Outcome vector, if not already added to SL object.
 #' @param sort Sort table by order of AUC.
 #'

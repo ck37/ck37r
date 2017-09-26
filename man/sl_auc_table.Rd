@@ -7,7 +7,7 @@
 sl_auc_table(sl, y = sl$Y, sort = T)
 }
 \arguments{
-\item{sl}{CV.SuperLearner object}
+\item{sl}{SuperLearner object}
 
 \item{y}{Outcome vector, if not already added to SL object.}
 
