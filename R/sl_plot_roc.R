@@ -78,8 +78,8 @@ sl_plot_roc = function(sl,
   # ggplot version.
   print(ggplot2::qplot(1 - methods::slot(perf1, "x.values")[[1]],
                        methods::slot(perf1, "y.values")[[1]],
-                       xlab = "1 - Specificity (false positives)",
-                       ylab = "Sensitivity (true positives)",
+                       xlab = "False positive % (1 - specificity)",
+                       ylab = "True positive % (sensitivity)",
                        geom = "line",
                        main = title) +
           ggplot2::theme_bw() +
