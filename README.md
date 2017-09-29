@@ -337,7 +337,7 @@ y = as.numeric(Boston$medv > 23)
 cvsl = CV.SuperLearner(Y = y,
                        X = subset(Boston, select = -medv),
                        family = binomial(),
-                       cvControl = list(V = 2, stratifyCV = T),
+                       cvControl = list(V = 2, stratifyCV = TRUE),
                        SL.library = c("SL.mean", "SL.glmnet"))
 cvsl_auc_table(cvsl, y = y)
 #>                     auc         se  ci_lower  ci_upper       p-value

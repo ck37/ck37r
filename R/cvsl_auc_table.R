@@ -21,7 +21,7 @@
 #' cvsl = CV.SuperLearner(Y = y,
 #'                        X = subset(Boston, select = -medv),
 #'                        family = binomial(),
-#'                        cvControl = list(V = 2, stratifyCV = T),
+#'                        cvControl = list(V = 2, stratifyCV = TRUE),
 #'                        SL.library = c("SL.mean", "SL.glmnet"))
 #' cvsl_auc_table(cvsl, y = y)
 #'
