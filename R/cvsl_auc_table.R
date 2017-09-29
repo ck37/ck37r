@@ -58,7 +58,8 @@ cvsl_auc_table = function(cvsl, y = cvsl$Y, sort = T) {
   }
 
   # Dataframe to save AUC and CI.
-  aucs = data.frame(matrix(nrow = ncol(cvsl$library.predict) + 1, ncol = 5))
+  # Add 2 more than the # of learners to hold DiscreteSL + SL.
+  aucs = data.frame(matrix(nrow = ncol(cvsl$library.predict) + 2, ncol = 5))
   colnames(aucs) = c("auc", "se", "ci_lower", "ci_upper", "p-value")
 
   # Loop over each learner.
@@ -69,9 +70,12 @@ cvsl_auc_table = function(cvsl, y = cvsl$Y, sort = T) {
     try({
       if (learner_i <= ncol(cvsl$library.predict)) {
         result = cvAUC::ci.cvAUC(cvsl$library.predict[, learner_i], y, folds = fold_ids)
-      } else {
-        # If we're done all of the learners now do the SuperLearner.
+      } else if (learner_i == nrow(aucs)) {
+        # Do SuperLearner after all of the learners + DiscreteSL.
         result = cvAUC::ci.cvAUC(cvsl$SL.predict, y, folds = fold_ids)
+      } else {
+        # Do discrete SL after all of the learners.
+        result = cvAUC::ci.cvAUC(cvsl$discreteSL.predict, y, folds = fold_ids)
       }
     }, silent = T)
     aucs[learner_i, "auc"] = result$cvAUC
@@ -88,7 +92,7 @@ cvsl_auc_table = function(cvsl, y = cvsl$Y, sort = T) {
     aucs[learner_i, "p-value"] = pval
   }
 
-  rownames(aucs) = c(sl$libraryNames, "SuperLearner")
+  rownames(aucs) = c(cvsl$libraryNames, "DiscreteSL", "SuperLearner")
 
   if (sort) {
     # Sort in ascending order so best AUCs are at bottom of table.

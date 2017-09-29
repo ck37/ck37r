@@ -340,10 +340,11 @@ cvsl = CV.SuperLearner(Y = y,
                        cvControl = list(V = 2, stratifyCV = T),
                        SL.library = c("SL.mean", "SL.glmnet"))
 cvsl_auc_table(cvsl, y = y)
-#>                    auc         se  ci_lower  ci_upper       p-value
-#> SL.mean_All  0.5000000 0.04590129 0.4100351 0.5899649  5.000000e-01
-#> SL.glm_All   0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
-#> SuperLearner 0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
+#>                     auc         se  ci_lower  ci_upper       p-value
+#> SL.mean_All   0.5000000 0.04590129 0.4100351 0.5899649  5.000000e-01
+#> SL.glmnet_All 0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
+#> DiscreteSL    0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
+#> SuperLearner  0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
 ```
 
 ### CV.SuperLearner plot ROC
