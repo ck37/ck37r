@@ -28,11 +28,13 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-cvsl = CV.SuperLearner(Boston$chas, subset(Boston, select = -chas),
-                  family = binomial(),
-                  SL.library = c("SL.mean", "SL.glm"))
-
-cvsl_auc_table(cvsl, y = Boston$chas)
+y = as.numeric(Boston$medv > 23)
+cvsl = CV.SuperLearner(Y = y,
+                       X = subset(Boston, select = -medv),
+                       family = binomial(),
+                       cvControl = list(V = 2, stratifyCV = T),
+                       SL.library = c("SL.mean", "SL.glmnet"))
+cvsl_auc_table(cvsl, y = y)
 
 }
 \references{

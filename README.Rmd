@@ -62,6 +62,7 @@ library(ck37r)
     * `gen_superlearner` - create a SuperLearner and CV.SuperLearner function setup to transparently use a certain parallelization configuration.
     * `cvsl_weights` - table of the meta-weight distribution for each learner in a CV.SuperLearner analysis.
     * `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
+    * `cvsl_auc_table` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
     * `cvsl_plot_roc` - ROC plot with AUC for a CV.SuperLearner analysis.
     * `plot.SuperLearner` - plot risk estimates and CIs for a SuperLearner, similar to CV.Superlearner except without SL or Discrete SL.
     * `sl_auc_table` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
@@ -244,6 +245,26 @@ cvsl = CV.SuperLearner(Y = as.numeric(Boston$medv > 23),
                        cvControl = list(V = 2, stratifyCV = T),
                        SL.library = c("SL.mean", "SL.glmnet"))
 cvsl_auc(cvsl)
+```
+
+### CV.SuperLearner AUC table
+
+This will return an AUC table for all learners, plus the SuperLearner.
+
+```{r cvsl_auc_table}
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+y = as.numeric(Boston$medv > 23)
+cvsl = CV.SuperLearner(Y = y,
+                       X = subset(Boston, select = -medv),
+                       family = binomial(),
+                       cvControl = list(V = 2, stratifyCV = T),
+                       SL.library = c("SL.mean", "SL.glmnet"))
+cvsl_auc_table(cvsl, y = y)
 ```
 
 ### CV.SuperLearner plot ROC

@@ -44,6 +44,7 @@ Functions
     -   `gen_superlearner` - create a SuperLearner and CV.SuperLearner function setup to transparently use a certain parallelization configuration.
     -   `cvsl_weights` - table of the meta-weight distribution for each learner in a CV.SuperLearner analysis.
     -   `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
+    -   `cvsl_auc_table` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
     -   `cvsl_plot_roc` - ROC plot with AUC for a CV.SuperLearner analysis.
     -   `plot.SuperLearner` - plot risk estimates and CIs for a SuperLearner, similar to CV.Superlearner except without SL or Discrete SL.
     -   `sl_auc_table` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
@@ -130,7 +131,7 @@ sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian
                   SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest"))
 #> Loading required package: glmnet
 #> Loading required package: Matrix
-#> Loaded glmnet 2.0-10
+#> Loaded glmnet 2.0-13
 #> Loading required package: randomForest
 #> randomForest 4.6-12
 #> Type rfNews() to see new features/changes/bug fixes.
@@ -319,6 +320,30 @@ cvsl_auc(cvsl)
 #> 
 #> $confidence
 #> [1] 0.95
+```
+
+### CV.SuperLearner AUC table
+
+This will return an AUC table for all learners, plus the SuperLearner.
+
+``` r
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+y = as.numeric(Boston$medv > 23)
+cvsl = CV.SuperLearner(Y = y,
+                       X = subset(Boston, select = -medv),
+                       family = binomial(),
+                       cvControl = list(V = 2, stratifyCV = T),
+                       SL.library = c("SL.mean", "SL.glmnet"))
+cvsl_auc_table(cvsl, y = y)
+#>                    auc         se  ci_lower  ci_upper       p-value
+#> SL.mean_All  0.5000000 0.04590129 0.4100351 0.5899649  5.000000e-01
+#> SL.glm_All   0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
+#> SuperLearner 0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
 ```
 
 ### CV.SuperLearner plot ROC
