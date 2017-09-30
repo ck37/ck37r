@@ -2,58 +2,16 @@
 % Please edit documentation in R/cvsl_auc_table.R
 \name{cvsl_auc_table}
 \alias{cvsl_auc_table}
-\title{Table of cross-validated AUCs from CV.SuperLearner result}
+\title{Deprecated wrapper to auc_table.CV.SuperLearner()}
 \usage{
-cvsl_auc_table(cvsl, y = cvsl$Y, sort = T)
+cvsl_auc_table(cvsl, ...)
 }
 \arguments{
 \item{cvsl}{CV.SuperLearner object}
-
-\item{y}{Outcome vector, if not already added to SL object.}
-
-\item{sort}{Sort table by order of AUC.}
 }
 \value{
-Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5)
+Dataframe table with auc, se, ci, and p-value.
 }
 \description{
-Calculates cross-validated AUC for each learner in the CV.SuperLearner. Also
-calculates standard-error, confidence interval and p-value. Based on initial
-code by Alan Hubbard.
-}
-\examples{
-library(SuperLearner)
-library(ck37r)
-
-data(Boston, package = "MASS")
-
-set.seed(1)
-y = as.numeric(Boston$medv > 23)
-cvsl = CV.SuperLearner(Y = y,
-                       X = subset(Boston, select = -medv),
-                       family = binomial(),
-                       cvControl = list(V = 2, stratifyCV = TRUE),
-                       SL.library = c("SL.mean", "SL.glmnet"))
-cvsl_auc_table(cvsl, y = y)
-
-}
-\references{
-LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
-efficient confidence intervals for cross-validated area under the ROC curve
-estimates. Electronic journal of statistics, 9(1), 1583.
-
-Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C. Berkeley
-Division of Biostatistics Working Paper Series. Paper 226.
-http://biostats.bepress.com/ucbbiostat/paper266/
-
-Sing, T., Sander, O., Beerenwinkel, N., & Lengauer, T. (2005). ROCR:
-visualizing classifier performance in R. Bioinformatics, 21(20), 3940-3941.
-
-van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner.
-Statistical Applications of Genetics and Molecular Biology, 6, article 25.
-http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
-}
-\seealso{
-\code{\link{cvsl_auc}} \code{\link{sl_plot_roc}}
-   \code{\link[cvAUC]{ci.cvAUC}}
+Deprecated, please use
 }
