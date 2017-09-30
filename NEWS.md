@@ -2,17 +2,26 @@
 
 ## Development
 
+### Features
+
+* csvl_auc_table() - table of AUCs for each learner, plus Discrete SL and SL.
+
 * load_all_code() - changed default environment from baseenv() to .GlobalEnv,
 which will make explicit package references unnecessary.
-
-* impute_missing_values - fixed important bug where incorrect column indices could be used when skip_vars was not blank.
 
 * impute_missing_values - add all_vars argument; if T save the imputation values
 even when variable is not missing data. This allows new datasets to be imputed
 to the values from the training data.
 
-* impute_misisng values - support supplying imputation values from another dataset,
+* impute_missing values - support supplying imputation values from another dataset,
 for use when scoring a model to a larger dataset.
+
+* h2o_init_multinode - create a multi-node h2o cluster e.g. on a SLURM system.
+
+
+### Bug fixes
+
+* impute_missing_values - fixed important bug where incorrect column indices could be used when skip_vars was not blank.
 
 ## 1.0.0 (2017-06-03)
 
