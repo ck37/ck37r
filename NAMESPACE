@@ -3,6 +3,7 @@
 S3method(plot,SuperLearner)
 export(Mode)
 export(SL.bartMachine2)
+export(SL.glmnet2)
 export(SL.h2o_auto)
 export(SL.xgboost_cv)
 export(categoricals_to_factors)
