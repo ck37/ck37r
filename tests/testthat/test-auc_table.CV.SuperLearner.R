@@ -16,5 +16,8 @@ summary(cvsl)
 
 auc_table(cvsl, y = Boston$chas)
 
-# Test deprecated function.
-cvsl_auc_table(cvsl, y = Boston$chas)
+# Test deprecated version.
+# This will appropriately generate a warning.
+suppressWarnings({
+  cvsl_auc_table(cvsl, y = Boston$chas)
+})

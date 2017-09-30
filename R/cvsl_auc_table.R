@@ -1,9 +1,8 @@
-#' @title Deprecated wrapper to auc_table.CV.SuperLearner()
-#' @description Deprecated, please use
-
-#' @param cvsl CV.SuperLearner object
+#' @title Deprecated, use auc_table() instead.
+#' @description Deprecated, use auc_table() instead.
 #'
-#' @return Dataframe table with auc, se, ci, and p-value.
+#' @param cvsl CV.SuperLearner object
+#' @param ... Remaining arguments that are passed through.
 #'
 #' @export
 cvsl_auc_table = function(cvsl, ...) {

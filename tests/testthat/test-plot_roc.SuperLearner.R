@@ -10,4 +10,9 @@ sl = SuperLearner(Boston$chas, subset(Boston, select = -chas),
 
 sl
 
-sl_plot_roc(sl, y = Boston$chas)
+plot_roc(sl, y = Boston$chas)
+
+# Deprecated version, will generate a warning.
+suppressWarnings({
+  sl_plot_roc(sl, y = Boston$chas)
+})

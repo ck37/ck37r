@@ -2,16 +2,15 @@
 % Please edit documentation in R/cvsl_auc_table.R
 \name{cvsl_auc_table}
 \alias{cvsl_auc_table}
-\title{Deprecated wrapper to auc_table.CV.SuperLearner()}
+\title{Deprecated, use auc_table() instead.}
 \usage{
 cvsl_auc_table(cvsl, ...)
 }
 \arguments{
 \item{cvsl}{CV.SuperLearner object}
-}
-\value{
-Dataframe table with auc, se, ci, and p-value.
+
+\item{...}{Remaining arguments that are passed through.}
 }
 \description{
-Deprecated, please use
+Deprecated, use auc_table() instead.
 }

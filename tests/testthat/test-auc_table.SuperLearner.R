@@ -20,4 +20,10 @@ sl = SuperLearner(Boston$chas, X[, 1:3], family = binomial(),
                   cvControl = list(V = 2, stratifyCV = T),
                   SL.library = c("SL.mean", "SL.glm"))
 
-sl_auc_table(sl, y = Boston$chas)
+auc_table(sl, y = Boston$chas)
+
+# Test deprecated version.
+# This will appropriately generate a warning.
+suppressWarnings({
+  sl_auc_table(sl, y = Boston$chas)
+})

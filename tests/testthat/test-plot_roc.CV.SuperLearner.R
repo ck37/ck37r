@@ -13,4 +13,9 @@ suppressWarnings({
                          SL.library = c("SL.mean", "SL.glm"))
 })
 
-cvsl_plot_roc(cvsl)
+plot_roc(cvsl, y = Boston$chas)
+
+# Deprecated version, will generate a warning.
+suppressWarnings({
+  cvsl_plot_roc(cvsl, y = Boston$chas)
+})

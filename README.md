@@ -41,15 +41,13 @@ Functions
     -   `parallelize` - starts a multicore or multinode parallel cluster. Automatically detects parallel nodes in a SLURM environment, which makes code work seemlessly on a laptop or a cluster.
     -   `stop_cluster` - stops a cluster started by `parallelize()`.
 -   **SuperLearner**
+    -   `auc_table` - table of cross-validated AUCs for each learner in an ensemble, including SE, CI, and p-value. Supports SuperLearner and CV.SuperLearner objects.
     -   `gen_superlearner` - create a SuperLearner and CV.SuperLearner function setup to transparently use a certain parallelization configuration.
     -   `cvsl_weights` - table of the meta-weight distribution for each learner in a CV.SuperLearner analysis.
     -   `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
-    -   `cvsl_auc_table` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
-    -   `cvsl_plot_roc` - ROC plot with AUC for a CV.SuperLearner analysis.
+    -   `plot_roc` - ROC plot with AUC and CI for a SuperLearner or CV.SuperLearner object.
     -   `plot.SuperLearner` - plot risk estimates and CIs for a SuperLearner, similar to CV.Superlearner except without SL or Discrete SL.
-    -   `sl_auc_table` - table of cross-validated AUCs for each learner in a SuperLearner ensemble, including SE, CI, and p-value.
     -   `sl_stderr` - calculate standard error for each learner's risk in SL.
-    -   `sl_plot_roc` - ROC curve plot for one learner in an SL ensemble, plus AUC and CI.
     -   `SL.h2o_auto()` - wrapper for h2o's automatic machine learning system, to be added to SuperLearner.
     -   `SL.bartMachine2()` - wrapper for bartMachine, to be added to SuperLearner.
 -   **TMLE**
@@ -210,7 +208,7 @@ result = run_tmle(Y = Y, A = A, W = W, family = "binomial",
                   g.SL.library = sl_lib, Q.SL.library = sl_lib)
 ```
 
-### SuperLearner AUC
+### SuperLearner AUC Table
 
 This will return an AUC table for all learners. It does not include Discrete SL or SuperLearner as those require CV.SuperLearner.
 
@@ -226,7 +224,7 @@ sl = SuperLearner(Y = as.numeric(Boston$medv > 23),
                   family = binomial(),
                   SL.library = c("SL.mean", "SL.glm"))
 
-sl_auc_table(sl, y = Boston$chas)
+auc_table(sl, y = Boston$chas)
 #>                   auc         se  ci_lower  ci_upper      p-value
 #> SL.mean_All 0.5000000 0.08758016 0.3283460 0.6716540 5.000000e-01
 #> SL.glm_All  0.6331605 0.03526965 0.5640333 0.7022878 7.984369e-05
@@ -287,7 +285,7 @@ sl
 #> SL.mean_All 0.23511955 0.01260907
 #> SL.glm_All  0.09470232 0.98739093
 
-sl_plot_roc(sl, y = Boston$chas)
+plot_roc(sl, y = Boston$chas)
 ```
 
 ![](images/README-sl_plot_roc-1.png)
@@ -324,7 +322,7 @@ cvsl_auc(cvsl)
 
 ### CV.SuperLearner AUC table
 
-This will return an AUC table for all learners, plus the SuperLearner.
+This will return an AUC table for all learners, plus DiscreteSL and the SuperLearner.
 
 ``` r
 library(SuperLearner)
@@ -339,7 +337,7 @@ cvsl = CV.SuperLearner(Y = y,
                        family = binomial(),
                        cvControl = list(V = 2, stratifyCV = TRUE),
                        SL.library = c("SL.mean", "SL.glmnet"))
-cvsl_auc_table(cvsl, y = y)
+auc_table(cvsl, y = y)
 #>                     auc         se  ci_lower  ci_upper       p-value
 #> SL.mean_All   0.5000000 0.04590129 0.4100351 0.5899649  5.000000e-01
 #> SL.glmnet_All 0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
@@ -361,7 +359,7 @@ cvsl = CV.SuperLearner(Y = as.numeric(Boston$medv > 23),
                        family = binomial(),
                        cvControl = list(V = 2, stratifyCV = T),
                        SL.library = c("SL.mean", "SL.glmnet"))
-cvsl_plot_roc(cvsl)
+plot_roc(cvsl)
 ```
 
 ![](images/README-cvsl_plot_roc-1.png)
