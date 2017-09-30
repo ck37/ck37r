@@ -8,8 +8,11 @@
 ^appveyor\.yml$
 ^deploy_key$
 ^deploy_key\.enc$
+
 ^scripts$
+
 ^.lintr$
 ^.lintr-defaults$
+
 ^README\.Rmd$
 ^images/README-.*\.png$
