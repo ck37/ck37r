@@ -74,7 +74,7 @@ SL.glmnet2 <- function(Y, X, newX, family, obsWeights, id,
                        alpha = 1, nfolds = 10, nlambda = 100, useMin = TRUE,
                        loss = "deviance", parallel = FALSE,
                        ...) {
-  .SL.require('glmnet')
+  #.SL.require('glmnet')
 
   # X must be a matrix, should we use model.matrix or as.matrix
   # TODO: support sparse matrices.
