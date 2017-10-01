@@ -15,6 +15,8 @@
 
 \item{title}{Title to use in the plot.}
 
+\item{subtitle}{Optional plot subtitle.}
+
 \item{digits}{Digits to use when rounding AUC and CI for plot.}
 
 \item{show_plot}{If TRUE print the ggplot, otherwise just return in list.}

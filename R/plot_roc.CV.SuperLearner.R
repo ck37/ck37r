@@ -5,6 +5,7 @@
 #' @param x CV.SuperLearner object
 #' @param y Outcome vector if not already included in the SL object.
 #' @param title Title to use in the plot.
+#' @param subtitle Optional plot subtitle.
 #' @param digits Digits to use when rounding AUC and CI for plot.
 #' @param show_plot If TRUE print the ggplot, otherwise just return in list.
 #'
