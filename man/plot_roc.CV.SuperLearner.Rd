@@ -6,7 +6,7 @@
 \usage{
 \method{plot_roc}{CV.SuperLearner}(x, y = cvsl$Y,
   title = "CV-SuperLearner cross-validated ROC", subtitle = "",
-  digits = 4, show_plot = TRUE)
+  digits = 4, show_plot = TRUE, ...)
 }
 \arguments{
 \item{x}{CV.SuperLearner object}
@@ -20,6 +20,8 @@
 \item{digits}{Digits to use when rounding AUC and CI for plot.}
 
 \item{show_plot}{If TRUE print the ggplot, otherwise just return in list.}
+
+\item{...}{Any additional unused arguments, due to the auc_table generic.}
 }
 \value{
 List with the AUC plus standard error and confidence interval.

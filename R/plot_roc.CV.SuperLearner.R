@@ -8,6 +8,7 @@
 #' @param subtitle Optional plot subtitle.
 #' @param digits Digits to use when rounding AUC and CI for plot.
 #' @param show_plot If TRUE print the ggplot, otherwise just return in list.
+#' @param ... Any additional unused arguments, due to the auc_table generic.
 #'
 #' @return List with the AUC plus standard error and confidence interval.
 #'
@@ -58,7 +59,8 @@ plot_roc.CV.SuperLearner = function(x, y = cvsl$Y,
                          title = "CV-SuperLearner cross-validated ROC",
                          subtitle = "",
                          digits = 4,
-                         show_plot = TRUE) {
+                         show_plot = TRUE,
+                         ...) {
   # Change to a better object name.
   cvsl = x
 

@@ -4,12 +4,13 @@
 #' defaulting to the minimum estimated risk learner. Based on code by Alan
 #' Hubbard.
 #'
-#' @param sl SuperLearner object
+#' @param x SuperLearner object
 #' @param y Outcome vector if not already included in the SL object.
 #' @param learner Which learner to plot - defaults to minimum risk learner.
 #' @param title Title to use in the plot.
 #' @param subtitle TBD.
 #' @param digits Digits to use when rounding AUC and CI for plot.
+#' @param ... Any additional unused arguments, due to the auc_table generic.
 #'
 #' @return List with plotted AUC & CI, table of AUC results for all learners,
 #'       and the name of the best learner.
@@ -57,7 +58,8 @@ plot_roc.SuperLearner =
            learner = NULL,
            title = "SuperLearner cross-validated ROC",
            subtitle = NULL,
-           digits = 4) {
+           digits = 4,
+           ...) {
 
   # Better object name.
   sl = x

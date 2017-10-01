@@ -10,6 +10,7 @@
 #' @param null_hypothesis Default 0.5.
 #' @param two_tailed Two-failed null hypothesis test? Default FALSE.
 #' @param lower.tail Examine only lower tail of test distribution? Default FALSE.
+#' @param ... Any additional unused arguments, due to the auc_table generic.
 #'
 #' @return Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5)
 #'
@@ -51,7 +52,8 @@
 auc_table.SuperLearner = function(x, y = x$Y, sort = T,
                                   null_hypothesis = 0.5,
                                   two_tailed = FALSE,
-                                  lower.tail = FALSE) {
+                                  lower.tail = FALSE,
+                                  ...) {
 
   # Rename to a better object name.
   sl = x

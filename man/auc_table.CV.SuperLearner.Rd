@@ -5,7 +5,7 @@
 \title{Table of cross-validated AUCs from CV.SuperLearner result}
 \usage{
 \method{auc_table}{CV.SuperLearner}(x, y = x$Y, sort = TRUE,
-  null_hypothesis = 0.5, two_tailed = FALSE, lower.tail = FALSE)
+  null_hypothesis = 0.5, two_tailed = FALSE, lower.tail = FALSE, ...)
 }
 \arguments{
 \item{x}{CV.SuperLearner object}
@@ -19,6 +19,8 @@
 \item{two_tailed}{Two-failed null hypothesis test? Default FALSE.}
 
 \item{lower.tail}{Examine only lower tail of test distribution? Default FALSE.}
+
+\item{...}{Any additional unused arguments, due to the auc_table generic.}
 }
 \value{
 Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5)
