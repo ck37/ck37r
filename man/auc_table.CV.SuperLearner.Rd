@@ -14,6 +14,8 @@
 
 \item{sort}{Sort table by order of AUC.}
 
+\item{null_hypothesis}{Default 0.5.}
+
 \item{two_tailed}{Two-failed null hypothesis test? Default FALSE.}
 
 \item{lower.tail}{Examine only lower tail of test distribution? Default FALSE.}
@@ -39,7 +41,7 @@ cvsl = CV.SuperLearner(Y = y,
                        family = binomial(),
                        cvControl = list(V = 2, stratifyCV = TRUE),
                        SL.library = c("SL.mean", "SL.glmnet"))
-cvsl_auc_table(cvsl, y = y)
+auc_table(cvsl, y = y)
 
 }
 \references{

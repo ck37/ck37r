@@ -8,6 +8,7 @@
 #' @param y Outcome vector if not already included in the SL object.
 #' @param learner Which learner to plot - defaults to minimum risk learner.
 #' @param title Title to use in the plot.
+#' @param subtitle TBD.
 #' @param digits Digits to use when rounding AUC and CI for plot.
 #'
 #' @return List with plotted AUC & CI, table of AUC results for all learners,
@@ -52,23 +53,34 @@
 #' @export
 plot_roc.SuperLearner =
   function(x,
-           y = sl$Y,
-           learner = which.min(sl$cvRisk),
-           title = paste0("SuperLearner cross-validated ROC: ",
-                          names(sl$cvRisk)[learner]),
+           y = x$Y,
+           learner = NULL,
+           title = "SuperLearner cross-validated ROC",
+           subtitle = NULL,
            digits = 4) {
 
   # Better object name.
   sl = x
 
+  auc_table = ck37r::auc_table(sl, y)
+
+  # Choose the learner with the highest AUC.
+  if (is.null(learner)) {
+    # Extract the original learner index based on learner name in the AUC table.
+    learner = which(names(sl$cvRisk) == rownames(auc_table)[which.max(auc_table$auc)])
+  }
+
   preds = sl$Z[, learner]
   pred = ROCR::prediction(preds, y)
   perf1 = ROCR::performance(pred, "sens", "spec")
 
-  auc_table = ck37r::auc_table(sl, y)
-
   # We need to index using learner name because auc_table() has been sorted.
   learner_name = names(sl$cvRisk)[learner]
+
+  # Set learner name as the subtitle if no subtitle was specified.
+  if (is.null(subtitle)) {
+    subtitle = paste("Best learner:", learner_name)
+  }
 
   auc = auc_table[learner_name, "auc"]
   ci_upper = auc_table[learner_name, "ci_upper"]
@@ -86,6 +98,7 @@ plot_roc.SuperLearner =
                        ylab = "True positive % (sensitivity)",
                        geom = "line",
                        main = title) +
+          ggplot2::labs(subtitle = subtitle) +
           ggplot2::theme_bw() +
           ggplot2::annotate("text", x = 0.63, y = 0.15, label = txt, size = 6) +
           ggplot2::annotate("segment", x = 0, xend = 1, y = 0, yend = 1))

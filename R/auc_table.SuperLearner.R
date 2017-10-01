@@ -7,7 +7,7 @@
 #' @param x SuperLearner object
 #' @param y Outcome vector, if not already added to SL object.
 #' @param sort Sort table by order of AUC.
-#' @param null_hypothesis TBD
+#' @param null_hypothesis Default 0.5.
 #' @param two_tailed Two-failed null hypothesis test? Default FALSE.
 #' @param lower.tail Examine only lower tail of test distribution? Default FALSE.
 #'

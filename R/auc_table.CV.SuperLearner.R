@@ -7,6 +7,7 @@
 #' @param x CV.SuperLearner object
 #' @param y Outcome vector, if not already added to CV.SL object.
 #' @param sort Sort table by order of AUC.
+#' @param null_hypothesis Default 0.5.
 #' @param two_tailed Two-failed null hypothesis test? Default FALSE.
 #' @param lower.tail Examine only lower tail of test distribution? Default FALSE.
 #'
@@ -25,7 +26,7 @@
 #'                        family = binomial(),
 #'                        cvControl = list(V = 2, stratifyCV = TRUE),
 #'                        SL.library = c("SL.mean", "SL.glmnet"))
-#' cvsl_auc_table(cvsl, y = y)
+#' auc_table(cvsl, y = y)
 #'
 #' @references
 #' LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally

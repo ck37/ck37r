@@ -4,9 +4,8 @@
 \alias{plot_roc.SuperLearner}
 \title{Plot a ROC curve from cross-validated AUC from SuperLearner}
 \usage{
-\method{plot_roc}{SuperLearner}(x, y = sl$Y, learner = which.min(sl$cvRisk),
-  title = paste0("SuperLearner cross-validated ROC: ",
-  names(sl$cvRisk)[learner]), digits = 4)
+\method{plot_roc}{SuperLearner}(x, y = x$Y, learner = NULL,
+  title = "SuperLearner cross-validated ROC", subtitle = NULL, digits = 4)
 }
 \arguments{
 \item{y}{Outcome vector if not already included in the SL object.}
@@ -14,6 +13,8 @@
 \item{learner}{Which learner to plot - defaults to minimum risk learner.}
 
 \item{title}{Title to use in the plot.}
+
+\item{subtitle}{TBD.}
 
 \item{digits}{Digits to use when rounding AUC and CI for plot.}
 
