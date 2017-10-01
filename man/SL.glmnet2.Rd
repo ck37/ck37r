@@ -54,6 +54,8 @@ glmnet.
 }
 \examples{
 
+library(SuperLearner)
+
 # Load a test dataset.
 data(PimaIndiansDiabetes2, package = "mlbench")
 data = PimaIndiansDiabetes2
