@@ -55,6 +55,7 @@
 #' @export
 plot_roc.CV.SuperLearner = function(x, y = cvsl$Y,
                          title = "CV-SuperLearner cross-validated ROC",
+                         subtitle = "",
                          digits = 4,
                          show_plot = TRUE) {
   # Change to a better object name.
@@ -78,6 +79,7 @@ plot_roc.CV.SuperLearner = function(x, y = cvsl$Y,
                        ylab = "True positive % (sensitivity)",
                        geom = "line",
                        main = title) +
+          ggplot2::labs(subtitle = subtitle) +
           ggplot2::theme_bw() +
           ggplot2::annotate("text", x = 0.63, y = 0.15, label = txt, size = 6) +
           ggplot2::annotate("segment", x = 0, xend = 1, y = 0, yend = 1)
