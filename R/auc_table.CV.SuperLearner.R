@@ -26,7 +26,7 @@
 #'                        X = subset(Boston, select = -medv),
 #'                        family = binomial(),
 #'                        cvControl = list(V = 2, stratifyCV = TRUE),
-#'                        SL.library = c("SL.mean", "SL.glmnet"))
+#'                        SL.library = c("SL.mean", "SL.glm"))
 #' auc_table(cvsl, y = y)
 #'
 #' @references
