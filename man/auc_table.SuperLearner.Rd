@@ -4,7 +4,8 @@
 \alias{auc_table.SuperLearner}
 \title{Table of cross-validated AUCs from SuperLearner result}
 \usage{
-\method{auc_table}{SuperLearner}(x, y = sl$Y, sort = T)
+\method{auc_table}{SuperLearner}(x, y = x$Y, sort = T,
+  null_hypothesis = 0.5, two_tailed = FALSE, lower.tail = FALSE)
 }
 \arguments{
 \item{x}{SuperLearner object}
@@ -12,6 +13,10 @@
 \item{y}{Outcome vector, if not already added to SL object.}
 
 \item{sort}{Sort table by order of AUC.}
+
+\item{two_tailed}{Two-failed null hypothesis test? Default FALSE.}
+
+\item{lower.tail}{Examine only lower tail of test distribution? Default FALSE.}
 }
 \value{
 Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5)

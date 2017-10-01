@@ -7,6 +7,9 @@
 #' @param x SuperLearner object
 #' @param y Outcome vector, if not already added to SL object.
 #' @param sort Sort table by order of AUC.
+#' @param null_hypothesis TBD
+#' @param two_tailed Two-failed null hypothesis test? Default FALSE.
+#' @param lower.tail Examine only lower tail of test distribution? Default FALSE.
 #'
 #' @return Dataframe table with auc, se, ci, and p-value (null hypothesis = 0.5)
 #'
@@ -45,7 +48,10 @@
 #' @importFrom stats pnorm
 #'
 #' @export
-auc_table.SuperLearner = function(x, y = sl$Y, sort = T) {
+auc_table.SuperLearner = function(x, y = x$Y, sort = T,
+                                  null_hypothesis = 0.5,
+                                  two_tailed = FALSE,
+                                  lower.tail = FALSE) {
 
   # Rename to a better object name.
   sl = x
@@ -74,10 +80,12 @@ auc_table.SuperLearner = function(x, y = sl$Y, sort = T) {
     aucs[learner_i, "se"] = result$se
     aucs[learner_i, "ci_lower"] = result$ci[1]
     aucs[learner_i, "ci_upper"] = result$ci[2]
-    null_hypothesis = 0.5
     if (!is.na(result$cvAUC) && !is.na(result$se)) {
       # Asymptotically linear CI.
-      pval = pnorm((result$cvAUC - null_hypothesis) / result$se, lower.tail = F)
+
+      # If two_tailed = TRUE multiply by 2, otherwise multiply by 1.
+      pval = (as.numeric(two_tailed) + 1) *
+        pnorm((result$cvAUC - null_hypothesis) / result$se, lower.tail = lower.tail)
     } else {
       pval = NA
     }
