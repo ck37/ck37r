@@ -354,12 +354,13 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-cvsl = CV.SuperLearner(Y = as.numeric(Boston$medv > 23),
+y = as.numeric(Boston$medv > 23)
+cvsl = CV.SuperLearner(Y = y,
                        X = subset(Boston, select = -medv),
                        family = binomial(),
                        cvControl = list(V = 2, stratifyCV = T),
                        SL.library = c("SL.mean", "SL.glmnet"))
-plot_roc(cvsl)
+plot_roc(cvsl, y = y)
 ```
 
 ![](images/README-cvsl_plot_roc-1.png)

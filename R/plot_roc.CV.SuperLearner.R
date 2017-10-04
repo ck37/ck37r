@@ -55,7 +55,7 @@
 #' @method plot_roc CV.SuperLearner
 #'
 #' @export
-plot_roc.CV.SuperLearner = function(x, y = cvsl$Y,
+plot_roc.CV.SuperLearner = function(x, y = x$Y,
                          title = "CV-SuperLearner cross-validated ROC",
                          subtitle = "",
                          digits = 4,
