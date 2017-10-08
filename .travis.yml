@@ -9,7 +9,7 @@ branches:
 
 language: r
 
-cran: http://cran.cnr.berkeley.edu
+#cran: http://cran.cnr.berkeley.edu
 
 # This repos setting doesn't seem to be working :/
 #repos:
