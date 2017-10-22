@@ -43,6 +43,7 @@ Suggests:
     lintr,
     MASS,
     magrittr,
+    mgcv,
     microbenchmark,
     mlbench,
     slam,
