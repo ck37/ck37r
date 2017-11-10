@@ -40,6 +40,9 @@ environment:
     _R_CHECK_FORCE_SUGGESTS_: 0
     R_ARCH: x64
     USE_RTOOLS: true ## to be able to use Remotes (i.e. packages from non-CRAN sources)
+    # Try to fix "R version with different internals" build error.
+    # Via https://github.com/krlmlr/r-appveyor/issues/95#issuecomment-330471362
+    PKGTYPE: source
 
   matrix:
   # Test with 3 versions of R.
