@@ -109,7 +109,7 @@ This loads a vector of packages, automatically installing any packages that aren
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
 #> Super Learner
 #> Version: 2.0-23-9000
-#> Package created on 2017-07-20
+#> Package created on 2017-11-07
 #> Welcome to the tmle package, version 1.2.0-5
 #> 
 #> Use tmleNews() to see details on changes and bug fixes
@@ -225,9 +225,9 @@ sl = SuperLearner(Y = as.numeric(Boston$medv > 23),
                   SL.library = c("SL.mean", "SL.glm"))
 
 auc_table(sl, y = Boston$chas)
-#>                   auc         se  ci_lower  ci_upper      p-value
-#> SL.mean_All 0.5000000 0.08758016 0.3283460 0.6716540 5.000000e-01
-#> SL.glm_All  0.6331605 0.03526965 0.5640333 0.7022878 7.984369e-05
+#>                   auc         se  ci_lower  ci_upper    p-value
+#> SL.mean_All 0.5000000 0.08758016 0.3283460 0.6716540 0.06419997
+#> SL.glm_All  0.6331605 0.03526965 0.5640333 0.7022878 0.50000000
 ```
 
 ### SuperLearner plot of risk estimates
@@ -338,11 +338,11 @@ cvsl = CV.SuperLearner(Y = y,
                        cvControl = list(V = 2, stratifyCV = TRUE),
                        SL.library = c("SL.mean", "SL.glmnet"))
 auc_table(cvsl, y = y)
-#>                     auc         se  ci_lower  ci_upper       p-value
-#> SL.mean_All   0.5000000 0.04590129 0.4100351 0.5899649  5.000000e-01
-#> SL.glmnet_All 0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
-#> DiscreteSL    0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
-#> SuperLearner  0.9258827 0.01280423 0.9007869 0.9509786 7.051378e-243
+#>                     auc         se  ci_lower  ci_upper      p-value
+#> SL.mean_All   0.5000000 0.04590129 0.4100351 0.5899649 8.615879e-21
+#> SL.glmnet_All 0.9258827 0.01280423 0.9007869 0.9509786 5.000000e-01
+#> DiscreteSL    0.9258827 0.01280423 0.9007869 0.9509786 5.000000e-01
+#> SuperLearner  0.9258827 0.01280423 0.9007869 0.9509786 5.000000e-01
 ```
 
 ### CV.SuperLearner plot ROC
