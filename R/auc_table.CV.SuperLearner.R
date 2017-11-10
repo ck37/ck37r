@@ -7,7 +7,7 @@
 #' @param x CV.SuperLearner object
 #' @param y Outcome vector, if not already added to CV.SL object.
 #' @param sort Sort table by order of AUC.
-#' @param null_hypothesis Default 0.5.
+#' @param null_hypothesis Default is the highest AUC from the learners.
 #' @param two_tailed Two-failed null hypothesis test? Default FALSE.
 #' @param lower.tail Examine only lower tail of test distribution? Default FALSE.
 #' @param ... Any additional unused arguments, due to the auc_table generic.
@@ -55,9 +55,9 @@
 #'
 #' @export
 auc_table.CV.SuperLearner = function(x, y = x$Y, sort = TRUE,
-                                     null_hypothesis = 0.5,
+                                     null_hypothesis = NULL,
                                      two_tailed = FALSE,
-                                     lower.tail = FALSE,
+                                     lower.tail = TRUE,
                                      ...) {
 
   # Use a clearer object name.
@@ -96,12 +96,25 @@ auc_table.CV.SuperLearner = function(x, y = x$Y, sort = TRUE,
     aucs[learner_i, "se"] = result$se
     aucs[learner_i, "ci_lower"] = result$ci[1]
     aucs[learner_i, "ci_upper"] = result$ci[2]
-    if (!is.na(result$cvAUC) && !is.na(result$se)) {
+    # Don't generate p-value yet.
+  }
+
+  if (is.null(null_hypothesis)) {
+    # Use the highest observed AUC as the null hypothesis.
+    null_hypothesis = max(aucs$auc, na.rm = TRUE)
+  }
+
+  # Loop one more time, this time calculating the auc p-value.
+  for (learner_i in 1:nrow(aucs)) {
+    # Specify drop = F so that we have a 1-row dataframe and can use $.
+    result = aucs[learner_i, , drop = F]
+    if (!is.na(result$auc) && !is.na(result$se)) {
       # Asymptotically linear CI.
 
       # If two_tailed = TRUE multiply by 2, otherwise multiply by 1.
       pval = (as.numeric(two_tailed) + 1) *
-        pnorm((result$cvAUC - null_hypothesis) / result$se, lower.tail = lower.tail)
+        pnorm((result$auc - null_hypothesis) / result$se,
+              lower.tail = lower.tail)
     } else {
       pval = NA
     }
@@ -112,6 +125,7 @@ auc_table.CV.SuperLearner = function(x, y = x$Y, sort = TRUE,
 
   if (sort) {
     # Sort in ascending order so best AUCs are at bottom of table.
+    # This will also place NAs at the bottom of the table.
     aucs = aucs[order(aucs$auc), ]
 
   }

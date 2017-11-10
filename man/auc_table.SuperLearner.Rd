@@ -5,7 +5,7 @@
 \title{Table of cross-validated AUCs from SuperLearner result}
 \usage{
 \method{auc_table}{SuperLearner}(x, y = x$Y, sort = T,
-  null_hypothesis = 0.5, two_tailed = FALSE, lower.tail = FALSE, ...)
+  null_hypothesis = NULL, two_tailed = FALSE, lower.tail = TRUE, ...)
 }
 \arguments{
 \item{x}{SuperLearner object}
@@ -14,11 +14,11 @@
 
 \item{sort}{Sort table by order of AUC.}
 
-\item{null_hypothesis}{Default 0.5.}
+\item{null_hypothesis}{If NULL (default), use the highest observed AUC.}
 
 \item{two_tailed}{Two-failed null hypothesis test? Default FALSE.}
 
-\item{lower.tail}{Examine only lower tail of test distribution? Default FALSE.}
+\item{lower.tail}{Examine lower tail of test distribution? Default TRUE.}
 
 \item{...}{Any additional unused arguments, due to the auc_table generic.}
 }

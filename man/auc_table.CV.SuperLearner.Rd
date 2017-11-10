@@ -5,7 +5,7 @@
 \title{Table of cross-validated AUCs from CV.SuperLearner result}
 \usage{
 \method{auc_table}{CV.SuperLearner}(x, y = x$Y, sort = TRUE,
-  null_hypothesis = 0.5, two_tailed = FALSE, lower.tail = FALSE, ...)
+  null_hypothesis = NULL, two_tailed = FALSE, lower.tail = TRUE, ...)
 }
 \arguments{
 \item{x}{CV.SuperLearner object}
@@ -14,7 +14,7 @@
 
 \item{sort}{Sort table by order of AUC.}
 
-\item{null_hypothesis}{Default 0.5.}
+\item{null_hypothesis}{Default is the highest AUC from the learners.}
 
 \item{two_tailed}{Two-failed null hypothesis test? Default FALSE.}
 
