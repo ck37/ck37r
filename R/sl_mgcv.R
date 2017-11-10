@@ -44,6 +44,7 @@
 #' @seealso \code{\link[mgcv]{mgcv}}
 #'
 # @importFrom mgcv s te ti t2
+#' @importFrom stats as.formula
 #' @export
 SL.mgcv = function(Y, X, newX, family,
                    obsWeights = NULL, id = NULL,
