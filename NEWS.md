@@ -11,7 +11,7 @@ which will make explicit package references unnecessary.
 
 * impute_missing_values - add all_vars argument; if T save the imputation values
 even when variable is not missing data. This allows new datasets to be imputed
-to the values from the training data.
+to the values from the training data. Treated labelleded columns as numerics.
 
 * impute_missing values - support supplying imputation values from another dataset,
 for use when scoring a model to a larger dataset.
