@@ -18,6 +18,9 @@ for use when scoring a model to a larger dataset.
 
 * h2o_init_multinode - create a multi-node h2o cluster e.g. on a SLURM system.
 
+* set_java_memory() - specify maximum memory usage for rJava JVM.
+
+* get_java_memory() - get maximum memory allocated to a rJava JVM.
 
 ### Bug fixes
 

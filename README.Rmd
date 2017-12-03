@@ -74,6 +74,9 @@ library(ck37r)
 - **h2o**
     * `h2o_init_multinode()` - function to start an h2o cluster on multiple nodes
     from within R, intended for use on SLURM or other multi-node clusters.
+- **Misc**
+    * `set_java_memory()` - set rJava's maximum memory usage.
+    * `get_java_memory()` - get rJava's maximum allocated memory.
 
 ## Examples
 

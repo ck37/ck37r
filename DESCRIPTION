@@ -26,6 +26,7 @@ Imports:
     parallel,
     pryr,
     randomForest,
+    rJava,
     RANN,
     reader,
     RhpcBLASctl,

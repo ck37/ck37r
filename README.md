@@ -55,6 +55,9 @@ Functions
     -   `setup_parallel_tmle` - helper function to start a cluster and setup SuperLearner and tmle\_parallel to use the created cluster.
 -   **h2o**
     -   `h2o_init_multinode()` - function to start an h2o cluster on multiple nodes from within R, intended for use on SLURM or other multi-node clusters.
+-   **Misc**
+    -   `set_java_memory()` - set rJava's maximum memory usage.
+    -   `get_java_memory()` - get rJava's maximum allocated memory.
 
 Examples
 --------
