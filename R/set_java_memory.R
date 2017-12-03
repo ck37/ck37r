@@ -15,7 +15,7 @@
 set_java_memory = function(memory = NULL, verbose = FALSE) {
   # TODO: check if rJava is already loaded, in which case this is too late.
   if (!rJava:::.need.init()) {
-    stop("rJava has already been loaded, allocated memory cannot be modified.")
+    warning("rJava has already been loaded, allocated memory cannot be modified.")
   }
 
   if (!is.null(memory)) {
