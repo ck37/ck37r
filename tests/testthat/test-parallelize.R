@@ -1,5 +1,10 @@
 library(ck37r)
-library(testthat)
+
+# Only run test if necessary suggested packages are installed.
+pkg_suggests = c("testthat")
+if (!all(suppressWarnings(sapply(pkg_suggests, require, quietly = TRUE,
+                                 character.only = TRUE))))
+  return()
 
 # Set to only 2 cores per CRAN policies.
 max_cores = 2

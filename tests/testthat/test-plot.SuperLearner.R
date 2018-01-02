@@ -1,6 +1,12 @@
 library(SuperLearner)
 library(ck37r)
 
+# Only run test if necessary suggested packages are installed.
+pkg_suggests = c("testthat", "MASS")
+if (!all(suppressWarnings(sapply(pkg_suggests, require, quietly = TRUE,
+                                 character.only = TRUE))))
+  return()
+
 data(Boston, package = "MASS")
 
 set.seed(1)
@@ -9,4 +15,4 @@ sl = SuperLearner(Boston$medv, subset(Boston, select = -medv),
                   SL.library = c("SL.mean", "SL.glm"))
 
 sl
-plot(sl, Y = Boston$chas)
+plot(sl, y = Boston$chas)

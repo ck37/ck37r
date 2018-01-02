@@ -1,6 +1,10 @@
-library(testthat)
-try(detach(package:ck37r), silent = T)
 library(ck37r)
+
+# Only run test if necessary suggested packages are installed.
+pkg_suggests = c("testthat")
+if (!all(suppressWarnings(sapply(pkg_suggests, require, quietly = TRUE,
+                                 character.only = TRUE))))
+  return()
 
 context("Test tmle_parallel()")
 
@@ -27,7 +31,7 @@ library(SuperLearner)
 set.seed(1, "L'Ecuyer-CMRG")
 result = run_tmle(Y = data$Y, A = data$A, W = W, family = "binomial",
                   g.SL.library = sl_lib, Q.SL.library = sl_lib,
-                  verbose = T)
+                  verbose = TRUE)
 result
 result$time
 
@@ -50,7 +54,7 @@ set.seed(1, "L'Ecuyer-CMRG")
 # Test TMLE with conserve_memory disabled.
 result2 = run_tmle(Y = data$Y, A = data$A, W = W, family = "binomial",
                   g.SL.library = sl_lib, Q.SL.library = sl_lib,
-                  conserve_memory = F, verbose = T)
+                  conserve_memory = FALSE, verbose = TRUE)
 result2
 result2$time
 

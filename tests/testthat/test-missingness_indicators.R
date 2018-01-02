@@ -1,5 +1,10 @@
 library(ck37r)
-library(testthat)
+
+# Only run test if necessary suggested packages are installed.
+pkg_suggests = c("testthat", "mlbench")
+if (!all(suppressWarnings(sapply(pkg_suggests, require, quietly = TRUE,
+                                 character.only = TRUE))))
+  return()
 
 context("Missingness indicators")
 
@@ -11,7 +16,7 @@ colSums(is.na(PimaIndiansDiabetes2))
 
 # Generate missingness indicators; skip outcome variable.
 indicators = missingness_indicators(PimaIndiansDiabetes2,
-                                    skip_vars = "diabetes", verbose = T)
+                                    skip_vars = "diabetes", verbose = TRUE)
 
 # Check missingness.
 colSums(indicators)
@@ -21,16 +26,16 @@ colSums(indicators)
 data = PimaIndiansDiabetes2
 
 # 1 column, no missingness data.
-indicators = missingness_indicators(data[, 1, drop = F], verbose = T)
+indicators = missingness_indicators(data[, 1, drop = FALSE], verbose = TRUE)
 # 1 column, has missingness.
-indicators = missingness_indicators(data[, 2, drop = F], verbose = T)
+indicators = missingness_indicators(data[, 2, drop = FALSE], verbose = TRUE)
 
 # Test removal of collinear columns.
 # Here we add glucose a second time to the end of the dataframe.
 indicators = missingness_indicators(cbind(data, glucose2 = data[, 2]),
-                                    verbose = T)
+                                    verbose = TRUE)
 
 # Test removal of constant columns.
 data[, 1] = NA
-indicators = missingness_indicators(data, verbose = T)
+indicators = missingness_indicators(data, verbose = TRUE)
 
