@@ -32,7 +32,7 @@ r:
 r_build_args: ""
 
 # Allow build to continue even if a suggested package cannot be installed.
-_R_CHECK_FORCE_SUGGESTS_: false
+r_check_force_suggests: false
 
 # Test on both linux and OSX.
 # See details at https://docs.travis-ci.com/user/multi-os/
@@ -48,6 +48,8 @@ env:
     # Via https://gist.github.com/domenic/ec8b0fc8ab45f39403dd#create-your-travisyml-file
     - ENCRYPTION_LABEL: "99d96023b074"
     - COMMIT_AUTHOR_EMAIL: "chrisken@gmail.com"
+    # Allow build to continue even if a suggested package cannot be installed.
+    - _R_CHECK_FORCE_SUGGESTS_=false
 
 matrix:
   # Report build completion status once non-"allow_failures" builds are done.
