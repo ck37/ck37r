@@ -58,16 +58,18 @@
 #' @importFrom RANN nn2
 #'
 #' @export
-impute_missing_values = function(data,
-                                 type = "standard",
-                                 add_indicators = T,
-                                 prefix = "miss_",
-                                 skip_vars = NULL,
-                                 all_vars = F,
-                                 remove_constant = T,
-                                 remove_collinear = T,
-                                 values = NULL,
-                                 verbose = F) {
+impute_missing_values =
+  function(data,
+           type = "standard",
+           add_indicators = TRUE,
+           prefix = "miss_",
+           skip_vars = NULL,
+           all_vars = FALSE,
+           remove_constant = TRUE,
+           remove_collinear = TRUE,
+           values = NULL,
+           verbose = FALSE) {
+
   # Loop over each feature.
   missing_indicators = NULL
 
@@ -75,7 +77,7 @@ impute_missing_values = function(data,
   new_data = data
 
   # Only check variables that we don't want to skip.
-  vars = !colnames(data) %in% skip_vars
+  non_skipped_vars = !colnames(data) %in% skip_vars
 
   # List of results to populate.
   # Save our configuration first.
@@ -87,7 +89,11 @@ impute_missing_values = function(data,
   # Identify columns with any NAs.
   # We apply skip_vars within the function so that which() indices are correct.
   any_nas = which(sapply(colnames(data),
-                         function(col) !col %in% skip_vars && anyNA(data[, col])))
+                         function(col) !col %in% skip_vars && anyNA(data[[col]])))
+
+  if (verbose) {
+    cat("Found", length(any_nas), "variables with NAs.\n")
+  }
 
   if (type == "standard") {
     if (verbose) {
@@ -96,22 +102,21 @@ impute_missing_values = function(data,
 
     # List to save the imputation values used.
     # We need a list because it can contain numerics and factors.
+    impute_values = vector("list", sum(non_skipped_vars))
+
+    # Copy variable names into the imputed values vector.
+    names(impute_values) = colnames(data[non_skipped_vars])
 
     if (all_vars) {
       # We need to save imputation info for every variable, even if it has no
       # missing data.
-      impute_values = vector("list", sum(vars))
-
-      # Copy variable names into the imputed values vector.
-      names(impute_values) = colnames(data[vars])
 
       # Loop over all variables except exclusions.
-      loop_over = which(vars)
-      names(loop_over) = colnames(data)[vars]
+      loop_over = which(non_skipped_vars)
+      names(loop_over) = colnames(data)[non_skipped_vars]
 
     } else {
       # Only save imputation info for variables with missing data.
-      impute_values = vector("list", length(any_nas))
 
       # Loop over only variables with missing data.
       loop_over = any_nas
@@ -119,10 +124,10 @@ impute_missing_values = function(data,
 
     # Calculate number of NAs in advance.
     # benchmark comparison in tests/performance/perf-impute_missing_values.R
-    sum_nas = sapply(loop_over, function(i) sum(is.na(data[[i]])))
+    sum_nas = sapply(loop_over, function(col_i) sum(is.na(data[[col_i]])))
 
     # Use double brackets rather than [, i] to support tibbles.
-    col_classes = sapply(loop_over, function(i) class(data[[i]]))
+    col_classes = sapply(loop_over, function(col_i) class(data[[col_i]]))
 
     # TODO: vectorize, and support parallelization.
     #lapply(any_nas, function(i) {
@@ -161,12 +166,12 @@ impute_missing_values = function(data,
       }
 
       # TODO: separate function to generate imputation values.
-      impute_values[[i]] = impute_value
+      impute_values[[colname]] = impute_value
 
       # Nothing to impute, continue to next column.
       if (nas == nrow(data)) {
         if (verbose) {
-          cat("Note: skipping", colname, "because all values are NA.\n")
+          cat("Note: cannot impute", colname, "because all values are NA.\n")
         }
         # TODO: return columns that are all NA.
         next
@@ -178,6 +183,12 @@ impute_missing_values = function(data,
         new_data[is.na(data[[i]]), i] = impute_value
       }
 
+    }
+
+    if (!all_vars) {
+      # If we're only saving imputation values for some variables, explicitly
+      # remove any imputation values that were not calculated.
+      impute_values = impute_values[names(any_nas)]
     }
 
     results$impute_values = impute_values

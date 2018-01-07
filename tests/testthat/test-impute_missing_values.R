@@ -33,7 +33,7 @@ str(data)
 # Don't impute the outcome though.
 # This will generate warnings due to data$mass.
 suppressWarnings({
-  result = impute_missing_values(data, skip_vars = "diabetes", verbose = T)
+  result = impute_missing_values(data, skip_vars = "diabetes", verbose = TRUE)
 })
 
 # Confirm we have no missing data.
