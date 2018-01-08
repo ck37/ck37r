@@ -18,6 +18,7 @@ install:
 # Adapt as necessary starting from here
 
 build_script:
+  - set _R_CHECK_FORCE_SUGGESTS_=false
   - git config --global user.name "travis"
   - git config --global user.email "travis@example.org"
   - travis-tool.sh install_deps
@@ -40,6 +41,7 @@ environment:
     _R_CHECK_FORCE_SUGGESTS_: 0
     R_ARCH: x64
     USE_RTOOLS: true ## to be able to use Remotes (i.e. packages from non-CRAN sources)
+    GCC_PATH: mingw_64
     # Try to fix "R version with different internals" build error.
     # Via https://github.com/krlmlr/r-appveyor/issues/95#issuecomment-330471362
     #PKGTYPE: source
