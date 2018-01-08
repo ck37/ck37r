@@ -52,10 +52,6 @@ environment:
     - R_VERSION: devel
     - R_VERSION: stable
 
-cache:
-  # To fix "different internals" error.
-  - packages -> appveyor.yml
-
 artifacts:
   - path: '*.Rcheck\**\*.log'
     name: Logs
@@ -77,3 +73,5 @@ artifacts:
 
 cache:
   - C:\RLibrary
+  # To fix "different internals" error.
+  - packages -> appveyor.yml
