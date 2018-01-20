@@ -40,7 +40,7 @@ missingness_indicators = function(data, prefix = "miss_",
                                   verbose = F) {
 
   # First restrict to columns that have NAs. This is a major speedup.
-  any_nas = which(sapply(data[!colnames(data) %in% skip_vars],
+  any_nas = which(sapply(data[, !colnames(data) %in% skip_vars, drop = FALSE],
                          function(col) anyNA(col)))
 
   if (verbose) {

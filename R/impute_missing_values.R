@@ -209,7 +209,7 @@ impute_missing_values =
     # Create missingness indicators from original dataframe.
     # This already incorporates the skip_vars argument via "any_nas".
     missing_indicators =
-      missingness_indicators(data[, any_nas], prefix = prefix,
+      missingness_indicators(data[, any_nas, drop = FALSE], prefix = prefix,
                              remove_constant = remove_constant,
                              remove_collinear = remove_collinear,
                              verbose = verbose)
