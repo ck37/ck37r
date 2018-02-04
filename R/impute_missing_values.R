@@ -151,10 +151,10 @@ impute_missing_values =
       } else if (col_class %in% c("factor")) {
         # Impute factors to the mode.
         # Choose the first mode in case of ties.
-        impute_value = Mode(data[[i]])[1]
+        impute_value = Mode(data[[i]], exclude_na = TRUE)[1]
       } else if (col_class %in% c("integer", "numeric", "logical", "labelled")) {
         # Impute numeric values to the median.
-        impute_value = median(data[[i]], na.rm = T)
+        impute_value = median(data[[i]], na.rm = TRUE)
       } else {
         warning(paste(colname,
                       "should be numeric or factor type. But its class is",

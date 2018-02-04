@@ -4,10 +4,12 @@
 \alias{Mode}
 \title{Compute the mode of a vector (can be multiple results).}
 \usage{
-Mode(x)
+Mode(x, exclude_na = TRUE)
 }
 \arguments{
 \item{x}{vector}
+
+\item{exclude_na}{Exclude NA from being a possible mode.}
 }
 \value{
 Vector of modal values in arbitrary order.

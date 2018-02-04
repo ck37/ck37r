@@ -22,6 +22,8 @@ for use when scoring a model to a larger dataset.
 
 * get_java_memory() - get maximum memory allocated to a rJava JVM.
 
+* Mode - option to not choose NA as a mode, set TRUE by default.
+
 ### Bug fixes
 
 * impute_missing_values - fixed important bug where incorrect column indices could be used when skip_vars was not blank.
