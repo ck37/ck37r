@@ -1,16 +1,26 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-ck37r
-=====
 
-[![Build Status](https://travis-ci.org/ck37/ck37r.svg?branch=master)](https://travis-ci.org/ck37/ck37r) [![Build Status: appveyor](https://ci.appveyor.com/api/projects/status/github/ck37/ck37r?branch=master&svg=true)](https://ci.appveyor.com/project/ck37/ck37r/history) [![codecov](https://codecov.io/gh/ck37/ck37r/branch/master/graph/badge.svg)](https://codecov.io/gh/ck37/ck37r) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ck37r)](https://cran.r-project.org/package=ck37r)
+# ck37r
 
-My R toolkit for organizing analysis projects, cleaning data for machine learning, parallelizing code for multiple cores or in a SLURM cluster, and extended functionality for [SuperLearner](http://github.com/ecpolley/SuperLearner) and [TMLE](github.com/cran/tmle). Some of the SuperLearner functions may eventually be migrated into the SuperLearner package.
+[![Build
+Status](https://travis-ci.org/ck37/ck37r.svg?branch=master)](https://travis-ci.org/ck37/ck37r)
+[![Build Status:
+appveyor](https://ci.appveyor.com/api/projects/status/github/ck37/ck37r?branch=master&svg=true)](https://ci.appveyor.com/project/ck37/ck37r/history)
+[![codecov](https://codecov.io/gh/ck37/ck37r/branch/master/graph/badge.svg)](https://codecov.io/gh/ck37/ck37r)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ck37r)](https://cran.r-project.org/package=ck37r)
 
-Installation
-------------
+My R toolkit for organizing analysis projects, cleaning data for machine
+learning, parallelizing code for multiple cores or in a SLURM cluster,
+and extended functionality for
+[SuperLearner](http://github.com/ecpolley/SuperLearner) and
+[TMLE](github.com/cran/tmle). Some of the SuperLearner functions may
+eventually be migrated into the SuperLearner package.
 
-Install the [latest release from CRAN](https://cran.r-project.org/package=ck37r):
+## Installation
+
+Install the [latest release from
+CRAN](https://cran.r-project.org/package=ck37r):
 
 ``` r
 install.packages("ck37r") 
@@ -23,44 +33,74 @@ Install the development version from github:
 devtools::install_github("ck37/ck37r")
 ```
 
-Functions
----------
+## Functions
 
--   **Project Utilities**
-    -   `import_csvs` - import all CSV files in a given directory.
-    -   `load_all_code` - source() all R files in a given directory.
-    -   `load_packages` - load a list of packages; for the ones that fail it can attempt to install them automatically from CRAN, then load them again.
--   **Machine Learning**
-    -   `categoricals_to_factors` - convert numeric categoricals into factors.
-    -   `factors_to_indicators` - convert all factors in a dataframe to series of indicators (one-hot encoding).
-    -   `impute_missing_values` - impute missing values in a dataframe (median for numerics and mode for factors; or k-nearest neighbors), add missingness indicators.
-    -   `missingness_indicators` - return a matrix of missingness indicators for a dataframe, (optionally) omitting any constant or collinear columns.
-    -   `rf_count_terminal_nodes` - count the number of terminal nodes in each tree in a random forest. That information can then be used to grid-search the maximum number of nodes allowed in a Random Forest (along with mtry).
-    -   `standardize` - standardize a dataset (center, scale), optionally omitting certain variables.
--   **Parallelization**
-    -   `parallelize` - starts a multicore or multinode parallel cluster. Automatically detects parallel nodes in a SLURM environment, which makes code work seemlessly on a laptop or a cluster.
-    -   `stop_cluster` - stops a cluster started by `parallelize()`.
--   **SuperLearner**
-    -   `auc_table` - table of cross-validated AUCs for each learner in an ensemble, including SE, CI, and p-value. Supports SuperLearner and CV.SuperLearner objects.
-    -   `gen_superlearner` - create a SuperLearner and CV.SuperLearner function setup to transparently use a certain parallelization configuration.
-    -   `cvsl_weights` - table of the meta-weight distribution for each learner in a CV.SuperLearner analysis.
-    -   `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
-    -   `plot_roc` - ROC plot with AUC and CI for a SuperLearner or CV.SuperLearner object.
-    -   `plot.SuperLearner` - plot risk estimates and CIs for a SuperLearner, similar to CV.Superlearner except without SL or Discrete SL.
-    -   `sl_stderr` - calculate standard error for each learner's risk in SL.
-    -   `SL.h2o_auto()` - wrapper for h2o's automatic machine learning system, to be added to SuperLearner.
-    -   `SL.bartMachine2()` - wrapper for bartMachine, to be added to SuperLearner.
--   **TMLE**
-    -   `tmle_parallel` - allows the SuperLearner estimation in TMLE to be customized, esp. to support parallel estimation via mcSuperLearner and snowSuperLearner.
-    -   `setup_parallel_tmle` - helper function to start a cluster and setup SuperLearner and tmle\_parallel to use the created cluster.
--   **h2o**
-    -   `h2o_init_multinode()` - function to start an h2o cluster on multiple nodes from within R, intended for use on SLURM or other multi-node clusters.
--   **Misc**
-    -   `set_java_memory()` - set rJava's maximum memory usage.
-    -   `get_java_memory()` - get rJava's maximum allocated memory.
+  - **Project Utilities**
+      - `import_csvs` - import all CSV files in a given directory.
+      - `load_all_code` - source() all R files in a given directory.
+      - `load_packages` - load a list of packages; for the ones that
+        fail it can attempt to install them automatically from CRAN,
+        then load them again.
+  - **Machine Learning**
+      - `categoricals_to_factors` - convert numeric categoricals into
+        factors.
+      - `factors_to_indicators` - convert all factors in a dataframe to
+        series of indicators (one-hot encoding).
+      - `impute_missing_values` - impute missing values in a dataframe
+        (median for numerics and mode for factors; or k-nearest
+        neighbors), add missingness indicators.
+      - `missingness_indicators` - return a matrix of missingness
+        indicators for a dataframe, (optionally) omitting any constant
+        or collinear columns.
+      - `rf_count_terminal_nodes` - count the number of terminal nodes
+        in each tree in a random forest. That information can then be
+        used to grid-search the maximum number of nodes allowed in a
+        Random Forest (along with mtry).
+      - `standardize` - standardize a dataset (center, scale),
+        optionally omitting certain variables.
+  - **Parallelization**
+      - `parallelize` - starts a multicore or multinode parallel
+        cluster. Automatically detects parallel nodes in a SLURM
+        environment, which makes code work seemlessly on a laptop or a
+        cluster.
+      - `stop_cluster` - stops a cluster started by `parallelize()`.
+  - **SuperLearner**
+      - `auc_table` - table of cross-validated AUCs for each learner in
+        an ensemble, including SE, CI, and p-value. Supports
+        SuperLearner and CV.SuperLearner objects.
+      - `gen_superlearner` - create a SuperLearner and CV.SuperLearner
+        function setup to transparently use a certain parallelization
+        configuration.
+      - `cvsl_weights` - table of the meta-weight distribution for each
+        learner in a CV.SuperLearner analysis.
+      - `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
+      - `plot_roc` - ROC plot with AUC and CI for a SuperLearner or
+        CV.SuperLearner object.
+      - `plot.SuperLearner` - plot risk estimates and CIs for a
+        SuperLearner, similar to CV.Superlearner except without SL or
+        Discrete SL.
+      - `sl_stderr` - calculate standard error for each learner’s risk
+        in SL.
+      - `SL.h2o_auto()` - wrapper for h2o’s automatic machine learning
+        system, to be added to SuperLearner.
+      - `SL.bartMachine2()` - wrapper for bartMachine, to be added to
+        SuperLearner.
+  - **TMLE**
+      - `tmle_parallel` - allows the SuperLearner estimation in TMLE to
+        be customized, esp. to support parallel estimation via
+        mcSuperLearner and snowSuperLearner.
+      - `setup_parallel_tmle` - helper function to start a cluster and
+        setup SuperLearner and tmle\_parallel to use the created
+        cluster.
+  - **h2o**
+      - `h2o_init_multinode()` - function to start an h2o cluster on
+        multiple nodes from within R, intended for use on SLURM or other
+        multi-node clusters.
+  - **Misc**
+      - `set_java_memory()` - set rJava’s maximum memory usage.
+      - `get_java_memory()` - get rJava’s maximum allocated memory.
 
-Examples
---------
+## Examples
 
 ### Impute missing values
 
@@ -105,14 +145,15 @@ colSums(is.na(result2$data))
 
 ### Load packages
 
-This loads a vector of packages, automatically installing any packages that aren't already installed.
+This loads a vector of packages, automatically installing any packages
+that aren’t already installed.
 
 ``` r
 # Load these 4 packages and install them if necessary.
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
 #> Super Learner
-#> Version: 2.0-23-9000
-#> Package created on 2017-11-07
+#> Version: 2.0-22
+#> Package created on 2017-07-18
 #> Welcome to the tmle package, version 1.2.0-5
 #> 
 #> Use tmleNews() to see details on changes and bug fixes
@@ -213,7 +254,8 @@ result = run_tmle(Y = Y, A = A, W = W, family = "binomial",
 
 ### SuperLearner AUC Table
 
-This will return an AUC table for all learners. It does not include Discrete SL or SuperLearner as those require CV.SuperLearner.
+This will return an AUC table for all learners. It does not include
+Discrete SL or SuperLearner as those require CV.SuperLearner.
 
 ``` r
 library(SuperLearner)
@@ -235,7 +277,9 @@ auc_table(sl, y = Boston$chas)
 
 ### SuperLearner plot of risk estimates
 
-This is similar to CV.SuperLearner's plot except SuperLearner cannot estimate risk for the Discrete SL and SuperLearner, so those must be omitted here.
+This is similar to CV.SuperLearner’s plot except SuperLearner cannot
+estimate risk for the Discrete SL and SuperLearner, so those must be
+omitted here.
 
 ``` r
 library(SuperLearner)
@@ -261,7 +305,7 @@ sl
 plot(sl, y = Boston$chas)
 ```
 
-![](images/README-plot.sl-1.png)
+![](images/README-plot.sl-1.png)<!-- -->
 
 ### SuperLearner ROC plot
 
@@ -291,7 +335,7 @@ sl
 plot_roc(sl, y = Boston$chas)
 ```
 
-![](images/README-sl_plot_roc-1.png)
+![](images/README-sl_plot_roc-1.png)<!-- -->
 
 ### CV.SuperLearner AUC
 
@@ -325,7 +369,8 @@ cvsl_auc(cvsl)
 
 ### CV.SuperLearner AUC table
 
-This will return an AUC table for all learners, plus DiscreteSL and the SuperLearner.
+This will return an AUC table for all learners, plus DiscreteSL and the
+SuperLearner.
 
 ``` r
 library(SuperLearner)
@@ -366,11 +411,14 @@ cvsl = CV.SuperLearner(Y = y,
 plot_roc(cvsl, y = y)
 ```
 
-![](images/README-cvsl_plot_roc-1.png)
+![](images/README-cvsl_plot_roc-1.png)<!-- -->
 
 ### CV.SuperLearner weight table
 
-Returns summary statistics (mean, sd, min, max) on the distribution of the weights assigned to each learner across SuperLearner ensembles. This makes it easier to understand the stochastic nature of the SL learner weights and to see how often certain learners are used.
+Returns summary statistics (mean, sd, min, max) on the distribution of
+the weights assigned to each learner across SuperLearner ensembles. This
+makes it easier to understand the stochastic nature of the SL learner
+weights and to see how often certain learners are used.
 
 ``` r
 library(SuperLearner)
@@ -392,21 +440,34 @@ cvsl_weights(cvsl)
 
 More examples to be added.
 
-References
-----------
+## References
 
 Breiman, L. (2001). Random forests. Machine learning, 45(1), 5-32.
 
-Dudoit, S., & van der Laan, M. J. (2005). Asymptotics of cross-validated risk estimation in estimator selection and performance assessment. Statistical Methodology, 2(2), 131-154.
+Dudoit, S., & van der Laan, M. J. (2005). Asymptotics of cross-validated
+risk estimation in estimator selection and performance assessment.
+Statistical Methodology, 2(2), 131-154.
 
-LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally efficient confidence intervals for cross-validated area under the ROC curve estimates. Electronic journal of statistics, 9(1), 1583.
+LeDell, E., Petersen, M., & van der Laan, M. (2015). Computationally
+efficient confidence intervals for cross-validated area under the ROC
+curve estimates. Electronic journal of statistics, 9(1), 1583.
 
-Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C. Berkeley Division of Biostatistics Working Paper Series. Paper 226. <http://biostats.bepress.com/ucbbiostat/paper266/>
+Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C.
+Berkeley Division of Biostatistics Working Paper Series. Paper 226.
+<http://biostats.bepress.com/ucbbiostat/paper266/>
 
-Sing, T., Sander, O., Beerenwinkel, N., & Lengauer, T. (2005). ROCR: visualizing classifier performance in R. Bioinformatics, 21(20), 3940-3941.
+Sing, T., Sander, O., Beerenwinkel, N., & Lengauer, T. (2005). ROCR:
+visualizing classifier performance in R. Bioinformatics, 21(20),
+3940-3941.
 
-van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner. Statistical Applications of Genetics and Molecular Biology, 6, article 25. <http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml>
+van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super
+Learner. Statistical Applications of Genetics and Molecular Biology, 6,
+article 25.
+<http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml>
 
-van der Laan, M. J., & Rose, S. (2011). Targeted learning: causal inference for observational and experimental data. Springer Science & Business Media.
+van der Laan, M. J., & Rose, S. (2011). Targeted learning: causal
+inference for observational and experimental data. Springer Science &
+Business Media.
 
-van der Laan, M. J., & Rubin, D. (2006). Targeted Maximum Likelihood Learning. The International Journal of Biostatistics, 2(1), 1-38.
+van der Laan, M. J., & Rubin, D. (2006). Targeted Maximum Likelihood
+Learning. The International Journal of Biostatistics, 2(1), 1-38.
