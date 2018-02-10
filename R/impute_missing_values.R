@@ -152,7 +152,7 @@ impute_missing_values =
         # Impute factors to the mode.
         # Choose the first mode in case of ties.
         impute_value = Mode(data[[i]], exclude_na = TRUE)[1]
-      } else if (col_class %in% c("integer", "numeric", "logical", "labelled")) {
+      } else if (col_class %in% c("integer", "numeric", "logical", "labelled", "integer64")) {
         # Impute numeric values to the median.
         impute_value = median(data[[i]], na.rm = TRUE)
       } else {
