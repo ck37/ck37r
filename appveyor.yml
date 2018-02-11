@@ -49,8 +49,11 @@ environment:
   matrix:
   # Test with 3 versions of R.
     - R_VERSION: release
-    - R_VERSION: devel
     - R_VERSION: stable
+    # - R_VERSION: devel
+
+matrix:
+  fast_finish: true
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
