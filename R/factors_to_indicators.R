@@ -98,8 +98,8 @@ factors_to_indicators =
 
   #browser()
 
-  # cbind all new columns into data frame.
-  data = do.call(cbind, c(list(data), results))
+  # cbind all new columns into data frame; skip any elements that are NULL.
+  data = do.call(cbind, c(list(data), results[!sapply(results, is.null)]))
 
   # Compile new factor names into a new vector (all_factor_names)
   all_factor_names = sapply(results, colnames)

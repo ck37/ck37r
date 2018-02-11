@@ -26,3 +26,4 @@ categoricals
 data$single_level = as.factor(1)
 
 results = factors_to_indicators(data, verbose = T)
+names(results)
