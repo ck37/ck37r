@@ -2,12 +2,15 @@
 #'
 #' @description Turns factors into indicator variables with reasonable names.
 #'
+#' Supports parallelization using \code{future} plans.
+#'
 #' Based on code by Taylor Terry from 2013.
 #'
 #' @param data .
 #' @param predictors .
 #' @param verbose TBD
 #' @importFrom stats model.matrix
+#' @importFrom future.apply future_lapply
 #' @export
 factors_to_indicators =
   function(data, predictors = colnames(data), verbose = F) {
@@ -22,25 +25,24 @@ factors_to_indicators =
 
   all_factor_names = c()
 
-  for (i in factor_names) {
+  # TODO: run in parallel, compile as a list, then do a single cbind at the end.
+  # for (i in factor_names) {
+  results = future_lapply(factor_names, future.seed = TRUE, function(factor_i) {
     if (verbose) {
-      cat("Converting", i, "from a factor to a matrix.\n")
+      cat("Converting", factor_i, "from a factor to a matrix.\n")
     }
 
     # First, convert it again to a factor because this will drop unused levels.
-    data[[i]] = factor(data[[i]])
+    factor_data = factor(data[[factor_i]])
 
     # If the factor has only one level we don't want to add it.
     # This should generally not be the case because we should have already
     # removed single-value (zero variation) columns.
-    if (length(levels(data[[i]])) == 1) {
+    if (length(levels(factor_data)) == 1L) {
       if (verbose) {
-        cat("Skipping", i, "because it has only 1 level.\n")
+        cat("Skipping", factor_i, "because it has only 1 level.\n")
       }
-      # Remove that column from the list of predictors.
-      predictors = predictors[!predictors == i]
-      data[[i]] = NULL
-      next
+      return(NULL)
     }
 
     # Convert field to a single-column data frame.
@@ -54,45 +56,53 @@ factors_to_indicators =
       # reference level.
       # TODO: record the reference level for use on prediction data.
       # (see Win-Vector blog on this topic)
+      # TODO: use most common level as the reference level.
       # Convert to integers rather than numerics, for possible memory savings.
-      mat = model.matrix(~ factor(data[[i]]))
+      mat = model.matrix(~ factor(factor_data))
       # Convert to integer to save memory.
       mode(mat) = "integer"
 
-      col_df = as.data.frame(mat)
+      col_df = mat
+
+      #col_df = as.data.frame(mat)
     }, error = function(e) {
       print(e)
     })
 
     # Now remove the intercept column.
-    col_df[1] = NULL
+    #col_df[1] = NULL
+    col_df = col_df[, -1]
 
     # Clean up indicator names.
     indicator_names = gsub(pattern = "factor.*\\)",
-                           replacement = paste0(i, "_"), colnames(col_df))
+                           replacement = paste0(factor_i, "_"), colnames(col_df))
 
     # Replace spaces and hyphens with underscores, and convert to lowercase.
     indicator_names = tolower(gsub(pattern = "[ -]", replacement = "_",
-                                   indicator_names, perl = T))
+                                   indicator_names, perl = TRUE))
     if (verbose) {
       cat(":", indicator_names, "\n")
     }
     colnames(col_df)  = indicator_names
-    all_factor_names = c(all_factor_names, indicator_names)
 
-    # This is the slow step, but it's still plenty fast for our purposes.
-    # TODO: can we assign by reference in a data.table to speed this up?
-    data = cbind(data, col_df)
+    # Return the dataframe for this factor.
+    col_df
+  })
 
-    # We want the deletion to happen after we've successfully cbound, in case of
-    # error.
-    data[[i]] = NULL
+  # Remove columns from the list of predictors.
+  predictors = setdiff(predictors, factor_names)
 
-    rm(col_df)
+  # Remove original factor columns from the dataframe.
+  data = subset(data, select = setdiff(colnames(data), factor_names))
+  #data = data[ , -c(factor_names), with = FALSE]
 
-    # Remove that column from the list of predictors.
-    predictors = predictors[!predictors == i]
-  }
+  #browser()
+
+  # cbind all new columns into data frame.
+  data = do.call(cbind, c(list(data), results))
+
+  # Compile new factor names into a new vector (all_factor_names)
+  all_factor_names = sapply(results, colnames)
 
   # Append factor names to the names of the predictors.
   predictors = c(predictors, all_factor_names)

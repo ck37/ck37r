@@ -16,5 +16,7 @@ factors_to_indicators(data, predictors = colnames(data), verbose = F)
 \description{
 Turns factors into indicator variables with reasonable names.
 
+Supports parallelization using \code{future} plans.
+
 Based on code by Taylor Terry from 2013.
 }

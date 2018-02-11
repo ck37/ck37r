@@ -20,6 +20,7 @@ Imports:
     doParallel,
     doSNOW,
     foreach,
+    future.apply,
     ggplot2,
     h2o,
     methods,
