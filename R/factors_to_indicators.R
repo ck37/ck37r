@@ -54,7 +54,12 @@ factors_to_indicators =
       # reference level.
       # TODO: record the reference level for use on prediction data.
       # (see Win-Vector blog on this topic)
-      col_df = as.data.frame(model.matrix(~ factor(data[[i]])))
+      # Convert to integers rather than numerics, for possible memory savings.
+      mat = model.matrix(~ factor(data[[i]]))
+      # Convert to integer to save memory.
+      mode(mat) = "integer"
+
+      col_df = as.data.frame(mat)
     }, error = function(e) {
       print(e)
     })
@@ -76,6 +81,7 @@ factors_to_indicators =
     all_factor_names = c(all_factor_names, indicator_names)
 
     # This is the slow step, but it's still plenty fast for our purposes.
+    # TODO: can we assign by reference in a data.table to speed this up?
     data = cbind(data, col_df)
 
     # We want the deletion to happen after we've successfully cbound, in case of
