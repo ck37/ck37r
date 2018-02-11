@@ -34,10 +34,10 @@
 #'
 #' @export
 missingness_indicators = function(data, prefix = "miss_",
-                                  remove_constant = T,
-                                  remove_collinear = T,
+                                  remove_constant = TRUE,
+                                  remove_collinear = TRUE,
                                   skip_vars = c(),
-                                  verbose = F) {
+                                  verbose = FALSE) {
 
   # First restrict to columns that have NAs. This is a major speedup.
   any_nas = which(sapply(data[, !colnames(data) %in% skip_vars, drop = FALSE],
@@ -49,11 +49,11 @@ missingness_indicators = function(data, prefix = "miss_",
 
   # Create indicator matrix. Much faster than an sapply.
   # But would this be faster? matrix(as.integer(is.na(data[, any_nas, drop = F])), dim(data))
-  indicators = 1 * is.na(data[, any_nas, drop = F])
+  indicators = 1L * is.na(data[, any_nas, drop = FALSE])
 
   # Make sure we have any indicators at all.
   if (length(any_nas) > 0) {
-    colnames(indicators) = paste0(prefix, colnames(data[, any_nas, drop = F]))
+    colnames(indicators) = paste0(prefix, colnames(data[, any_nas, drop = FALSE]))
   }
 
   # Remove any indicators that are all 0 or all 1.
@@ -68,7 +68,7 @@ missingness_indicators = function(data, prefix = "miss_",
     }
     # Set drop = F to ensure we don't convert to a vector when
     # only one column remains.
-    indicators = indicators[, !col_means %in% c(0, 1), drop = F]
+    indicators = indicators[, !col_means %in% c(0, 1), drop = FALSE]
   }
 
   # Remove any collinear indicators.
@@ -82,7 +82,7 @@ missingness_indicators = function(data, prefix = "miss_",
 
     remove_columns = linear_combos$remove
 
-    if (length(linear_combos$remove) > 0) {
+    if (length(linear_combos$remove) > 0L) {
       if (verbose) {
         cat("Removing", length(linear_combos$remove),
             "indicators due to collinearity:\n")
@@ -91,7 +91,7 @@ missingness_indicators = function(data, prefix = "miss_",
       }
 
       # Make sure we don't switch to a vector if only 1 column remains.
-      indicators = indicators[, -linear_combos$remove, drop = F]
+      indicators = indicators[, -linear_combos$remove, drop = FALSE]
     }
   }
 
