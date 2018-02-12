@@ -25,5 +25,5 @@ categoricals
 # Add a factor variable with a single value; it should be removed.
 data$single_level = as.factor(1)
 
-results = factors_to_indicators(data, verbose = T)
+results = factors_to_indicators(data, verbose = TRUE)
 names(results)

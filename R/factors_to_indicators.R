@@ -28,17 +28,22 @@ factors_to_indicators =
   # TODO: run in parallel, compile as a list, then do a single cbind at the end.
   # for (i in factor_names) {
   results = future_lapply(factor_names, future.seed = TRUE, function(factor_i) {
-    if (verbose) {
-      cat("Converting", factor_i, "from a factor to a matrix.\n")
-    }
 
     # First, convert it again to a factor because this will drop unused levels.
     factor_data = factor(data[[factor_i]])
 
+    # Show user how many factor levels there are.
+    total_levels = length(levels(factor_data))
+
+    if (verbose) {
+      cat("Converting", factor_i, "from a factor to a matrix",
+          paste0("(", total_levels, " levels).\n"))
+    }
+
     # If the factor has only one level we don't want to add it.
     # This should generally not be the case because we should have already
     # removed single-value (zero variation) columns.
-    if (length(levels(factor_data)) == 1L) {
+    if (total_levels == 1L) {
       if (verbose) {
         cat("Skipping", factor_i, "because it has only 1 level.\n")
       }
