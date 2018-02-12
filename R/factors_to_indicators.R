@@ -76,7 +76,7 @@ factors_to_indicators =
 
     # Now remove the intercept column.
     #col_df[1] = NULL
-    col_df = col_df[, -1]
+    col_df = col_df[, -1, drop = FALSE]
 
     # Clean up indicator names.
     indicator_names = gsub(pattern = "factor.*\\)",
