@@ -102,6 +102,9 @@ factors_to_indicators =
   #data = data[ , -c(factor_names), with = FALSE]
 
   #browser()
+  if (verbose) {
+    cat("Combining factor matrices into a data frame.\n")
+  }
 
   # cbind all new columns into data frame; skip any elements that are NULL.
   data = do.call(cbind, c(list(data), results[!sapply(results, is.null)]))
