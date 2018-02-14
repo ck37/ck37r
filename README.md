@@ -166,7 +166,8 @@ terminal nodes are in each decision tree. We take the maximum of that as
 the most data-adaptive Random Forest in terms of decision tree size,
 then compare to Random Forests in which they are restricted to have
 smaller decision trees. This allows the SuperLearner to explore under
-vs. over-fitting for a Random Forest.
+vs. over-fitting for a Random Forest. See Segal (2004) and Segal & Xiao
+(2011) for details on overfitting in Random Forests.
 
 ``` r
 library(SuperLearner)
@@ -456,6 +457,13 @@ curve estimates. Electronic journal of statistics, 9(1), 1583.
 Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C.
 Berkeley Division of Biostatistics Working Paper Series. Paper 226.
 <http://biostats.bepress.com/ucbbiostat/paper266/>
+
+Segal, M. R. (2004). Machine learning benchmarks and random forest
+regression.
+
+Segal, M., & Xiao, Y. (2011). Multivariate random forests. Wiley
+Interdisciplinary Reviews: Data Mining and Knowledge Discovery, 1(1),
+80-87.
 
 Sing, T., Sander, O., Beerenwinkel, N., & Lengauer, T. (2005). ROCR:
 visualizing classifier performance in R. Bioinformatics, 21(20),
