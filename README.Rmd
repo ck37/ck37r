@@ -117,6 +117,8 @@ load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TR
 
 ### Random Forest: count terminal nodes
 
+We estimate one standard Random Forest first and examine how many terminal nodes are in each decision tree. We take the maximum of that as the most data-adaptive Random Forest in terms of decision tree size, then compare to Random Forests in which they are restricted to have smaller decision trees. This allows the SuperLearner to explore under vs. over-fitting for a Random Forest.
+
 ```{r rf_count_terminal_nodes}
 library(SuperLearner)
 library(ck37r)
@@ -124,34 +126,29 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
-                  cvControl = list(V = 3),
-                  SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest"))
-
-sl
+(sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
+                  cvControl = list(V = 3L),
+                  SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest")))
 
 summary(rf_count_terminal_nodes(sl$fitLibrary$SL.randomForest_All$object))
 
-max_terminal_nodes = max(rf_count_terminal_nodes(sl$fitLibrary$SL.randomForest_All$object))
-
-max_terminal_nodes
+(max_terminal_nodes = max(rf_count_terminal_nodes(sl$fitLibrary$SL.randomForest_All$object)))
 
 # Now run create.Learner() based on that maximum.
 
 # It is often handy to convert to log scale of a hyperparameter before testing a ~linear grid.
-# NOTE: -0.7 ~ 0.69 ~ log(0.5) which is the multiplier that yields sqrt(max)
-maxnode_seq = unique(round(exp(log(max_terminal_nodes) * exp(c(-0.97, -0.7, -0.45, -0.15, 0)))))
-maxnode_seq
+# NOTE: -0.7 ~ log(0.5) which is the multiplier that yields sqrt(max)
+(maxnode_seq = unique(round(exp(log(max_terminal_nodes) * exp(c(-0.6, -0.35, -0.15, 0))))))
 
-rf = SuperLearner::create.Learner("SL.randomForest", detailed_names = T, name_prefix = "rf",
-                             params = list(ntree = 100), # fewer trees for testing speed only.
-                             tune = list(maxnodes = maxnode_seq))
+rf = create.Learner("SL.randomForest", detailed_names = TRUE,
+                    name_prefix = "rf",
+                    params = list(ntree = 100L), # fewer trees for testing speed only.
+                    tune = list(maxnodes = maxnode_seq))
 
-sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
-                  cvControl = list(V = 3),
-                  SL.library = c("SL.mean", "SL.glmnet", rf$names))
-
-sl
+# We see that an RF with simpler decision trees performs better than the default.
+(sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
+                  cvControl = list(V = 3L),
+                  SL.library = c("SL.mean", "SL.glmnet", rf$names)))
 ```
 
 ### Parallel TMLE

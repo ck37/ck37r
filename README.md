@@ -152,14 +152,21 @@ that aren’t already installed.
 # Load these 4 packages and install them if necessary.
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
 #> Super Learner
-#> Version: 2.0-22
-#> Package created on 2017-07-18
-#> Welcome to the tmle package, version 1.2.0-5
+#> Version: 2.0-23-9000
+#> Package created on 2017-11-29
+#> Welcome to the tmle package, version 1.2.0-6
 #> 
 #> Use tmleNews() to see details on changes and bug fixes
 ```
 
 ### Random Forest: count terminal nodes
+
+We estimate one standard Random Forest first and examine how many
+terminal nodes are in each decision tree. We take the maximum of that as
+the most data-adaptive Random Forest in terms of decision tree size,
+then compare to Random Forests in which they are restricted to have
+smaller decision trees. This allows the SuperLearner to explore under
+vs. over-fitting for a Random Forest.
 
 ``` r
 library(SuperLearner)
@@ -168,21 +175,19 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
-                  cvControl = list(V = 3),
-                  SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest"))
+(sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
+                  cvControl = list(V = 3L),
+                  SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest")))
 #> Loading required package: glmnet
 #> Loading required package: Matrix
 #> Loaded glmnet 2.0-13
 #> Loading required package: randomForest
 #> randomForest 4.6-12
 #> Type rfNews() to see new features/changes/bug fixes.
-
-sl
 #> 
 #> Call:  
 #> SuperLearner(Y = Boston$medv, X = subset(Boston, select = -medv), family = gaussian(),  
-#>     SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest"), cvControl = list(V = 3)) 
+#>     SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest"), cvControl = list(V = 3L)) 
 #> 
 #> 
 #> 
@@ -195,43 +200,39 @@ summary(rf_count_terminal_nodes(sl$fitLibrary$SL.randomForest_All$object))
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 #>   125.0   163.0   166.5   166.1   170.0   189.0
 
-max_terminal_nodes = max(rf_count_terminal_nodes(sl$fitLibrary$SL.randomForest_All$object))
-
-max_terminal_nodes
+(max_terminal_nodes = max(rf_count_terminal_nodes(sl$fitLibrary$SL.randomForest_All$object)))
 #> [1] 189
 
 # Now run create.Learner() based on that maximum.
 
 # It is often handy to convert to log scale of a hyperparameter before testing a ~linear grid.
-# NOTE: -0.7 ~ 0.69 ~ log(0.5) which is the multiplier that yields sqrt(max)
-maxnode_seq = unique(round(exp(log(max_terminal_nodes) * exp(c(-0.97, -0.7, -0.45, -0.15, 0)))))
-maxnode_seq
-#> [1]   7  14  28  91 189
+# NOTE: -0.7 ~ log(0.5) which is the multiplier that yields sqrt(max)
+(maxnode_seq = unique(round(exp(log(max_terminal_nodes) * exp(c(-0.6, -0.35, -0.15, 0))))))
+#> [1]  18  40  91 189
 
-rf = SuperLearner::create.Learner("SL.randomForest", detailed_names = T, name_prefix = "rf",
-                             params = list(ntree = 100), # fewer trees for testing speed only.
-                             tune = list(maxnodes = maxnode_seq))
+rf = create.Learner("SL.randomForest", detailed_names = TRUE,
+                    name_prefix = "rf",
+                    params = list(ntree = 100L), # fewer trees for testing speed only.
+                    tune = list(maxnodes = maxnode_seq))
 
-sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
-                  cvControl = list(V = 3),
-                  SL.library = c("SL.mean", "SL.glmnet", rf$names))
-
-sl
+# We see that an RF with simpler decision trees performs better than the default.
+(sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
+                  cvControl = list(V = 3L),
+                  SL.library = c("SL.mean", "SL.glmnet", rf$names)))
 #> 
 #> Call:  
 #> SuperLearner(Y = Boston$medv, X = subset(Boston, select = -medv), family = gaussian(),  
-#>     SL.library = c("SL.mean", "SL.glmnet", rf$names), cvControl = list(V = 3)) 
+#>     SL.library = c("SL.mean", "SL.glmnet", rf$names), cvControl = list(V = 3L)) 
 #> 
 #> 
 #> 
 #>                   Risk      Coef
 #> SL.mean_All   84.61301 0.0000000
-#> SL.glmnet_All 24.34666 0.0000000
-#> rf_7_All      19.14433 0.0000000
-#> rf_14_All     14.05414 0.0000000
-#> rf_28_All     12.31980 0.0000000
-#> rf_91_All     10.69819 0.5745715
-#> rf_189_All    10.81954 0.4254285
+#> SL.glmnet_All 24.34952 0.0000000
+#> rf_18_All     13.38670 0.0000000
+#> rf_40_All     10.91637 0.1342118
+#> rf_91_All     10.41000 0.8657882
+#> rf_189_All    10.89169 0.0000000
 ```
 
 ### Parallel TMLE
