@@ -27,7 +27,6 @@ Imports:
     parallel,
     pryr,
     randomForest,
-    rJava,
     RANN,
     reader,
     RhpcBLASctl,
@@ -35,7 +34,8 @@ Imports:
     snow,
     stringr,
     SuperLearner,
-    tmle
+    tmle,
+    weights,
 Suggests:
     bartMachine,
     data.table,
@@ -48,6 +48,7 @@ Suggests:
     mgcv,
     microbenchmark,
     mlbench,
+    rJava,
     slam,
     testthat,
     xgboost
