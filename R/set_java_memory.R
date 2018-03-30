@@ -5,7 +5,6 @@
 #' @param memory Amount of memory to allocate to rJava, e.g. "4g".
 #' @param verbose If TRUE display more detailed output during execution.
 #'
-#' @importFrom rJava .jcall .jnew
 #' @examples
 #'
 #' # Set java maximum memory usage to 4 GB.
@@ -13,6 +12,14 @@
 #'
 #' @export
 set_java_memory = function(memory = NULL, verbose = FALSE) {
+  # Confirm that rJava is installed.
+  # TODO: confirm that this doesn't initialize java, which would make this
+  # function useless.
+  if (!requireNamespace("rJava", quietly = TRUE)) {
+    cat("rJava not installed, doing nothing.\n")
+    return(NA)
+  }
+
   # TODO: check if rJava is already loaded, in which case this is too late.
   if (!rJava:::.need.init()) {
     warning("rJava has already been loaded, allocated memory cannot be modified.")
@@ -24,5 +31,4 @@ set_java_memory = function(memory = NULL, verbose = FALSE) {
     }
     options(java.parameters = paste0("-Xmx", memory))
   }
-
 }

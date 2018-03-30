@@ -12,6 +12,12 @@
 #'
 #' @export
 get_java_memory = function(verbose = FALSE) {
+  # Confirm that rJava is installed.
+  if (!requireNamespace("rJava", quietly = TRUE)) {
+    cat("rJava not installed, doing nothing.\n")
+    return(NA)
+  }
+
   if (rJava:::.need.init()) {
     # Java has not yet been initialized.
     return(NA)
