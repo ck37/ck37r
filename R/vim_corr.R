@@ -1,3 +1,13 @@
+#' Correlation analysis
+#'
+#' Examine variables most correlated with the outcome.
+#'
+#' @param covariates Character vector listing the covariates to analyze.
+#' @param data Dataframe of covariates and outcome.
+#' @param outcome Outcome variable, assumed binary.
+#' @param weights Optional observation weight vector.
+#' @param bootse Whether bootstrap standard errors should be used for inference.
+#' @param verbose If TRUE display extra information.
 #' @export
 # This assumes outcome is a binary variable.
 vim_corr =
