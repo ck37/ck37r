@@ -8,12 +8,14 @@
 #'
 #' @param data .
 #' @param predictors .
+#' @param max_levels If a factor contains more than this many levels, issue
+#' a warning and don't convert it to indicators.
 #' @param verbose TBD
 #' @importFrom stats model.matrix
 #' @importFrom future.apply future_lapply
 #' @export
 factors_to_indicators =
-  function(data, predictors = colnames(data), verbose = F) {
+  function(data, predictors = colnames(data), max_levels = 200L, verbose = FALSE) {
 
   # TODO: Check type of data and stop() early to save time.
 
@@ -38,6 +40,14 @@ factors_to_indicators =
     if (verbose) {
       cat("Converting", factor_i, "from a factor to a matrix",
           paste0("(", total_levels, " levels).\n"))
+    }
+
+    if (total_levels > max_levels) {
+      msg = paste(factor_i, "has too many levels",
+              paste0("(", total_levels, "),"), "skipping conversion.")
+      if (verbose) cat(msg, "\n")
+      warning(msg)
+      return(NULL)
     }
 
     # If the factor has only one level we don't want to add it.
@@ -95,6 +105,8 @@ factors_to_indicators =
   })
 
   # Remove columns from the list of predictors.
+  # TODO: don't remove columns that were skipped due to having too
+  # many levels.
   predictors = setdiff(predictors, factor_names)
 
   # Remove original factor columns from the dataframe.

@@ -4,12 +4,16 @@
 \alias{factors_to_indicators}
 \title{Convert factors to indicator variables.}
 \usage{
-factors_to_indicators(data, predictors = colnames(data), verbose = F)
+factors_to_indicators(data, predictors = colnames(data), max_levels = 200L,
+  verbose = FALSE)
 }
 \arguments{
 \item{data}{.}
 
 \item{predictors}{.}
+
+\item{max_levels}{If a factor contains more than this many levels, issue
+a warning and don't convert it to indicators.}
 
 \item{verbose}{TBD}
 }
