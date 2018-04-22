@@ -201,24 +201,29 @@ impute_missing_values =
   }
 
   if (add_indicators) {
-    # Append indicators.
-    if (verbose) {
-      cat("Generating missingness indicators.\n")
+
+    # First check if we have any indicators to add.
+    if (length(any_nas) > 0L) {
+
+      # Append indicators.
+      if (verbose) {
+        cat("Generating missingness indicators.\n")
+      }
+
+      # Create missingness indicators from original dataframe.
+      # This already incorporates the skip_vars argument via "any_nas".
+      missing_indicators =
+        missingness_indicators(data[, any_nas, drop = FALSE], prefix = prefix,
+                               remove_constant = remove_constant,
+                               remove_collinear = remove_collinear,
+                               verbose = verbose)
+
+      if (verbose) {
+        cat("Indicators added:", ncol(missing_indicators), "\n")
+      }
+
+      new_data = cbind(new_data, missing_indicators)
     }
-
-    # Create missingness indicators from original dataframe.
-    # This already incorporates the skip_vars argument via "any_nas".
-    missing_indicators =
-      missingness_indicators(data[, any_nas, drop = FALSE], prefix = prefix,
-                             remove_constant = remove_constant,
-                             remove_collinear = remove_collinear,
-                             verbose = verbose)
-
-    if (verbose) {
-      cat("Indicators added:", ncol(missing_indicators), "\n")
-    }
-
-    new_data = cbind(new_data, missing_indicators)
   }
 
   results$data = new_data
