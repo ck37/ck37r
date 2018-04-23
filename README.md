@@ -26,7 +26,7 @@ CRAN](https://cran.r-project.org/package=ck37r):
 install.packages("ck37r") 
 ```
 
-Install the development version from github:
+Install the development version from github (recommended):
 
 ``` r
 # install.packages("devtools")
@@ -152,9 +152,9 @@ that aren’t already installed.
 # Load these 4 packages and install them if necessary.
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
 #> Super Learner
-#> Version: 2.0-23-9000
-#> Package created on 2017-11-29
-#> Welcome to the tmle package, version 1.2.0-6
+#> Version: 2.0-23
+#> Package created on 2018-03-09
+#> Welcome to the tmle package, version 1.3.0-1
 #> 
 #> Use tmleNews() to see details on changes and bug fixes
 ```
@@ -181,9 +181,10 @@ set.seed(1)
                   SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest")))
 #> Loading required package: glmnet
 #> Loading required package: Matrix
-#> Loaded glmnet 2.0-13
+#> Loaded glmnet 2.0-16
 #> Loading required package: randomForest
-#> randomForest 4.6-12
+#> Warning: package 'randomForest' was built under R version 3.4.4
+#> randomForest 4.6-14
 #> Type rfNews() to see new features/changes/bug fixes.
 #> 
 #> Call:  
@@ -192,24 +193,24 @@ set.seed(1)
 #> 
 #> 
 #> 
-#>                         Risk        Coef
-#> SL.mean_All         84.81661 0.000000000
-#> SL.glmnet_All       24.98187 0.004386809
-#> SL.randomForest_All 12.31160 0.995613191
+#>                         Risk Coef
+#> SL.mean_All         84.81661    0
+#> SL.glmnet_All       25.05513    0
+#> SL.randomForest_All 12.35285    1
 
 summary(rf_count_terminal_nodes(sl$fitLibrary$SL.randomForest_All$object))
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   125.0   163.0   166.5   166.1   170.0   189.0
+#>   142.0   163.0   167.0   166.5   170.0   186.0
 
 (max_terminal_nodes = max(rf_count_terminal_nodes(sl$fitLibrary$SL.randomForest_All$object)))
-#> [1] 189
+#> [1] 186
 
 # Now run create.Learner() based on that maximum.
 
 # It is often handy to convert to log scale of a hyperparameter before testing a ~linear grid.
 # NOTE: -0.7 ~ log(0.5) which is the multiplier that yields sqrt(max)
 (maxnode_seq = unique(round(exp(log(max_terminal_nodes) * exp(c(-0.6, -0.35, -0.15, 0))))))
-#> [1]  18  40  91 189
+#> [1]  18  40  90 186
 
 rf = create.Learner("SL.randomForest", detailed_names = TRUE,
                     name_prefix = "rf",
@@ -228,12 +229,12 @@ rf = create.Learner("SL.randomForest", detailed_names = TRUE,
 #> 
 #> 
 #>                   Risk      Coef
-#> SL.mean_All   84.61301 0.0000000
-#> SL.glmnet_All 24.34952 0.0000000
-#> rf_18_All     13.38670 0.0000000
-#> rf_40_All     10.91637 0.1342118
-#> rf_91_All     10.41000 0.8657882
-#> rf_189_All    10.89169 0.0000000
+#> SL.mean_All   84.60985 0.0000000
+#> SL.glmnet_All 25.16622 0.0000000
+#> rf_18_All     16.29784 0.0000000
+#> rf_40_All     14.04267 0.0000000
+#> rf_90_All     13.17502 0.7733663
+#> rf_186_All    13.40373 0.2266337
 ```
 
 ### Parallel TMLE
@@ -318,12 +319,10 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Y = as.numeric(Boston$medv > 23),
+(sl = SuperLearner(Y = as.numeric(Boston$medv > 23),
                   X = subset(Boston, select = -medv),
                   family = binomial(),
-                  SL.library = c("SL.mean", "SL.glm"))
-
-sl
+                  SL.library = c("SL.mean", "SL.glm")))
 #> 
 #> Call:  
 #> SuperLearner(Y = as.numeric(Boston$medv > 23), X = subset(Boston, select = -medv),  

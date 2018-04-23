@@ -32,7 +32,7 @@ Install the [latest release from CRAN](https://cran.r-project.org/package=ck37r)
 install.packages("ck37r") 
 ```
 
-Install the development version from github:
+Install the development version from github (recommended):
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
@@ -217,12 +217,10 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Y = as.numeric(Boston$medv > 23),
+(sl = SuperLearner(Y = as.numeric(Boston$medv > 23),
                   X = subset(Boston, select = -medv),
                   family = binomial(),
-                  SL.library = c("SL.mean", "SL.glm"))
-
-sl
+                  SL.library = c("SL.mean", "SL.glm")))
 
 plot_roc(sl, y = Boston$chas)
 ```
