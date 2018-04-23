@@ -56,6 +56,7 @@ library(ck37r)
     * `missingness_indicators` - return a matrix of missingness indicators for a dataframe, (optionally) omitting any constant or collinear columns.
     * `rf_count_terminal_nodes` - count the number of terminal nodes in each tree in a random forest. That information can then be used to grid-search the maximum number of nodes allowed in a Random Forest (along with mtry).
     * `standardize` - standardize a dataset (center, scale), optionally omitting certain variables.
+    * `vim_corr` - rudimentary variable importance based on correlation with an outcome.
 - **Parallelization**
     * `parallelize` - starts a multicore or multinode parallel cluster. Automatically detects parallel nodes in a SLURM environment, which makes code work seemlessly on a laptop or a cluster.
     * `stop_cluster` - stops a cluster started by `parallelize()`.

@@ -58,6 +58,8 @@ devtools::install_github("ck37/ck37r")
         Random Forest (along with mtry).
       - `standardize` - standardize a dataset (center, scale),
         optionally omitting certain variables.
+      - `vim_corr` - rudimentary variable importance based on
+        correlation with an outcome.
   - **Parallelization**
       - `parallelize` - starts a multicore or multinode parallel
         cluster. Automatically detects parallel nodes in a SLURM
