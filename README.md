@@ -185,7 +185,6 @@ set.seed(1)
 #> Loading required package: Matrix
 #> Loaded glmnet 2.0-16
 #> Loading required package: randomForest
-#> Warning: package 'randomForest' was built under R version 3.4.4
 #> randomForest 4.6-14
 #> Type rfNews() to see new features/changes/bug fixes.
 #> 
