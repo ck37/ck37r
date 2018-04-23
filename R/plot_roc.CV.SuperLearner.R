@@ -130,12 +130,12 @@ plot_roc.CV.SuperLearner =
 
   # ggplot version.
   p = ggplot2::qplot(1 - methods::slot(perf1, "x.values")[[1]],
-                       methods::slot(perf1, "y.values")[[1]],
-                       xlab = "False positive % (1 - specificity)",
-                       ylab = "True positive % (sensitivity)",
-                       geom = "line",
-                       main = title) +
-          ggplot2::labs(subtitle = subtitle) +
+                     methods::slot(perf1, "y.values")[[1]],
+                     geom = "line",
+                     main = title) +
+          ggplot2::labs(subtitle = subtitle,
+                        x = "False positive % (1 - specificity)",
+                        y = "True positive % (sensitivity)") +
           ggplot2::theme_bw() +
           ggplot2::annotate("text", x = 0.63, y = 0.15, label = txt, size = 6) +
           ggplot2::annotate("segment", x = 0, xend = 1, y = 0, yend = 1)
