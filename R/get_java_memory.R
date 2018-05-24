@@ -25,7 +25,7 @@ get_java_memory = function(verbose = FALSE) {
 
   java_env = tryCatch(rJava::.jnew("java/lang/Runtime", check = FALSE, silent = TRUE))
 
-  found_memory = .jcall(java_env, "J", "maxMemory")
+  found_memory = rJava::.jcall(java_env, "J", "maxMemory")
 
   if (verbose) {
     cat("RAM allocated to rJava:", round((found_memory / 1e9), 2), "\n")
