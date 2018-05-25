@@ -112,8 +112,9 @@ vim_corr =
   # Add FDR-adjusted p-value.
   result$p_value_fdr = stats::p.adjust(result$p_value, "BH")
 
-  # Sort by p-value.
-  result = result[order(result$p_value), ]
+  # Sort ascending by p-value, then negative abs correlation - which results
+  # in largest abs correlations first (in case certain p-values tie, which does happen).
+  result = result[order(result$p_value, -abs(result$correlation)), ]
   result$rank = as.integer(rank(result$p_value))
 
   # Re-order columns.
