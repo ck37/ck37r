@@ -16,6 +16,7 @@ vim_corr =
            bootse = TRUE,
            verbose = FALSE) {
 
+  # TODO: parallelize via future.
   result = Reduce(rbind,
                   lapply(covariates, function(variable, data) {
 
@@ -31,7 +32,10 @@ vim_corr =
                     var_class = class(data[[variable]])
 
                     # Check if non-numeric.
-                    if (var_class != "numeric") {
+                    # TODO: add test case for integer covariates.
+                    # TODO: add test case for logical covariates.
+                    if (!var_class %in% c("numeric", "integer")) {
+
                       results$note = paste("Class is", var_class)
 
                       # Stop early.
