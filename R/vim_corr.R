@@ -115,7 +115,7 @@ vim_corr =
   # Sort ascending by p-value, then negative abs correlation - which results
   # in largest abs correlations first (in case certain p-values tie, which does happen).
   result = result[order(result$p_value, -abs(result$corr)), ]
-  result$rank = as.integer(rank(result$p_value))
+  result$rank = as.integer(rank(order(result$p_value, -abs(result$corr))))
 
   # Re-order columns.
   result = result[, c("rank", "variable", "corr", "p_value", "p_value_fdr", "avg_con", "avg_case", "note")]
