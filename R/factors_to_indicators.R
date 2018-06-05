@@ -11,7 +11,7 @@
 #' @param max_levels If a factor contains more than this many levels, issue
 #' a warning and don't convert it to indicators.
 #' @param verbose TBD
-#' @importFrom stats model.matrix
+#' @importFrom stats model.matrix.lm
 #' @importFrom future.apply future_lapply
 #' @export
 factors_to_indicators =
@@ -73,7 +73,9 @@ factors_to_indicators =
       # (see Win-Vector blog on this topic)
       # TODO: use most common level as the reference level.
       # Convert to integers rather than numerics, for possible memory savings.
-      mat = model.matrix(~ factor(factor_data))
+      # We use model.matrix.lm() and na.pass so that factors with NAs don't
+      # mess up the observation count.
+      mat = model.matrix.lm(~ factor(factor_data), na.action = "na.pass")
       # Convert to integer to save memory.
       mode(mat) = "integer"
 

@@ -27,3 +27,5 @@ data$single_level = as.factor(1)
 
 results = factors_to_indicators(data, verbose = TRUE)
 names(results)
+
+# TODO: add test with missing values.
