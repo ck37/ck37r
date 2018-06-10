@@ -22,18 +22,18 @@
 #' @seealso stop_cluster
 #' @export
 parallelize =
-  function(type = "any", max_cores = NULL, allow_multinode = T,
+  function(type = "any", max_cores = NULL, allow_multinode = TRUE,
            machine_list = Sys.getenv("SLURM_NODELIST"),
            cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
-           outfile = "", verbose = F) {
+           outfile = "", verbose = FALSE) {
 
   # Indicator for multi-node parallelism.
-  multinode = F
+  multinode = FALSE
 
   # Check if we have multiple machine access.
   if (allow_multinode) {
     machines = strsplit(machine_list, ",")[[1]]
-    if (length(machines) > 1) {
+    if (length(machines) > 1L) {
       cat("Have multi-node access for parallelism with", length(machines),
           "machines:", machines, "\n")
 
@@ -46,7 +46,7 @@ parallelize =
       # NOTE: this may be a bad config if the nodes have different core counts.
       cores = rep(machines, each = cpus_per_node)
       cat("Multi-node cores enabled:", cores, "\n")
-      multinode = T
+      multinode = TRUE
     }
   }
 
@@ -73,11 +73,11 @@ parallelize =
     #capture.output({ cl = parallel::makeCluster(cores, outfile = outfile) })
     cat("Starting multinode cluster with cores:", cores, "\n")
     capture.output({
-      cl = snow::makeCluster(cores, type = "SOCK", outfile = outfile)
+      cl = parallel::makeCluster(cores, type = "SOCK", outfile = outfile)
     })
     # doParallel supports multicore and multinode parallelism, but may require
     # explicitly exporting functions and libraries across the cluster.
-    doSNOW::registerDoSNOW(cl)
+    doParallel::registerDoParallel(cl)
     parallel::setDefaultCluster(cl)
     parallel_type = "snow"
   } else if (type %in% "seq" || is.null(type)) {
