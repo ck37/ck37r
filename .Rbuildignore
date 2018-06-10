@@ -15,4 +15,5 @@
 ^.lintr-defaults$
 
 ^README\.Rmd$
+^README\.md$
 ^images/README-.*\.png$
