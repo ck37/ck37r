@@ -4,10 +4,10 @@
 \alias{parallelize}
 \title{Setup parallel processing, either multinode or multicore.}
 \usage{
-parallelize(type = "any", max_cores = NULL, allow_multinode = T,
+parallelize(type = "any", max_cores = NULL, allow_multinode = TRUE,
   machine_list = Sys.getenv("SLURM_NODELIST"),
   cpus_per_node = as.numeric(Sys.getenv("SLURM_CPUS_ON_NODE")),
-  outfile = "", verbose = F)
+  outfile = "", verbose = FALSE)
 }
 \arguments{
 \item{type}{"any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq"}

@@ -21,5 +21,6 @@ vim_corr(covariates, data, outcome, weights = rep(1, nrow(data)),
 \item{verbose}{If TRUE display extra information.}
 }
 \description{
-Examine variables most correlated with the outcome.
+Examine variables most correlated with the outcome. Currently assumes that
+outcome is binary variable.
 }
