@@ -1,6 +1,7 @@
 #' Correlation analysis
 #'
-#' Examine variables most correlated with the outcome.
+#' Examine variables most correlated with the outcome. Currently assumes that
+#' outcome is binary variable.
 #'
 #' @param covariates Character vector listing the covariates to analyze.
 #' @param data Dataframe of covariates and outcome.
@@ -9,7 +10,7 @@
 #' @param bootse Whether bootstrap standard errors should be used for inference.
 #' @param verbose If TRUE display extra information.
 #' @export
-# This assumes outcome is a binary variable.
+#' @importFrom stats model.matrix na.omit
 vim_corr =
   function(covariates, data, outcome,
            weights = rep(1, nrow(data)),

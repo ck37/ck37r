@@ -71,6 +71,7 @@
 #' @seealso \code{\link{predict.SL.glmnet}} \code{\link[glmnet]{cv.glmnet}}
 #'   \code{\link[glmnet]{glmnet}}
 #'
+#' @importFrom stats model.matrix
 #' @export
 SL.glmnet2 <- function(Y, X, newX, family, obsWeights, id,
                        alpha = 1, nfolds = 10, nlambda = 100, useMin = TRUE,
