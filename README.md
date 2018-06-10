@@ -154,7 +154,7 @@ that aren’t already installed.
 # Load these 4 packages and install them if necessary.
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
 #> Super Learner
-#> Version: 2.0-23
+#> Version: 2.0-24-9000
 #> Package created on 2018-03-09
 #> Welcome to the tmle package, version 1.3.0-1
 #> 
