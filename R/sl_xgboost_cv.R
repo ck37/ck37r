@@ -134,8 +134,8 @@ SL.xgboost_cv =
     if (!is.matrix(newX)) {
       newX = stats::model.matrix(~ ., newX)[, -1]
     }
-    #pred = xgboost::predict(model, newdata = newX)
-    pred = xgboost:::predict.xgb.Booster(model, newdata = newX)
+    pred = xgboost::predict(model, newdata = newX)
+    #pred = xgboost:::predict.xgb.Booster(model, newdata = newX)
     fit = list(object = model)
     class(fit) = c("SL.xgboost")
     out = list(pred = pred, fit = fit)

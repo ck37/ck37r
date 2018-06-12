@@ -57,7 +57,8 @@ SL.bartMachine2 <- function(Y, X, newX, family, obsWeights, id,
                                    alpha = alpha, beta = beta, k = k, q = q, nu = nu,
                                    num_iterations_after_burn_in = num_iterations_after_burn_in)
   # pred returns predicted responses (on the scale of the outcome)
-  pred <- bartMachine:::predict.bartMachine(model, newX)
+  #pred <- bartMachine:::predict.bartMachine(model, newX)
+  pred <- predict(model, newX)
 
   fit <- list(object = model)
   class(fit) <- c("SL.bartMachine")
