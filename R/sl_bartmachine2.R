@@ -33,6 +33,8 @@
 #'   classification.
 #' @param verbose Prints information about progress of the algorithm to the
 #'   screen.
+#' @param serialize If TRUE, bartMachine results can be saved to a file, but
+#'   will require additional RAM.
 #' @param ... Additional arguments (not used)
 #'
 #' @encoding utf-8
@@ -41,6 +43,7 @@ SL.bartMachine2 <- function(Y, X, newX, family, obsWeights, id,
                             num_trees = 50, num_burn_in = 250, verbose = F,
                             alpha = 0.95, beta = 2, k = 2, q = 0.9, nu = 3,
                             num_iterations_after_burn_in = 1000,
+                            serialize = FALSE,
                             ...) {
   #.SL.require("bartMachine")
 
@@ -55,7 +58,8 @@ SL.bartMachine2 <- function(Y, X, newX, family, obsWeights, id,
   model = bartMachine::bartMachine(X, Y, num_trees = num_trees,
                                    num_burn_in = num_burn_in, verbose = verbose,
                                    alpha = alpha, beta = beta, k = k, q = q, nu = nu,
-                                   num_iterations_after_burn_in = num_iterations_after_burn_in)
+                                   num_iterations_after_burn_in = num_iterations_after_burn_in,
+                                   serialize = serialize)
   # pred returns predicted responses (on the scale of the outcome)
   #pred <- bartMachine:::predict.bartMachine(model, newX)
   pred <- predict(model, newX)

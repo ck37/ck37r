@@ -7,7 +7,8 @@
 \usage{
 SL.bartMachine2(Y, X, newX, family, obsWeights, id, num_trees = 50,
   num_burn_in = 250, verbose = F, alpha = 0.95, beta = 2, k = 2,
-  q = 0.9, nu = 3, num_iterations_after_burn_in = 1000, ...)
+  q = 0.9, nu = 3, num_iterations_after_burn_in = 1000,
+  serialize = FALSE, ...)
 }
 \arguments{
 \item{Y}{Outcome variable}
@@ -54,6 +55,9 @@ classification.}
 
 \item{num_iterations_after_burn_in}{Number of MCMC samples to draw from the
 posterior distribution of f(x).}
+
+\item{serialize}{If TRUE, bartMachine results can be saved to a file, but
+will require additional RAM.}
 
 \item{...}{Additional arguments (not used)}
 }
