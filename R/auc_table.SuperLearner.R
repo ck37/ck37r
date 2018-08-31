@@ -67,8 +67,8 @@ auc_table.SuperLearner = function(x, y = x$Y, sort = T,
   }
 
   # Dataframe to save AUC and CI.
-  aucs = data.frame(matrix(nrow = ncol(sl$Z), ncol = 5))
-  colnames(aucs) = c("auc", "se", "ci_lower", "ci_upper", "p-value")
+  aucs = data.frame(matrix(nrow = ncol(sl$Z), ncol = 6))
+  colnames(aucs) = c("learner", "auc", "se", "ci_lower", "ci_upper", "p-value")
 
   # Loop over each learner.
   for (learner_i in 1:ncol(sl$Z)) {
@@ -107,7 +107,7 @@ auc_table.SuperLearner = function(x, y = x$Y, sort = T,
     aucs[learner_i, "p-value"] = pval
   }
 
-  rownames(aucs) = names(sl$cvRisk)
+  aucs$learner = names(sl$cvRisk)
 
   if (sort) {
     # Sort in ascending order so best AUCs are at bottom of table.
