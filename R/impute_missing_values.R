@@ -222,6 +222,8 @@ impute_missing_values =
         cat("Indicators added:", ncol(missing_indicators), "\n")
       }
 
+      results$indicators_added = colnames(missing_indicators)
+
       new_data = cbind(new_data, missing_indicators)
     }
   }
