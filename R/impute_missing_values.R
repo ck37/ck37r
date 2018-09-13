@@ -219,7 +219,9 @@ impute_missing_values =
                                verbose = verbose)
 
       if (verbose) {
-        cat("Indicators added:", ncol(missing_indicators), "\n")
+        cat(paste0("Indicators added (", ncol(missing_indicators), "):"),
+                   paste(colnames(missing_indicators), collapse = ", "),
+                   "\n")
       }
 
       results$indicators_added = colnames(missing_indicators)
