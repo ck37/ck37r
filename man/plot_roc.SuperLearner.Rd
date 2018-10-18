@@ -13,7 +13,8 @@
 
 \item{y}{Outcome vector if not already included in the SL object.}
 
-\item{learner}{Which learner to plot - defaults to minimum risk learner.}
+\item{learner}{Which learner to plot (numeric index or character string).
+Defaults to minimum risk learner.}
 
 \item{title}{Title to use in the plot.}
 

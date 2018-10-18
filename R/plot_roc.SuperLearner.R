@@ -6,7 +6,8 @@
 #'
 #' @param x SuperLearner object
 #' @param y Outcome vector if not already included in the SL object.
-#' @param learner Which learner to plot - defaults to minimum risk learner.
+#' @param learner Which learner to plot (numeric index or character string).
+#'   Defaults to minimum risk learner.
 #' @param title Title to use in the plot.
 #' @param subtitle TBD.
 #' @param digits Digits to use when rounding AUC and CI for plot.
@@ -72,9 +73,13 @@ plot_roc.SuperLearner =
     # Take the first learner if there are ties.
     learner_index = which(names(sl$cvRisk) == auc_table$learner[which.max(auc_table$auc)])[1]
   } else {
-    # TODO: check if this is consistent with prior usage of "learner" argument.
-    # Select the first element in case of multiple learners having the same name.
-    learner_index = which(names(sl$cvRisk) == learner)[1]
+    if (class(learner) == "character") {
+      # Select the first element in case of multiple learners having the same name.
+      learner_index = which(names(sl$cvRisk) == learner)[1]
+    } else {
+      # Learner argument is already an index.
+      learner_index = learner
+    }
   }
 
   preds = sl$Z[, learner_index]
