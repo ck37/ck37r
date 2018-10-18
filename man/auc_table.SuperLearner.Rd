@@ -4,7 +4,7 @@
 \alias{auc_table.SuperLearner}
 \title{Table of cross-validated AUCs from SuperLearner result}
 \usage{
-\method{auc_table}{SuperLearner}(x, y = x$Y, sort = T,
+\method{auc_table}{SuperLearner}(x, y = x$Y, sort = TRUE,
   null_hypothesis = NULL, two_tailed = FALSE, lower.tail = TRUE, ...)
 }
 \arguments{
