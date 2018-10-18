@@ -10,15 +10,18 @@ if (!all(suppressWarnings(sapply(pkg_suggests, require, quietly = TRUE,
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Boston$chas, subset(Boston, select = -chas),
-                  family = binomial(), cvControl = list(V = 2),
+y = as.integer(Boston$age > 68)
+sl = SuperLearner(y,
+                  subset(Boston, select = -age),
+                  family = binomial(),
+                  cvControl = list(V = 3L, stratifyCV = TRUE),
                   SL.library = c("SL.mean", "SL.glm"))
 
 sl
 
-plot_roc(sl, y = Boston$chas)
+plot_roc(sl, y = y)
 
 # Deprecated version, will generate a warning.
 suppressWarnings({
-  sl_plot_roc(sl, y = Boston$chas)
+  sl_plot_roc(sl, y = y)
 })
