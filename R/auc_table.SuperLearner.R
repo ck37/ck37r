@@ -49,7 +49,7 @@
 #' @importFrom stats pnorm
 #'
 #' @export
-auc_table.SuperLearner = function(x, y = x$Y, sort = T,
+auc_table.SuperLearner = function(x, y = x$Y, sort = TRUE,
                                   null_hypothesis = NULL,
                                   two_tailed = FALSE,
                                   lower.tail = TRUE,
@@ -77,7 +77,7 @@ auc_table.SuperLearner = function(x, y = x$Y, sort = T,
     result = list(cvAUC = NA, se = NA, ci = c(NA, NA))
     try({
       result = cvAUC::ci.cvAUC(sl$Z[, learner_i], y, folds = fold_ids)
-    }, silent = T)
+    }, silent = TRUE)
     aucs[learner_i, "auc"] = result$cvAUC
     aucs[learner_i, "se"] = result$se
     aucs[learner_i, "ci_lower"] = result$ci[1]
@@ -92,12 +92,13 @@ auc_table.SuperLearner = function(x, y = x$Y, sort = T,
 
   # Loop one more time, this time calculating the auc p-value.
   for (learner_i in 1:nrow(aucs)) {
-    # Specify drop = F so that we have a 1-row dataframe and can use $.
-    result = aucs[learner_i, , drop = F]
+    # Specify drop = FALSE so that we have a 1-row dataframe and can use $.
+    result = aucs[learner_i, , drop = FALSE]
     if (!is.na(result$auc) && !is.na(result$se)) {
       # Asymptotically linear CI.
 
       # If two_tailed = TRUE multiply by 2, otherwise multiply by 1.
+      # TODO: these p-values need to be fixed.
       pval = (as.numeric(two_tailed) + 1) *
         pnorm((result$auc - null_hypothesis) / result$se,
               lower.tail = lower.tail)
