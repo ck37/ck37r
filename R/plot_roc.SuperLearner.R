@@ -69,7 +69,8 @@ plot_roc.SuperLearner =
   # Choose the learner with the highest AUC.
   if (is.null(learner)) {
     # Extract the original learner index based on learner name in the AUC table.
-    learner = which(names(sl$cvRisk) == rownames(auc_table)[which.max(auc_table$auc)])
+    # Take the first learner if there are ties.
+    learner_index = which(names(sl$cvRisk) == auc_table$learner[which.max(auc_table$auc)])[1]
   }
 
   preds = sl$Z[, learner]
@@ -77,16 +78,18 @@ plot_roc.SuperLearner =
   perf1 = ROCR::performance(pred, "sens", "spec")
 
   # We need to index using learner name because auc_table() has been sorted.
-  learner_name = names(sl$cvRisk)[learner]
+  learner_name = names(sl$cvRisk)[learner_index]
 
   # Set learner name as the subtitle if no subtitle was specified.
   if (is.null(subtitle)) {
     subtitle = paste("Best learner:", learner_name)
   }
 
-  auc = auc_table[learner_name, "auc"]
-  ci_upper = auc_table[learner_name, "ci_upper"]
-  ci_lower = auc_table[learner_name, "ci_lower"]
+  # Take the first row in case the best learner is duplicated for some random reason.
+  best_row = auc_table[rownames(auc_table) == learner_index, , drop = FALSE]
+  auc =  best_row$auc
+  ci_upper = best_row$ci_upper
+  ci_lower = best_row$ci_lower
 
   txt = paste0("AUC = ",
                sprintf(paste0("%0.", digits, "f"), round(auc, digits)),

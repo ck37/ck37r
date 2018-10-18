@@ -30,6 +30,7 @@ Imports:
     reader,
     RhpcBLASctl,
     ROCR,
+    rpart.plot,
     stringr,
     SuperLearner,
     tmle,
