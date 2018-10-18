@@ -71,9 +71,13 @@ plot_roc.SuperLearner =
     # Extract the original learner index based on learner name in the AUC table.
     # Take the first learner if there are ties.
     learner_index = which(names(sl$cvRisk) == auc_table$learner[which.max(auc_table$auc)])[1]
+  } else {
+    # TODO: check if this is consistent with prior usage of "learner" argument.
+    # Select the first element in case of multiple learners having the same name.
+    learner_index = which(names(sl$cvRisk) == learner)[1]
   }
 
-  preds = sl$Z[, learner]
+  preds = sl$Z[, learner_index]
   pred = ROCR::prediction(preds, y)
   perf1 = ROCR::performance(pred, "sens", "spec")
 
