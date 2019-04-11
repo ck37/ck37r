@@ -5,8 +5,8 @@
 \title{Create a dataset}
 \usage{
 create_dataset(data, varsX = "", varY = "", config_code = NULL,
-  rename_vars = c(), remove_vars = c(), subset = "all", ylevel = NULL,
-  primary_key = NULL, verbose = F)
+  rename_vars = c(), remove_vars = c(), subset = "all",
+  ylevel = NULL, primary_key = NULL, verbose = F)
 }
 \arguments{
 \item{data}{Dataframe with X and Y variables.}

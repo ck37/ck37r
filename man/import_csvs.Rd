@@ -4,8 +4,8 @@
 \alias{import_csvs}
 \title{Import all CSV files in a given directory and save them to a list.}
 \usage{
-import_csvs(directory = "", file_pattern = "\\\\.csv$", recursive = T,
-  verbose = T)
+import_csvs(directory = "", file_pattern = "\\\\.csv$",
+  recursive = T, verbose = T)
 }
 \arguments{
 \item{directory}{Directory to search for files.}

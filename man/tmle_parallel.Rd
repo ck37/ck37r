@@ -4,8 +4,9 @@
 \alias{tmle_parallel}
 \title{Modify TMLE to support parallel computation for g and Q.}
 \usage{
-tmle_parallel(Y, A, W, family, g.SL.library, Q.SL.library, id = 1:length(Y),
-  verbose = F, V = 5, sl_fn = SuperLearner::SuperLearner,
+tmle_parallel(Y, A, W, family, g.SL.library, Q.SL.library,
+  id = 1:length(Y), verbose = F, V = 5,
+  sl_fn = SuperLearner::SuperLearner,
   cvsl_fn = SuperLearner::CV.SuperLearner, cvQinit = F,
   conserve_memory = T, ...)
 }

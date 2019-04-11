@@ -5,8 +5,8 @@
 \title{Elastic net regression, including lasso and ridge}
 \usage{
 SL.glmnet2(Y, X, newX, family, obsWeights, id, alpha = 1, nfolds = 10,
-  nlambda = 100, useMin = TRUE, loss = "deviance", parallel = FALSE,
-  ...)
+  nlambda = 100, useMin = TRUE, loss = "deviance",
+  parallel = FALSE, ...)
 }
 \arguments{
 \item{Y}{Outcome variable}

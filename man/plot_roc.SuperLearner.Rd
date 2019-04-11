@@ -5,8 +5,8 @@
 \title{Plot a ROC curve from cross-validated AUC from SuperLearner}
 \usage{
 \method{plot_roc}{SuperLearner}(x, y = x$Y, learner = NULL,
-  title = "SuperLearner cross-validated ROC", subtitle = NULL, digits = 4,
-  ...)
+  title = "SuperLearner cross-validated ROC", subtitle = NULL,
+  digits = 4, ...)
 }
 \arguments{
 \item{x}{SuperLearner object}

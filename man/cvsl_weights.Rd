@@ -4,8 +4,8 @@
 \alias{cvsl_weights}
 \title{Create a table of meta-weights from a CV.SuperLearner}
 \usage{
-cvsl_weights(cvsl, sort = T, nonzero = F, clean_names = T, rank = T,
-  digits = 5)
+cvsl_weights(cvsl, sort = T, nonzero = F, clean_names = T,
+  rank = T, digits = 5)
 }
 \arguments{
 \item{cvsl}{CV.SuperLearner result object}
