@@ -18,6 +18,8 @@
 #'
 #' @seealso sys.source, source
 #'
+#' @importFrom crayon red bold
+#'
 #' @export
 load_all_code = function(lib_dir = "lib",
                          exclude_files = c("function_library.R"),
@@ -32,6 +34,9 @@ load_all_code = function(lib_dir = "lib",
   # Exclude any files that we don't need to load.
   lib_files = setdiff(lib_files, exclude_files)
 
+  # Error highlighting in console output.
+  error = red $ bold
+
   # Loop over file list and load each file.
   for (file in lib_files) {
     file_name = paste0(lib_dir, "/", file)
@@ -39,6 +44,17 @@ load_all_code = function(lib_dir = "lib",
       cat("Sourcing", file_name, "\n")
     }
     #source(file_name)
-    sys.source(file_name, envir = envir)
+
+    # Run code in a tryCatch() so that we can continue loading other files
+    # even if a subset generates errors.
+    tryCatch({
+        sys.source(file_name, envir = envir)
+      },
+      error = function(e) {
+        cat(error("Error"), "sourcing", crayon::bold(file), "\n")
+        print(e)
+        cat("\n")
+      })
+
   }
 }
