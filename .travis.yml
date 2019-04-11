@@ -22,11 +22,11 @@ cache: packages
 latex: false
 r_check_args: "--as-cran --timings"
 
-# Test on 3 versions of R.
+# Test on 2 versions of R. caret does not support oldrel (3.4).
 r:
   - release
   - devel
-  - oldrel
+#  - oldrel
 
 # Build the manual.
 r_build_args: ""
