@@ -29,8 +29,8 @@ install.packages("ck37r")
 Install the development version from github (recommended):
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("ck37/ck37r")
+# install.packages("remotes")
+remotes::install_github("ck37/ck37r")
 ```
 
 ## Functions
@@ -108,6 +108,7 @@ devtools::install_github("ck37/ck37r")
 
 ``` r
 # Load a test dataset.
+# TODO: need to switch to a different dataset.
 data(PimaIndiansDiabetes2, package = "mlbench")
 
 # Check for missing values.
@@ -132,7 +133,7 @@ colSums(is.na(result$data))
 
 #############
 # K-nearest neighbors imputation
-
+# NOTE: this will  also center and scale the covariates, which you may or may not want.
 result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn", skip_vars = "diabetes")
 
 # Confirm we have no missing data.
@@ -154,9 +155,9 @@ that aren’t already installed.
 # Load these 4 packages and install them if necessary.
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
 #> Super Learner
-#> Version: 2.0-24-9000
-#> Package created on 2018-03-09
-#> Welcome to the tmle package, version 1.3.0-1
+#> Version: 2.0-25-9000
+#> Package created on 2018-07-10
+#> Welcome to the tmle package, version 1.3.0-2
 #> 
 #> Use tmleNews() to see details on changes and bug fixes
 ```
@@ -252,6 +253,7 @@ sl_lib = c("SL.mean", "SL.rpart", "SL.glmnet")
 
 # Set a parallel-compatible seed so cross-validation folds are deterministic.
 set.seed(1, "L'Ecuyer-CMRG")
+# Just an example -- we haven't defined A or W in this code.
 result = run_tmle(Y = Y, A = A, W = W, family = "binomial",
                   g.SL.library = sl_lib, Q.SL.library = sl_lib)
 ```
@@ -274,9 +276,9 @@ sl = SuperLearner(Y = as.numeric(Boston$medv > 23),
                   SL.library = c("SL.mean", "SL.glm"))
 
 auc_table(sl, y = Boston$chas)
-#>                   auc         se  ci_lower  ci_upper    p-value
-#> SL.mean_All 0.5000000 0.08758016 0.3283460 0.6716540 0.06419997
-#> SL.glm_All  0.6331605 0.03526965 0.5640333 0.7022878 0.50000000
+#>       learner       auc         se  ci_lower  ci_upper    p-value
+#> 1 SL.mean_All 0.5000000 0.08758016 0.3283460 0.6716540 0.06419997
+#> 2  SL.glm_All 0.6331605 0.03526965 0.5640333 0.7022878 0.50000000
 ```
 
 ### SuperLearner plot of risk estimates

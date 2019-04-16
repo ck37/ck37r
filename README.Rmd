@@ -35,8 +35,8 @@ install.packages("ck37r")
 Install the development version from github (recommended):
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("ck37/ck37r")
+# install.packages("remotes")
+remotes::install_github("ck37/ck37r")
 ```
 
 ```{r library, include=FALSE}
@@ -86,6 +86,7 @@ library(ck37r)
 
 ```{r impute_missing_values}
 # Load a test dataset.
+# TODO: need to switch to a different dataset.
 data(PimaIndiansDiabetes2, package = "mlbench")
 
 # Check for missing values.
@@ -100,7 +101,7 @@ colSums(is.na(result$data))
 
 #############
 # K-nearest neighbors imputation
-
+# NOTE: this will  also center and scale the covariates, which you may or may not want.
 result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn", skip_vars = "diabetes")
 
 # Confirm we have no missing data.
@@ -167,6 +168,7 @@ sl_lib = c("SL.mean", "SL.rpart", "SL.glmnet")
 
 # Set a parallel-compatible seed so cross-validation folds are deterministic.
 set.seed(1, "L'Ecuyer-CMRG")
+# Just an example -- we haven't defined A or W in this code.
 result = run_tmle(Y = Y, A = A, W = W, family = "binomial",
                   g.SL.library = sl_lib, Q.SL.library = sl_lib)
 ```
