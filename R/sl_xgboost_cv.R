@@ -107,8 +107,8 @@ SL.xgboost_cv =
                       nthread = nthread,
                       subsample = subsample,
                       colsample_bytree = colsample_bytree,
-                      gamma = gamma,
-                      save_period = save_period)
+                      gamma = gamma)#,
+                      #save_period = save_period)
 
     if (verbose) {
       print(model_cv)
