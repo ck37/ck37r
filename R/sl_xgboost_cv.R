@@ -92,21 +92,22 @@ SL.xgboost_cv =
     }
 
     model_cv =
-      xgboost::xgb.cv(data = xgmat, objective = objective,
-                      nrounds = ntrees,
+      xgboost::xgb.cv(data = xgmat,#
+                      objective = objective, #
+                      nrounds = ntrees,#
+                      nfold = nfold,#
+                      metrics = list(eval_metric), #
+                      stratified = stratified,#
+                      verbose = verbose,#
+                      #print_every_n = print_every_n,#
+                      #early_stopping_rounds = early_stopping_rounds, #
                       max_depth = max_depth,
                       min_child_weight = minobspernode,
                       eta = shrinkage,
-                      verbose = verbose,
                       nthread = nthread,
                       subsample = subsample,
                       colsample_bytree = colsample_bytree,
                       gamma = gamma,
-                      early_stopping_rounds = early_stopping_rounds,
-                      stratified = stratified,
-                      print_every_n = print_every_n,
-                      metrics = list(eval_metric),
-                      nfold = nfold,
                       save_period = save_period)
 
     if (verbose) {
