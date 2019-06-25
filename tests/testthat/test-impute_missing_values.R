@@ -71,3 +71,13 @@ result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn",
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))
+
+#############
+# GLRM imputation
+
+result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm",
+                                skip_vars = "diabetes")
+
+
+# Confirm we have no missing data.
+colSums(is.na(result2$data))

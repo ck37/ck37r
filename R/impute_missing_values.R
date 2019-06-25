@@ -194,9 +194,42 @@ impute_missing_values =
     results$impute_values = impute_values
 
   } else if (type == "knn") {
+    if (verbose) {
+      cat("Running knn imputation. NOTE: this will standardize your data!\n")
+    }
     impute_info = caret::preProcess(new_data, method = c("knnImpute"))
     new_data = predict(impute_info, new_data)
     results$impute_info = impute_info
+
+  } else if (type == "glrm") {
+    if (verbose) {
+      cat("Running glrm imputation via h2o.\n")
+    }
+
+    # Based on http://docs.h2o.ai/h2o-tutorials/latest-stable/tutorials/glrm/glrm-tutorial.html
+
+    h2o::h2o.init(nthreads = -1)#, max_mem_size = "2G")
+
+    # Load dataset into h2o.
+    df_h2o = h2o::as.h2o(new_data)
+
+    # TODO: allow these hyperparameters to be modified.
+    model_glrm =
+      h2o::h2o.glrm(training_frame = df_h2o,
+               cols = 1:ncol(df_h2o), k = 10, loss = "Quadratic",
+               init = "SVD", svd_method = "GramSVD",
+               regularization_x = "None", regularization_y = "None",
+               min_step_size = 1e-6,
+               max_iterations = 1000)
+
+    # Now impute missing values.
+    imp_h2o = predict(model_glrm, df_h2o)
+
+    # Convert h2o back to an R dataframe.
+    new_data = as.data.frame(imp_h2o)
+
+    # Fix column names.
+    names(new_data) = names(data)
 
   }
 
