@@ -7,7 +7,7 @@
 impute_missing_values(data, type = "standard", add_indicators = TRUE,
   prefix = "miss_", skip_vars = NULL, all_vars = FALSE,
   remove_constant = TRUE, remove_collinear = TRUE, values = NULL,
-  verbose = FALSE)
+  h2o_glrm = NULL, verbose = FALSE)
 }
 \arguments{
 \item{data}{Dataframe or matrix.}
@@ -31,6 +31,8 @@ the imputation info may be used for future datasets.}
 applicable.}
 
 \item{values}{Named list with imputation value to use from another dataset.}
+
+\item{h2o_glrm}{Optional h2o glrm model for imputing on new data (e.g. test set)}
 
 \item{verbose}{If True display extra information during execution.}
 }

@@ -16,6 +16,7 @@
 #' @param remove_collinear Remove collinear missingness indicators, if
 #'   applicable.
 #' @param values Named list with imputation value to use from another dataset.
+#' @param h2o_glrm Optional h2o glrm model for imputing on new data (e.g. test set)
 #' @param verbose If True display extra information during execution.
 #'
 #'
@@ -68,6 +69,7 @@ impute_missing_values =
            remove_constant = TRUE,
            remove_collinear = TRUE,
            values = NULL,
+           h2o_glrm = NULL,
            verbose = FALSE) {
 
   # Loop over each feature.
@@ -213,23 +215,29 @@ impute_missing_values =
     # Load dataset into h2o.
     df_h2o = h2o::as.h2o(new_data)
 
+    if (is.null(h2o_glrm)) {
+
     # This is causing an error in h2o for some reason.
 #    analyze_vars = which(!colnames(df_h2o) %in% skip_vars)
 
     #browser()
 
-    # TODO: allow these hyperparameters to be modified.
-    model_glrm =
-      h2o::h2o.glrm(training_frame = df_h2o,
-                    # TODO: need to skip the skip_vars.
-               #cols = 1:ncol(df_h2o),
-               # Only analyze the non-skipped vars.
-               #cols = analyze_vars,
-               k = 10, loss = "Quadratic",
-               init = "SVD", svd_method = "GramSVD",
-               regularization_x = "None", regularization_y = "None",
-               min_step_size = 1e-6,
-               max_iterations = 1000)
+      # TODO: allow these hyperparameters to be modified.
+      model_glrm =
+        h2o::h2o.glrm(training_frame = df_h2o,
+                      # TODO: need to skip the skip_vars.
+                 #cols = 1:ncol(df_h2o),
+                 # Only analyze the non-skipped vars.
+                 #cols = analyze_vars,
+                 k = 10, loss = "Quadratic",
+                 init = "SVD", svd_method = "GramSVD",
+                 regularization_x = "None", regularization_y = "None",
+                 min_step_size = 1e-6,
+                 max_iterations = 1000)
+    } else {
+      # Use the existing h2o object.
+      model_glrm = h2o_glrm
+    }
 
     # Now impute missing values.
     imp_h2o = predict(model_glrm, df_h2o)
