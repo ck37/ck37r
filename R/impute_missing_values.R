@@ -234,6 +234,9 @@ impute_missing_values =
     # Now impute missing values.
     imp_h2o = predict(model_glrm, df_h2o)
 
+    # Return the GLRM object for future prediction (namely on the test set).
+    results$h2o_glrm = model_glrm
+
     # Convert h2o back to an R dataframe.
     glrm_data = as.data.frame(imp_h2o)
 
