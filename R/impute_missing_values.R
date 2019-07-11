@@ -214,7 +214,7 @@ impute_missing_values =
     df_h2o = h2o::as.h2o(new_data)
 
     # This is causing an error in h2o for some reason.
-    analyze_vars = which(!colnames(df_h2o) %in% skip_vars)
+#    analyze_vars = which(!colnames(df_h2o) %in% skip_vars)
 
     #browser()
 
@@ -224,7 +224,7 @@ impute_missing_values =
                     # TODO: need to skip the skip_vars.
                #cols = 1:ncol(df_h2o),
                # Only analyze the non-skipped vars.
-               cols = analyze_vars,
+               #cols = analyze_vars,
                k = 10, loss = "Quadratic",
                init = "SVD", svd_method = "GramSVD",
                regularization_x = "None", regularization_y = "None",
@@ -235,10 +235,17 @@ impute_missing_values =
     imp_h2o = predict(model_glrm, df_h2o)
 
     # Convert h2o back to an R dataframe.
-    new_data = as.data.frame(imp_h2o)
+    glrm_data = as.data.frame(imp_h2o)
+
+    # Only use the values of columns that were missing.
+    # Loop over columns with missing data and replace with the glrm data.
+    for (i in any_nas) {
+      missing_val = is.na(new_data[, i])
+      new_data[missing_val, i] = glrm_data[missing_val, i]
+    }
 
     # Fix column names.
-    names(new_data) = names(data)
+    #names(new_data) = names(data)
 
   }
 
