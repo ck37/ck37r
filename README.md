@@ -130,11 +130,15 @@ colSums(is.na(result$data))
 #>             0             0             0             0             0 
 #> miss_pressure  miss_triceps  miss_insulin     miss_mass 
 #>             0             0             0             0
+```
+
+#### Impute with GLRM
+
+``` r
 
 #############
-# K-nearest neighbors imputation
-# NOTE: this will  also center and scale the covariates, which you may or may not want.
-result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn", skip_vars = "diabetes")
+# Generalized low-rank model imputation via h2o.
+result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm", skip_vars = "diabetes")
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))
