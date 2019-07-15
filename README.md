@@ -47,7 +47,7 @@ remotes::install_github("ck37/ck37r")
       - `factors_to_indicators` - convert all factors in a dataframe to
         series of indicators (one-hot encoding).
       - `impute_missing_values` - impute missing values in a dataframe
-        (median for numerics and mode for factors; or k-nearest
+        (median for numerics and mode for factors, GLRM, or k-nearest
         neighbors), add missingness indicators.
       - `missingness_indicators` - return a matrix of missingness
         indicators for a dataframe, (optionally) omitting any constant

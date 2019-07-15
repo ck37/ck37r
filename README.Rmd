@@ -52,7 +52,7 @@ library(ck37r)
 - **Machine Learning**
     * `categoricals_to_factors` - convert numeric categoricals into factors.
     * `factors_to_indicators` - convert all factors in a dataframe to series of indicators (one-hot encoding).
-    * `impute_missing_values` - impute missing values in a dataframe (median for numerics and mode for factors; or k-nearest neighbors), add missingness indicators.
+    * `impute_missing_values` - impute missing values in a dataframe (median for numerics and mode for factors, GLRM, or k-nearest neighbors), add missingness indicators.
     * `missingness_indicators` - return a matrix of missingness indicators for a dataframe, (optionally) omitting any constant or collinear columns.
     * `rf_count_terminal_nodes` - count the number of terminal nodes in each tree in a random forest. That information can then be used to grid-search the maximum number of nodes allowed in a Random Forest (along with mtry).
     * `standardize` - standardize a dataset (center, scale), optionally omitting certain variables.
