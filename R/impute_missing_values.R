@@ -209,11 +209,10 @@ impute_missing_values =
     }
 
     # Based on http://docs.h2o.ai/h2o-tutorials/latest-stable/tutorials/glrm/glrm-tutorial.html
-
-    h2o::h2o.init(nthreads = -1)#, max_mem_size = "2G")
+    capture.output({ h2o::h2o.init(nthreads = -1) }, split = verbose)#, max_mem_size = "2G")
 
     # Load dataset into h2o.
-    df_h2o = h2o::as.h2o(new_data)
+    capture.output({ df_h2o = h2o::as.h2o(new_data) }, split = verbose)
 
     if (is.null(h2o_glrm)) {
 
@@ -221,9 +220,9 @@ impute_missing_values =
 #    analyze_vars = which(!colnames(df_h2o) %in% skip_vars)
 
     #browser()
-
+      capture.output({
       # TODO: allow these hyperparameters to be modified.
-      model_glrm =
+        model_glrm =
         h2o::h2o.glrm(training_frame = df_h2o,
                       # TODO: need to skip the skip_vars.
                  #cols = 1:ncol(df_h2o),
@@ -234,19 +233,20 @@ impute_missing_values =
                  regularization_x = "None", regularization_y = "None",
                  min_step_size = 1e-6,
                  max_iterations = 1000)
+      }, split = verbose)
     } else {
       # Use the existing h2o object.
       model_glrm = h2o_glrm
     }
 
     # Now impute missing values.
-    imp_h2o = predict(model_glrm, df_h2o)
+    capture.output({ imp_h2o = predict(model_glrm, df_h2o) }, split = verbose)
 
     # Return the GLRM object for future prediction (namely on the test set).
     results$h2o_glrm = model_glrm
 
     # Convert h2o back to an R dataframe.
-    glrm_data = as.data.frame(imp_h2o)
+    capture.output({ glrm_data = as.data.frame(imp_h2o) }, split = verbose)
 
     # Only use the values of columns that were missing.
     # Loop over columns with missing data and replace with the glrm data.
