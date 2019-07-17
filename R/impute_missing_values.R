@@ -17,6 +17,7 @@
 #'   applicable.
 #' @param values Named list with imputation value to use from another dataset.
 #' @param h2o_glrm Optional h2o glrm model for imputing on new data (e.g. test set)
+#' @param glrm_k Number of principal components to estimate (up to the # of columns in the data).
 #' @param verbose If True display extra information during execution.
 #'
 #'
@@ -70,6 +71,7 @@ impute_missing_values =
            remove_collinear = TRUE,
            values = NULL,
            h2o_glrm = NULL,
+           glrm_k = 10L,
            verbose = FALSE) {
 
   # Loop over each feature.
@@ -211,8 +213,10 @@ impute_missing_values =
     # Based on http://docs.h2o.ai/h2o-tutorials/latest-stable/tutorials/glrm/glrm-tutorial.html
     capture.output({ h2o::h2o.init(nthreads = -1) }, split = verbose)#, max_mem_size = "2G")
 
-    # Load dataset into h2o.
-    capture.output({ df_h2o = h2o::as.h2o(new_data) }, split = verbose)
+    # Load dataset into h2o, excluding any skip vars.
+    capture.output({
+      df_h2o = h2o::as.h2o(new_data[, !names(new_data) %in% skip_vars])
+      }, split = verbose)
 
     if (is.null(h2o_glrm)) {
 
@@ -228,7 +232,7 @@ impute_missing_values =
                  #cols = 1:ncol(df_h2o),
                  # Only analyze the non-skipped vars.
                  #cols = analyze_vars,
-                 k = 10, loss = "Quadratic",
+                 k = min(ncol(df_h2o), glrm_k), loss = "Quadratic",
                  init = "SVD", svd_method = "GramSVD",
                  regularization_x = "None", regularization_y = "None",
                  min_step_size = 1e-6,
@@ -247,12 +251,17 @@ impute_missing_values =
 
     # Convert h2o back to an R dataframe.
     capture.output({ glrm_data = as.data.frame(imp_h2o) }, split = verbose)
+    # Fix the column names in the h2o result.
+    names(glrm_data) = setdiff(names(data), skip_vars)
 
     # Only use the values of columns that were missing.
     # Loop over columns with missing data and replace with the glrm data.
-    for (i in any_nas) {
-      missing_val = is.na(new_data[, i])
-      new_data[missing_val, i] = glrm_data[missing_val, i]
+    # Use the column names because h2o only analyzed a subset of the data
+    # if skip_vars is non-null.
+    for (colname_i in names(data)[any_nas]) {
+      # Identify rows missing the current column.
+      missing_val = is.na(new_data[, colname_i])
+      new_data[missing_val, colname_i] = glrm_data[missing_val, colname_i]
     }
 
     # Fix column names.
