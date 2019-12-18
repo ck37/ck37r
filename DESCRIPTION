@@ -25,6 +25,7 @@ Imports:
     h2o,
     methods,
     parallel,
+    precrec,
     pryr,
     randomForest,
     RANN,
@@ -55,4 +56,4 @@ Suggests:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
