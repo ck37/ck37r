@@ -4,8 +4,15 @@
 \alias{auc_table.CV.SuperLearner}
 \title{Table of cross-validated AUCs from CV.SuperLearner result}
 \usage{
-\method{auc_table}{CV.SuperLearner}(x, y = x$Y, sort = TRUE,
-  null_hypothesis = NULL, two_tailed = FALSE, lower.tail = TRUE, ...)
+\method{auc_table}{CV.SuperLearner}(
+  x,
+  y = x$Y,
+  sort = TRUE,
+  null_hypothesis = NULL,
+  two_tailed = FALSE,
+  lower.tail = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{CV.SuperLearner object}
@@ -63,6 +70,6 @@ Statistical Applications of Genetics and Molecular Biology, 6, article 25.
 http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
 }
 \seealso{
-\code{\link{cvsl_auc}} \code{\link{sl_plot_roc}}
+\code{\link{cvsl_auc}} \code{\link{plot_roc.SuperLearner}}
    \code{\link[cvAUC]{ci.cvAUC}}
 }

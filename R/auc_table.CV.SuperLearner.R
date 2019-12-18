@@ -45,7 +45,7 @@
 #' Statistical Applications of Genetics and Molecular Biology, 6, article 25.
 #' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
 #'
-#' @seealso \code{\link{cvsl_auc}} \code{\link{sl_plot_roc}}
+#' @seealso \code{\link{cvsl_auc}} \code{\link{plot_roc.SuperLearner}}
 #'    \code{\link[cvAUC]{ci.cvAUC}}
 #'
 #' @importFrom stats pnorm
