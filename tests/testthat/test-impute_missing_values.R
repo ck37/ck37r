@@ -42,7 +42,7 @@ colSums(is.na(result$data))
 # Test with no skip_vars.
 test_that("Test that all_vars = T works, when skip_vars is NULL", {
   suppressWarnings({
-    result = impute_missing_values(data, verbose = T, all_vars = T)
+    result = impute_missing_values(data, verbose = TRUE, all_vars = TRUE)
   })
 
   # Confirm that "diabetes" is in the impute_info even though it has no missingness.
@@ -52,14 +52,14 @@ test_that("Test that all_vars = T works, when skip_vars is NULL", {
 
 # Test all_vars = T
 suppressWarnings({
-  result = impute_missing_values(data, skip_vars = "diabetes", verbose = T,
-                                 all_vars = T)
+  result = impute_missing_values(data, skip_vars = "diabetes", verbose = TRUE,
+                                 all_vars = TRUE)
 })
 
 # Test with pre-specifying values.
 suppressWarnings({
-  result2 = impute_missing_values(data, skip_vars = "diabetes", verbose = T,
-                                 all_vars = T, values = result$impute_values)
+  result2 = impute_missing_values(data, skip_vars = "diabetes", verbose = TRUE,
+                                 all_vars = TRUE, values = result$impute_values)
 })
 
 
@@ -75,9 +75,9 @@ colSums(is.na(result2$data))
 #############
 # GLRM imputation
 
+#result2 = impute_missing_values(data, type = "glrm",
 result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm",
-                                skip_vars = "diabetes")
-
+                                skip_vars = "diabetes", verbose = FALSE)
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))
