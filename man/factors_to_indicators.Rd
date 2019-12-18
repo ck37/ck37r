@@ -4,8 +4,12 @@
 \alias{factors_to_indicators}
 \title{Convert factors to indicator variables.}
 \usage{
-factors_to_indicators(data, predictors = colnames(data),
-  max_levels = 200L, verbose = FALSE)
+factors_to_indicators(
+  data,
+  predictors = colnames(data),
+  max_levels = 200L,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{.}

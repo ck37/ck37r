@@ -4,9 +4,22 @@
 \alias{SL.h2o_auto}
 \title{Automatic machine learning using h2o}
 \usage{
-SL.h2o_auto(Y, X, newX, family, obsWeights, id, nthreads = 1,
-  max_runtime_secs = NULL, max_models = 20, stopping_metric = NULL,
-  stopping_rounds = 7, nfolds = 10, verbose = T, ...)
+SL.h2o_auto(
+  Y,
+  X,
+  newX,
+  family,
+  obsWeights,
+  id,
+  nthreads = 1,
+  max_runtime_secs = NULL,
+  max_models = 20,
+  stopping_metric = NULL,
+  stopping_rounds = 7,
+  nfolds = 10,
+  verbose = T,
+  ...
+)
 }
 \arguments{
 \item{Y}{Outcome variable}

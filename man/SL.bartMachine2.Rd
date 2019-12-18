@@ -5,10 +5,25 @@
 \alias{SL.bartMachine2}
 \title{Wrapper for bartMachine learner}
 \usage{
-SL.bartMachine2(Y, X, newX, family, obsWeights, id, num_trees = 50,
-  num_burn_in = 250, verbose = F, alpha = 0.95, beta = 2, k = 2,
-  q = 0.9, nu = 3, num_iterations_after_burn_in = 1000,
-  serialize = FALSE, ...)
+SL.bartMachine2(
+  Y,
+  X,
+  newX,
+  family,
+  obsWeights,
+  id,
+  num_trees = 50,
+  num_burn_in = 250,
+  verbose = F,
+  alpha = 0.95,
+  beta = 2,
+  k = 2,
+  q = 0.9,
+  nu = 3,
+  num_iterations_after_burn_in = 1000,
+  serialize = FALSE,
+  ...
+)
 }
 \arguments{
 \item{Y}{Outcome variable}

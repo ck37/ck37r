@@ -4,9 +4,16 @@
 \alias{plot_roc.CV.SuperLearner}
 \title{Plot a ROC curve from cross-validated AUC from CV.SuperLearner}
 \usage{
-\method{plot_roc}{CV.SuperLearner}(x, y = x$Y, learner = NULL,
-  title = "CV-SuperLearner cross-validated ROC", subtitle = NULL,
-  digits = 4, show_plot = TRUE, ...)
+\method{plot_roc}{CV.SuperLearner}(
+  x,
+  y = x$Y,
+  learner = NULL,
+  title = "CV-SuperLearner cross-validated ROC",
+  subtitle = NULL,
+  digits = 4,
+  show_plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{CV.SuperLearner object}

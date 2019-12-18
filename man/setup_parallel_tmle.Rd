@@ -4,8 +4,12 @@
 \alias{setup_parallel_tmle}
 \title{Setup TMLE to run in parallel}
 \usage{
-setup_parallel_tmle(parallel = "multicore", max_cores = NULL,
-  allow_multinode = T, env = .GlobalEnv)
+setup_parallel_tmle(
+  parallel = "multicore",
+  max_cores = NULL,
+  allow_multinode = T,
+  env = .GlobalEnv
+)
 }
 \arguments{
 \item{parallel}{"multicore", "doParallel", or "doSNOW"}

@@ -4,8 +4,14 @@
 \alias{vim_corr}
 \title{Correlation analysis}
 \usage{
-vim_corr(covariates, data, outcome, weights = rep(1, nrow(data)),
-  bootse = TRUE, verbose = FALSE)
+vim_corr(
+  covariates,
+  data,
+  outcome,
+  weights = rep(1, nrow(data)),
+  bootse = TRUE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{covariates}{Character vector listing the covariates to analyze.}

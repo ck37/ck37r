@@ -4,9 +4,17 @@
 \alias{plot_tree}
 \title{Plot rpart decision tree with pretty good defaults.}
 \usage{
-plot_tree(tree, shadow.col = "gray", shadow.offset = 0.2,
-  box.palette = "auto", digits = 3, pal.thresh = 0.04, extra = 107,
-  tweak = 1.2, ...)
+plot_tree(
+  tree,
+  shadow.col = "gray",
+  shadow.offset = 0.2,
+  box.palette = "auto",
+  digits = 3,
+  pal.thresh = 0.04,
+  extra = 107,
+  tweak = 1.2,
+  ...
+)
 }
 \arguments{
 \item{tree}{tbd}

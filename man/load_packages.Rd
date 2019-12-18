@@ -4,8 +4,7 @@
 \alias{load_packages}
 \title{Load a list of packages.}
 \usage{
-load_packages(pkgs = NULL, auto_install = F, update = F,
-  verbose = F, ...)
+load_packages(pkgs = NULL, auto_install = F, update = F, verbose = F, ...)
 }
 \arguments{
 \item{pkgs}{Character vector of packages to load.}

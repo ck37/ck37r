@@ -4,8 +4,14 @@
 \alias{missingness_indicators}
 \title{Return matrix of missingness indicators for a dataframe or matrix.}
 \usage{
-missingness_indicators(data, prefix = "miss_", remove_constant = TRUE,
-  remove_collinear = TRUE, skip_vars = c(), verbose = FALSE)
+missingness_indicators(
+  data,
+  prefix = "miss_",
+  remove_constant = TRUE,
+  remove_collinear = TRUE,
+  skip_vars = c(),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{Dataframe or matrix to analyze for missingness.}

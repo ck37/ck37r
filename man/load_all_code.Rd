@@ -4,9 +4,14 @@
 \alias{load_all_code}
 \title{Load all R files in a library directory.}
 \usage{
-load_all_code(lib_dir = "lib", exclude_files = c("function_library.R"),
-  file_pattern = "\\\\.R$", recursive = T, verbose = T,
-  envir = .GlobalEnv)
+load_all_code(
+  lib_dir = "lib",
+  exclude_files = c("function_library.R"),
+  file_pattern = "\\\\.R$",
+  recursive = T,
+  verbose = T,
+  envir = .GlobalEnv
+)
 }
 \arguments{
 \item{lib_dir}{Directory contains the source code files.}

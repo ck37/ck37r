@@ -4,8 +4,14 @@
 \alias{h2o_init_multinode}
 \title{Starts an h2o cluster on multiple nodes}
 \usage{
-h2o_init_multinode(h2o_jar, node_list = Sys.getenv("SLURM_NODELIST"),
-  memory_per_node = "8g", cluster_name = "h2o_r", verbose = T, ...)
+h2o_init_multinode(
+  h2o_jar,
+  node_list = Sys.getenv("SLURM_NODELIST"),
+  memory_per_node = "8g",
+  cluster_name = "h2o_r",
+  verbose = T,
+  ...
+)
 }
 \arguments{
 \item{h2o_jar}{Path to h2o.jar, e.g. "~/software/h2o-latest/h2o.jar"}

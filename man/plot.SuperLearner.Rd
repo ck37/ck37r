@@ -4,8 +4,7 @@
 \alias{plot.SuperLearner}
 \title{Plot estimated risk and confidence interval for each learner}
 \usage{
-\method{plot}{SuperLearner}(x, y = x$Y, constant = qnorm(0.975),
-  sort = T, ...)
+\method{plot}{SuperLearner}(x, y = x$Y, constant = qnorm(0.975), sort = T, ...)
 }
 \arguments{
 \item{x}{SuperLearner result object}

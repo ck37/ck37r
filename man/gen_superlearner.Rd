@@ -4,8 +4,12 @@
 \alias{gen_superlearner}
 \title{Setup a SuperLearner() based on parallel configuration.}
 \usage{
-gen_superlearner(parallel = "multicore", cluster = NULL,
-  outer_cv_folds = NULL, verbose = T)
+gen_superlearner(
+  parallel = "multicore",
+  cluster = NULL,
+  outer_cv_folds = NULL,
+  verbose = T
+)
 }
 \arguments{
 \item{parallel}{Can be "multicore", "doSNOW"/"snow" or "seq"/NULL.}

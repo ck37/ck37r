@@ -4,10 +4,23 @@
 \alias{SL.mgcv}
 \title{Wrapper for mgcv's gam implementation}
 \usage{
-SL.mgcv(Y, X, newX, family, obsWeights = NULL, id = NULL,
-  degree = -1, continuous_values = 5, smooth_fn = "s",
-  exclude_spline = NULL, method = "REML", select = TRUE, gamma = 1,
-  formula_rhs = NULL, ...)
+SL.mgcv(
+  Y,
+  X,
+  newX,
+  family,
+  obsWeights = NULL,
+  id = NULL,
+  degree = -1,
+  continuous_values = 5,
+  smooth_fn = "s",
+  exclude_spline = NULL,
+  method = "REML",
+  select = TRUE,
+  gamma = 1,
+  formula_rhs = NULL,
+  ...
+)
 }
 \arguments{
 \item{Y}{Outcome variable}

@@ -4,13 +4,30 @@
 \alias{SL.xgboost_cv}
 \title{XGBoost SuperLearner wrapper with internal cross-validation for early-stopping}
 \usage{
-SL.xgboost_cv(Y, X, newX, family, obsWeights, id, ntrees = 5000L,
-  early_stopping_rounds = 200L, nfold = 5L, max_depth = 4L,
-  shrinkage = 0.1, minobspernode = 10L, subsample = 0.7,
-  colsample_bytree = 0.8, gamma = 5, stratified = family$family ==
-  "binomial", eval_metric = ifelse(family$family == "binomial", "auc",
-  "rmse"), print_every_n = 400L, nthread = getOption("sl.cores", 1L),
-  verbose = 0, save_period = NULL, ...)
+SL.xgboost_cv(
+  Y,
+  X,
+  newX,
+  family,
+  obsWeights,
+  id,
+  ntrees = 5000L,
+  early_stopping_rounds = 200L,
+  nfold = 5L,
+  max_depth = 4L,
+  shrinkage = 0.1,
+  minobspernode = 10L,
+  subsample = 0.7,
+  colsample_bytree = 0.8,
+  gamma = 5,
+  stratified = family$family == "binomial",
+  eval_metric = ifelse(family$family == "binomial", "auc", "rmse"),
+  print_every_n = 400L,
+  nthread = getOption("sl.cores", 1L),
+  verbose = 0,
+  save_period = NULL,
+  ...
+)
 }
 \arguments{
 \item{Y}{Outcome variable}

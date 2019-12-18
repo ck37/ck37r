@@ -4,10 +4,20 @@
 \alias{impute_missing_values}
 \title{Impute missing values in a dataframe and add missingness indicators.}
 \usage{
-impute_missing_values(data, type = "standard", add_indicators = TRUE,
-  prefix = "miss_", skip_vars = NULL, all_vars = FALSE,
-  remove_constant = TRUE, remove_collinear = TRUE, values = NULL,
-  h2o_glrm = NULL, glrm_k = 10L, verbose = FALSE)
+impute_missing_values(
+  data,
+  type = "standard",
+  add_indicators = TRUE,
+  prefix = "miss_",
+  skip_vars = NULL,
+  all_vars = FALSE,
+  remove_constant = TRUE,
+  remove_collinear = TRUE,
+  values = NULL,
+  h2o_glrm = NULL,
+  glrm_k = 10L,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{Dataframe or matrix.}
