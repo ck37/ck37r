@@ -8,7 +8,7 @@
 # @param null_hypothesis If NULL (default), use the highest observed AUC.
 # @param two_tailed Two-failed null hypothesis test? Default FALSE.
 # @param lower.tail Examine lower tail of test distribution? Default TRUE.
-#' @param ... Any additional unused arguments, due to the auc_table generic.
+#' @param ... Any additional unused arguments, due to the prauc_table generic.
 #'
 #' @return Dataframe table with PR-AUCs.
 #'

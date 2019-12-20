@@ -81,6 +81,7 @@ auc_table.CV.SuperLearner = function(x, y = x$Y, sort = TRUE,
     # Create a default in case there is an error. Will be overwritten
     # if successful.
     result = list(cvAUC = NA, se = NA, ci = c(NA, NA))
+
     try({
       if (learner_i <= ncol(cvsl$library.predict)) {
         result = cvAUC::ci.cvAUC(cvsl$library.predict[, learner_i], y, folds = fold_ids)
@@ -91,7 +92,8 @@ auc_table.CV.SuperLearner = function(x, y = x$Y, sort = TRUE,
         # Do discrete SL after all of the learners.
         result = cvAUC::ci.cvAUC(cvsl$discreteSL.predict, y, folds = fold_ids)
       }
-    }, silent = T)
+    }, silent = TRUE)
+
     aucs[learner_i, "auc"] = result$cvAUC
     aucs[learner_i, "se"] = result$se
     aucs[learner_i, "ci_lower"] = result$ci[1]

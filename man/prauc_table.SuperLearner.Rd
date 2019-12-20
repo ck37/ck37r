@@ -13,7 +13,7 @@
 
 \item{sort}{Sort table by order of AUC.}
 
-\item{...}{Any additional unused arguments, due to the auc_table generic.}
+\item{...}{Any additional unused arguments, due to the prauc_table generic.}
 }
 \value{
 Dataframe table with PR-AUCs.

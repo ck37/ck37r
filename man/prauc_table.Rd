@@ -7,10 +7,10 @@
 prauc_table(x, ...)
 }
 \arguments{
-\item{x}{SuperLearner object}
+\item{x}{SuperLearner or CV.SuperLearner object}
 
 \item{...}{Remaining arguments passed through to the methods.}
 }
 \description{
-Currently supports only SuperLearner objects.
+Currently supports SuperLearner or CV.SuperLearner objects.
 }
