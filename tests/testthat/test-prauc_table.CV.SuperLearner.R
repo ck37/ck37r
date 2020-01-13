@@ -22,6 +22,4 @@ suppressWarnings({
 })
 summary(cvsl)
 
-cvsl$SL.predict
-
 prauc_table(cvsl, y = Boston$chas)

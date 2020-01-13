@@ -60,18 +60,22 @@ prauc_table.CV.SuperLearner = function(x, y = x$Y, sort = TRUE,
   # Vector to save the fold id for each observation.
   fold_ids = rep(NA, length(cvsl$SL.predict))
 
+  # Number of CV folds (or bootstrap repetitions in theory).
+  n_samples = length(cvsl$folds)
+
   # Loop over each SL fold and extract which observations were in that fold.
-  for (fold_i in 1:length(cvsl$folds)) {
+  for (fold_i in seq(n_samples)) {
     fold_ids[cvsl$folds[[fold_i]]] = fold_i
   }
 
   # Dataframe to save PR-AUC and CI.
   # Add 2 more than the # of learners to hold DiscreteSL + SL.
-  #aucs = data.frame(matrix(nrow = ncol(cvsl$library.predict) + 2, ncol = 5))
-  result_df = data.frame(matrix(nrow = ncol(cvsl$library.predict) + 2, ncol = 2L))
+  #result_df = data.frame(matrix(nrow = ncol(cvsl$library.predict) + 2, ncol = 2L))
+  result_df = data.frame(matrix(nrow = ncol(cvsl$library.predict) + 2, ncol = 4L))
 
   #colnames(aucs) = c("prauc", "se", "ci_lower", "ci_upper", "p-value")
-  colnames(result_df) = c("prauc", "sd")#, "ci_lower", "ci_upper", "p-value")
+  #colnames(result_df) = c("prauc", "sd")
+  colnames(result_df) = c("prauc", "stderr", "ci_lower", "ci_upper")#, "p-value")
 
   # Loop over each learner.
   for (learner_i in 1:nrow(result_df)) {
@@ -95,10 +99,17 @@ prauc_table.CV.SuperLearner = function(x, y = x$Y, sort = TRUE,
     }, silent = TRUE)
 
     result_df[learner_i, "prauc"] = result$prauc
-    result_df[learner_i, "sd"] = result$sd
+    #result_df[learner_i, "sd"] = result$sd
 
-    #aucs[learner_i, "ci_lower"] = result$ci[1]
-    #aucs[learner_i, "ci_upper"] = result$ci[2]
+    std_err = result$sd / sqrt(n_samples)
+
+    result_df[learner_i, "stderr"] = std_err
+
+    ci = result$prauc + c(-1, 1) * 1.96 * std_err
+
+    result_df[learner_i, "ci_lower"] = ci[1]
+    result_df[learner_i, "ci_upper"] = ci[2]
+
     # Don't generate p-value yet.
   }
 
