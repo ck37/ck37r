@@ -67,6 +67,7 @@ library(ck37r)
     * `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
     * `plot_roc` - ROC plot with AUC and CI for a SuperLearner or CV.SuperLearner object.
     * `plot.SuperLearner` - plot risk estimates and CIs for a SuperLearner, similar to CV.Superlearner except without SL or Discrete SL.
+    * `prauc_table` - table of cross-validated PR-AUCs for each learner in an ensemble, including SE and CI. Supports SuperLearner and CV.SuperLearner objects.
     * `sl_stderr` - calculate standard error for each learner's risk in SL.
     * `SL.h2o_auto()` - wrapper for h2o's automatic machine learning system, to be added to SuperLearner.
     * `SL.bartMachine2()` - wrapper for bartMachine, to be added to SuperLearner.
@@ -135,7 +136,7 @@ data(Boston, package = "MASS")
 set.seed(1)
 (sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
                   cvControl = list(V = 3L),
-                  SL.library = c("SL.mean", "SL.glmnet", "SL.randomForest")))
+                  SL.library = c("SL.mean", "SL.glm", "SL.randomForest")))
 
 summary(rf_count_terminal_nodes(sl$fitLibrary$SL.randomForest_All$object))
 
@@ -155,7 +156,7 @@ rf = create.Learner("SL.randomForest", detailed_names = TRUE,
 # We see that an RF with simpler decision trees performs better than the default.
 (sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
                   cvControl = list(V = 3L),
-                  SL.library = c("SL.mean", "SL.glmnet", rf$names)))
+                  SL.library = c("SL.mean", "SL.glm", rf$names)))
 ```
 
 ### Parallel TMLE
@@ -188,31 +189,33 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Y = as.numeric(Boston$medv > 23),
+y = as.numeric(Boston$medv > 23)
+sl = SuperLearner(Y = y,
                   X = subset(Boston, select = -medv),
                   family = binomial(),
-                  SL.library = c("SL.mean", "SL.glm"))
+                  cvControl = list(V = 2L, stratifyCV = TRUE),
+                  SL.library = c("SL.mean", "SL.lm", "SL.glm"))
 
-auc_table(sl, y = Boston$chas)
+auc_table(sl, y = y)
 ```
 
 ### SuperLearner plot of risk estimates
 
 This is similar to CV.SuperLearner's plot except SuperLearner cannot estimate risk for the Discrete SL and SuperLearner, so those must be omitted here.
 
-```{r plot.sl}
+```{r plot_sl}
 library(SuperLearner)
 library(ck37r)
 
 data(Boston, package = "MASS")
 
 set.seed(1)
-sl = SuperLearner(Boston$medv, subset(Boston, select = -medv),
+(sl = SuperLearner(Boston$medv, subset(Boston, select = -medv),
                   family = gaussian(),
-                  SL.library = c("SL.mean", "SL.glm"))
+                  cvControl = list(V = 2),
+                  SL.library = c("SL.mean", "SL.lm")))
 
-sl
-plot(sl, y = Boston$chas)
+plot(sl, y = Boston$medv)
 ```
 
 ### SuperLearner ROC plot
@@ -223,13 +226,36 @@ library(ck37r)
 
 data(Boston, package = "MASS")
 
+y = as.numeric(Boston$medv > 23)
 set.seed(1)
-(sl = SuperLearner(Y = as.numeric(Boston$medv > 23),
+(sl = SuperLearner(Y = y,
+                   X = subset(Boston, select = -medv),
+                   family = binomial(),
+                   cvControl = list(V = 2L, stratifyCV = TRUE),
+                   SL.library = c("SL.mean", "SL.lm", "SL.glm")))
+
+plot_roc(sl, y = y)
+```
+
+### SuperLearner PR-AUC table
+
+Reports on the precision-recall AUC for each learner, and includes the estimated standard error and 95% confidence interval.
+
+```{r sl_prauc_table}
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+y = as.numeric(Boston$medv > 23)
+set.seed(1)
+sl = SuperLearner(Y = y,
                   X = subset(Boston, select = -medv),
                   family = binomial(),
-                  SL.library = c("SL.mean", "SL.glm")))
+                  cvControl = list(V = 2L, stratifyCV = TRUE),
+                  SL.library = c("SL.mean", "SL.lm", "SL.glm"))
 
-plot_roc(sl, y = Boston$chas)
+prauc_table(sl, y = y)
 ```
 
 ### CV.SuperLearner AUC
@@ -246,8 +272,8 @@ set.seed(1)
 cvsl = CV.SuperLearner(Y = as.numeric(Boston$medv > 23),
                        X = subset(Boston, select = -medv),
                        family = binomial(),
-                       cvControl = list(V = 2, stratifyCV = T),
-                       SL.library = c("SL.mean", "SL.glmnet"))
+                       cvControl = list(V = 2L, stratifyCV = TRUE),
+                       SL.library = c("SL.mean", "SL.lm", "SL.glm"))
 cvsl_auc(cvsl)
 ```
 
@@ -262,13 +288,12 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-y = as.numeric(Boston$medv > 23)
-cvsl = CV.SuperLearner(Y = y,
+cvsl = CV.SuperLearner(Y = as.numeric(Boston$medv > 23),
                        X = subset(Boston, select = -medv),
                        family = binomial(),
                        cvControl = list(V = 2, stratifyCV = TRUE),
-                       SL.library = c("SL.mean", "SL.glmnet"))
-auc_table(cvsl, y = y)
+                       SL.library = c("SL.mean", "SL.lm", "SL.glm"))
+auc_table(cvsl)
 ```
 
 ### CV.SuperLearner plot ROC
@@ -280,13 +305,12 @@ library(ck37r)
 data(Boston, package = "MASS")
 
 set.seed(1)
-y = as.numeric(Boston$medv > 23)
-cvsl = CV.SuperLearner(Y = y,
+cvsl = CV.SuperLearner(Y = as.numeric(Boston$medv > 23),
                        X = subset(Boston, select = -medv),
                        family = binomial(),
-                       cvControl = list(V = 2, stratifyCV = T),
-                       SL.library = c("SL.mean", "SL.glmnet"))
-plot_roc(cvsl, y = y)
+                       cvControl = list(V = 2L, stratifyCV = TRUE),
+                       SL.library = c("SL.mean", "SL.lm", "SL.glm"))
+plot_roc(cvsl)
 ```
 
 ### CV.SuperLearner weight table
@@ -303,9 +327,28 @@ set.seed(1)
 cvsl = CV.SuperLearner(Y = as.numeric(Boston$medv > 23),
                        X = subset(Boston, select = -medv),
                        family = binomial(),
-                       cvControl = list(V = 2, stratifyCV = T),
-                       SL.library = c("SL.mean", "SL.glmnet"))
+                       cvControl = list(V = 2L, stratifyCV = TRUE),
+                       SL.library = c("SL.mean", "SL.lm", "SL.glm"))
 cvsl_weights(cvsl)
+```
+
+### CV.SuperLearner PR-AUC table
+
+Reports on the precision-recall AUC for each learner, as well as the SuperLearner and Discrete Superlearner. Includes the estimated standard error and 95% confidence interval.
+
+```{r cvsl_prauc}
+library(SuperLearner)
+library(ck37r)
+
+data(Boston, package = "MASS")
+
+set.seed(1)
+cvsl = CV.SuperLearner(Y = as.numeric(Boston$medv > 23),
+                       X = subset(Boston, select = -medv),
+                       family = binomial(),
+                       cvControl = list(V = 2L, stratifyCV = TRUE),
+                       SL.library = c("SL.mean", "SL.lm", "SL.glm"))
+prauc_table(cvsl)
 ```
 
 More examples to be added.

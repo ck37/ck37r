@@ -22,7 +22,7 @@ Boston = Boston[row_subset, ]
 X = subset(Boston, select = -chas)
 
 sl = SuperLearner(Boston$chas, X[, 1:3], family = binomial(),
-                  cvControl = list(V = 2, stratifyCV = T),
+                  cvControl = list(V = 2L, stratifyCV = TRUE),
                   SL.library = c("SL.mean", "SL.glm"))
 
 prauc_table(sl, y = Boston$chas)
