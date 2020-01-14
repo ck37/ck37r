@@ -19,7 +19,7 @@
 #' @seealso parallelize, tmle_parallel, gen_superlearner
 # TODO: add examples to the code, document return object.
 setup_parallel_tmle = function(parallel = "multicore", max_cores = NULL,
-                               allow_multinode = T, env = .GlobalEnv) {
+                               allow_multinode = TRUE, env = .GlobalEnv) {
 
   # Start cluster.
   cl = ck37r::parallelize(type = parallel, max_cores = max_cores,

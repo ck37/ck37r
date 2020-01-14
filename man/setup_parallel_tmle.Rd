@@ -7,7 +7,7 @@
 setup_parallel_tmle(
   parallel = "multicore",
   max_cores = NULL,
-  allow_multinode = T,
+  allow_multinode = TRUE,
   env = .GlobalEnv
 )
 }
