@@ -17,3 +17,9 @@
 ^README\.Rmd$
 ^README\.md$
 ^images$
+
+# Deprecated files
+^R/get_java_memory\.R$
+^R/set_java_memory\.R$
+^R/sl_bartmachine2\.R$
+^tests/testthat/test-java_memory\.R$

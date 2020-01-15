@@ -1,6 +1,6 @@
 Package: ck37r
 Title: Chris Kennedy's R Toolkit
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: person("Chris", "Kennedy", email = "chrisken@gmail.com",
   role = c("aut", "cre"))
 Description: Toolkit for statistical, machine learning, and targeted learning
@@ -38,7 +38,6 @@ Imports:
     tmle,
     weights,
 Suggests:
-    bartMachine,
     data.table,
     doMC,
     dplyr,
@@ -49,7 +48,6 @@ Suggests:
     mgcv,
     microbenchmark,
     mlbench,
-    rJava,
     slam,
     testthat,
     xgboost
