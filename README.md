@@ -101,9 +101,6 @@ remotes::install_github("ck37/ck37r")
       - `h2o_init_multinode()` - function to start an h2o cluster on
         multiple nodes from within R, intended for use on SLURM or other
         multi-node clusters.
-  - **Misc**
-      - `set_java_memory()` - set rJava’s maximum memory usage.
-      - `get_java_memory()` - get rJava’s maximum allocated memory.
 
 ## Examples
 
@@ -143,7 +140,7 @@ colSums(is.na(result$data))
 # Generalized low-rank model imputation via h2o.
 result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm", skip_vars = "diabetes")
 #> Warning in h2o.clusterInfo(): 
-#> Your H2O cluster version is too old (5 months and 17 days)!
+#> Your H2O cluster version is too old (5 months and 20 days)!
 #> Please download and install the latest version from http://h2o.ai/download/
 
 # Confirm we have no missing data.
