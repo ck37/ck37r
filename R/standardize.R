@@ -24,8 +24,8 @@
 #' @export
 standardize = function(x, skip_vars = NULL, ...) {
   original_order = colnames(x)
-  new_df = cbind(data.frame(scale(x[, !colnames(x) %in% skip_vars], ...)),
-             x[, colnames(x) %in% skip_vars, drop = F])
+  new_df = cbind(data.frame(scale(x[, !colnames(x) %in% skip_vars, drop = FALSE], ...)),
+             x[, colnames(x) %in% skip_vars, drop = FALSE])
   # Return with columns in their original order, rather than re-ordered
   # due to the data.frame() call above.
   new_df[, original_order]
