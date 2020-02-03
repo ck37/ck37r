@@ -1,6 +1,18 @@
 # News for ck37r
 
-## Development
+## 1.0.3 (2020-02-03)
+
+### Features
+
+* impute_missing_values
+   - initial support for GLRM imputation
+
+* prauc_table
+   - table of precision-recall AUCs for SL or CV.SL ensembles.
+   
+### Other changes
+
+* doMC is no longer supported.
 
 ## 1.0.1 (2018-06-10)
 
