@@ -43,7 +43,6 @@ Imports:
     weights
 Suggests:
     data.table,
-    doMC,
     dplyr,
     glmnet,
     lintr,

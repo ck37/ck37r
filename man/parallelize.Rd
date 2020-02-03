@@ -2,7 +2,7 @@
 % Please edit documentation in R/parallelize.R
 \name{parallelize}
 \alias{parallelize}
-\title{Setup parallel processing, either multinode or multicore.}
+\title{Setup parallel processing using snow.}
 \usage{
 parallelize(
   type = "any",
@@ -15,7 +15,8 @@ parallelize(
 )
 }
 \arguments{
-\item{type}{"any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq"}
+\item{type}{"any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq". doMC
+now sets up a snow cluster as of Feb. 2020.}
 
 \item{max_cores}{Restrict to this many cores, even if more are available.}
 
@@ -37,8 +38,8 @@ obj Cluster object that can be passed to stop_cluster().
 }
 \description{
 By default it uses a multinode cluster if available, otherwise sets up
-multicore via doMC. Libraries required: parallel, doSNOW, doMC, RhpcBLASctl,
-foreach
+multicore via doMC. Libraries required: parallel, doSNOW, RhpcBLASctl,
+foreach. As of Feb. 2020 no longer supports doMC.
 }
 \seealso{
 stop_cluster

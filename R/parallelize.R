@@ -1,11 +1,12 @@
-#' @title Setup parallel processing, either multinode or multicore.
+#' @title Setup parallel processing using snow.
 #'
 #' @description
 #' By default it uses a multinode cluster if available, otherwise sets up
-#' multicore via doMC. Libraries required: parallel, doSNOW, doMC, RhpcBLASctl,
-#' foreach
+#' multicore via doMC. Libraries required: parallel, doSNOW, RhpcBLASctl,
+#' foreach. As of Feb. 2020 no longer supports doMC.
 #'
-#' @param type "any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq"
+#' @param type "any", "cluster"/"doSNOW", "doParallel", "doMC", or "seq". doMC
+#' now sets up a snow cluster as of Feb. 2020.
 #' @param max_cores Restrict to this many cores, even if more are available.
 #' @param allow_multinode If T will use multiple nodes if detected. If F will
 #'   not use multiple machines even if they are available.
@@ -86,9 +87,7 @@ parallelize =
     foreach::registerDoSEQ()
     cl = NA
     parallel_type = "seq"
-  } else if (type %in% c("doParallel") ||
-             # doMC can't be used on Windows, so default to doParallel if doMC
-             # not installed.
+  } else if (type %in% c("doParallel", "doMC") ||
              !"doMC" %in% rownames(installed.packages())) {
     # Outfile = "" allows output from within foreach to be displayed.
     # TODO: figure out how to suppress the output from makeCluster()
@@ -97,13 +96,6 @@ parallelize =
     })
     doParallel::registerDoParallel(cl)
     parallel::setDefaultCluster(cl)
-    parallel_type = "multicore"
-  } else {
-    # doMC only supports multicore parallelism, not multi-node.
-    doMC::registerDoMC(cores)
-    cl = NA
-    # TODO: is this needed since we've already done registerDoMC()?
-    options(mc.cores = cores)
     parallel_type = "multicore"
   }
 
