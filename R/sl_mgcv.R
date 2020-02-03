@@ -41,7 +41,7 @@
 #' Green and Silverman (1994) Nonparametric Regression and Generalized Linear
 #' Models. Chapman and Hall.
 #'
-#' @seealso \code{\link[mgcv]{mgcv}}
+#' @seealso \code{\link[mgcv]{gam}}
 #'
 # @importFrom mgcv s te ti t2
 #' @importFrom stats as.formula
