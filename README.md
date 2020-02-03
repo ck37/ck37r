@@ -139,9 +139,6 @@ colSums(is.na(result$data))
 #############
 # Generalized low-rank model imputation via h2o.
 result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm", skip_vars = "diabetes")
-#> Warning in h2o.clusterInfo(): 
-#> Your H2O cluster version is too old (5 months and 20 days)!
-#> Please download and install the latest version from http://h2o.ai/download/
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))
