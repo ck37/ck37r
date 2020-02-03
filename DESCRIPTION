@@ -1,8 +1,12 @@
 Package: ck37r
 Title: Chris Kennedy's R Toolkit
-Version: 1.0.2
-Authors@R: person("Chris", "Kennedy", email = "chrisken@gmail.com",
-  role = c("aut", "cre"))
+Version: 1.0.3
+Authors@R:
+  person(given = "Chris",
+         family = "Kennedy",
+         email = "chrisken@gmail.com",
+         role = c("aut", "cre"),
+         comment = c(ORCID = "0000-0001-7444-2766"))
 Description: Toolkit for statistical, machine learning, and targeted learning
     analyses. Functionality includes loading & auto-installing packages,
     standardizing datasets, creating missingness indicators, imputing missing
@@ -36,7 +40,7 @@ Imports:
     stringr,
     SuperLearner,
     tmle,
-    weights,
+    weights
 Suggests:
     data.table,
     doMC,
