@@ -69,8 +69,11 @@
 #'
 #' @export
 #'
-#' @importFrom randomForest getTree
 rf_count_terminal_nodes = function(rf) {
+  if (!"randomForest" %in% installed.packages()) {
+    stop(paste0("rf_count_terminal_nodes requires the randomForest package.",
+                'Please run install.packages("randomForest")'))
+  }
   terminal_nodes = rep(NA, rf$forest$ntree)
 
   # TODO: vectorize

@@ -57,7 +57,6 @@
 #' @seealso \code{\link{missingness_indicators}} \code{\link[caret]{preProcess}}
 #'
 #' @importFrom stats median
-#' @importFrom RANN nn2
 #'
 #' @export
 impute_missing_values =
@@ -201,6 +200,12 @@ impute_missing_values =
     if (verbose) {
       cat("Running knn imputation. NOTE: this will standardize your data!\n")
     }
+
+    if (!"RANN"  %in% installed.packages()) {
+      stop('knn imputation requires the RANN package. Please run install.packages("RANN")')
+    }
+
+    # This relies on the RANN package
     impute_info = caret::preProcess(new_data, method = c("knnImpute"))
     new_data = predict(impute_info, new_data)
     results$impute_info = impute_info

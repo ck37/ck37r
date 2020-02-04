@@ -7,8 +7,8 @@
 import_csvs(
   directory = "",
   file_pattern = "\\\\.csv$",
-  recursive = T,
-  verbose = T
+  recursive = TRUE,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -16,7 +16,7 @@ import_csvs(
 
 \item{file_pattern}{File pattern to match.}
 
-\item{recursive}{Whether or not recurse into subdirectories, default T.}
+\item{recursive}{Whether or not recurse into subdirectories, default TRUE.}
 
 \item{verbose}{If True display additional information during execution.}
 }

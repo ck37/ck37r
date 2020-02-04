@@ -31,8 +31,6 @@ Imports:
     parallel,
     precrec,
     pryr,
-    randomForest,
-    RANN,
     reader,
     RhpcBLASctl,
     ROCR,
@@ -51,6 +49,8 @@ Suggests:
     mgcv,
     microbenchmark,
     mlbench,
+    randomForest,
+    RANN,
     slam,
     testthat,
     xgboost
