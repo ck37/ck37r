@@ -22,7 +22,7 @@ build_script:
   - git config --global user.name "travis"
   - git config --global user.email "travis@example.org"
   - travis-tool.sh install_deps
-  - travis-tool.sh github_package jimhester/covr
+  #- travis-tool.sh github_package jimhester/covr
 
 test_script:
   - travis-tool.sh run_tests
@@ -40,7 +40,7 @@ environment:
     WARNINGS_ARE_ERRORS: 1
     _R_CHECK_FORCE_SUGGESTS_: 0
     R_ARCH: x64
-    USE_RTOOLS: true ## to be able to use Remotes (i.e. packages from non-CRAN sources)
+    # USE_RTOOLS: true # to be able to use Remotes (i.e. packages from non-CRAN sources)
     GCC_PATH: mingw_64
     # Try to fix "R version with different internals" build error.
     # Via https://github.com/krlmlr/r-appveyor/issues/95#issuecomment-330471362

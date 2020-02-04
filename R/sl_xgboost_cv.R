@@ -13,8 +13,7 @@
 #' on cross-validated performance.
 #'
 #' If you run into errors please first try installing the latest version of
-#' XGBoost from drat as described here:
-#' \url{https://github.com/dmlc/xgboost/blob/master/doc/build.md#r-package-installation}
+#' XGBoost from CRAN.
 #'
 #' @param Y Outcome variable
 #' @param X Covariate dataframe
