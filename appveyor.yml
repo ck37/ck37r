@@ -5,22 +5,22 @@
 # DO NOT CHANGE the "init" and "install" sections below
 init:
   ps: |
-        Get-Date
+        #Get-Date
         $ErrorActionPreference = "Stop"
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
-        #Import-Module '..\appveyor-tool.ps1'
+        Import-Module '..\appveyor-tool.ps1'
 
 install:
   ps: |
-        Import-Module '..\appveyor-tool.ps1'
+        # Import-Module '..\appveyor-tool.ps1'
         Bootstrap
 
 # Adapt as necessary starting from here
 
 build_script:
-  - set _R_CHECK_FORCE_SUGGESTS_=false
-  - git config --global user.name "travis"
-  - git config --global user.email "travis@example.org"
+  #- set _R_CHECK_FORCE_SUGGESTS_=false
+  #- git config --global user.name "travis"
+  #- git config --global user.email "travis@example.org"
   - travis-tool.sh install_deps
   #- travis-tool.sh github_package jimhester/covr
 
@@ -37,11 +37,11 @@ on_failure:
 
 environment:
   global:
-    WARNINGS_ARE_ERRORS: 1
+    #WARNINGS_ARE_ERRORS: 1
     _R_CHECK_FORCE_SUGGESTS_: 0
     R_ARCH: x64
     # USE_RTOOLS: true # to be able to use Remotes (i.e. packages from non-CRAN sources)
-    GCC_PATH: mingw_64
+    # GCC_PATH: mingw_64
     # Try to fix "R version with different internals" build error.
     # Via https://github.com/krlmlr/r-appveyor/issues/95#issuecomment-330471362
     #PKGTYPE: source
