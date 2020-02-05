@@ -81,3 +81,6 @@ result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm",
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))
+
+# Explicitly shut down h2o to see if this helps appveyor build to not freeze.
+h2o::h2o.shutdown(prompt = FALSE)
