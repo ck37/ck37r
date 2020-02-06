@@ -23,3 +23,4 @@
 ^R/set_java_memory\.R$
 ^R/sl_bartmachine2\.R$
 ^tests/testthat/test-java_memory\.R$
+^CRAN-RELEASE$
