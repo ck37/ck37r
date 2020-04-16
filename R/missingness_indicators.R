@@ -53,7 +53,7 @@ missingness_indicators = function(data, prefix = "miss_",
 
   # Make sure we have any indicators at all.
   if (length(any_nas) > 0) {
-    colnames(indicators) = paste0(prefix, colnames(data[, any_nas, drop = FALSE]))
+    colnames(indicators) = paste0(prefix, names(any_nas))
   }
 
   # Remove any indicators that are all 0 or all 1.
@@ -93,6 +93,10 @@ missingness_indicators = function(data, prefix = "miss_",
       # Make sure we don't switch to a vector if only 1 column remains.
       indicators = indicators[, -linear_combos$remove, drop = FALSE]
     }
+  }
+
+  if (verbose) {
+    cat("Final number of indicators:", ncol(indicators), "\n")
   }
 
   return(indicators)
