@@ -49,7 +49,7 @@ missingness_indicators = function(data, prefix = "miss_",
 
   # Create indicator matrix. Much faster than an sapply.
   # But would this be faster? matrix(as.integer(is.na(data[, any_nas, drop = F])), dim(data))
-  indicators = 1L * is.na(data[, any_nas, drop = FALSE])
+  indicators = 1L * is.na(data[, names(any_nas), drop = FALSE])
 
   # Make sure we have any indicators at all.
   if (length(any_nas) > 0) {
