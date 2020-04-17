@@ -263,9 +263,9 @@ impute_missing_values =
     # Loop over columns with missing data and replace with the glrm data.
     # Use the column names because h2o only analyzed a subset of the data
     # if skip_vars is non-null.
-    for (colname_i in names(data)[any_nas]) {
+    for (colname_i in names(any_nas)) {
       # Identify rows missing the current column.
-      missing_val = is.na(new_data[, colname_i])
+      missing_val = is.na(new_data[[colname_i]])
       new_data[missing_val, colname_i] = glrm_data[missing_val, colname_i]
     }
 
@@ -287,7 +287,8 @@ impute_missing_values =
       # Create missingness indicators from original dataframe.
       # This already incorporates the skip_vars argument via "any_nas".
       missing_indicators =
-        missingness_indicators(data[, any_nas, drop = FALSE], prefix = prefix,
+        missingness_indicators(data[, names(any_nas), drop = FALSE],
+                               prefix = prefix,
                                remove_constant = remove_constant,
                                remove_collinear = remove_collinear,
                                verbose = verbose)
