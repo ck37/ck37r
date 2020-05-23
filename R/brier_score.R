@@ -18,7 +18,9 @@ brier_score = function(preds, actual, test_folds) {
   result = sapply(unique_folds, function(test_fold_i) {
     test_df = subset(df, test_folds == test_fold_i)
 
-    brier_score = (test_df$preds - test_df$actual)^2
+    brier_score = mean((test_df$preds - test_df$actual)^2)
+
+    brier_score
   })
 
   # num_folds = length(unique_folds)
