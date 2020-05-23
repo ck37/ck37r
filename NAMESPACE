@@ -2,6 +2,7 @@
 
 S3method(auc_table,CV.SuperLearner)
 S3method(auc_table,SuperLearner)
+S3method(brier_table,CV.SuperLearner)
 S3method(plot,SuperLearner)
 S3method(plot_roc,CV.SuperLearner)
 S3method(plot_roc,SuperLearner)
