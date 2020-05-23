@@ -98,7 +98,7 @@ brier_table.CV.SuperLearner =
 
     result_df[learner_i, "stderr"] = std_err
 
-    ci = result$prauc + c(-1, 1) * 1.96 * std_err
+    ci = result$brier + c(-1, 1) * 1.96 * std_err
 
     result_df[learner_i, "ci_lower"] = ci[1]
     result_df[learner_i, "ci_upper"] = ci[2]
