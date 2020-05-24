@@ -109,8 +109,8 @@ ipa_table.CV.SuperLearner =
   rownames(result_df) = c(cvsl$libraryNames, "DiscreteSL", "SuperLearner")
 
   if (sort) {
-    # Sort in descending order so best Brier scores are at bottom of table.
-    result_df = result_df[order(result_df$ipa, decreasing = TRUE), ]
+    # Sort in ascending order so best IPA scores are at bottom of table.
+    result_df = result_df[order(result_df$ipa), ]
 
   }
 
