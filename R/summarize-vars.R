@@ -8,7 +8,7 @@
 #' @param integers Explicitly note integer-valued variables
 #' @param ordinal Explicitly note ordinal variables
 #'
-#' @importFrom magritter %>%
+#' @importFrom magrittr %>%
 #' @export
 summarize_vars =
   function(df,
