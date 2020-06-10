@@ -19,6 +19,8 @@ factors_to_indicators =
 
   # TODO: Check type of data and stop() early to save time.
 
+
+  # Compile list of variables that are predictors.
   factor_names =
     names(which(sapply(data[, names(data) %in% predictors], is.factor)))
 
@@ -132,6 +134,7 @@ factors_to_indicators =
   result = list(
     data = data,
     predictors = predictors,
+    factor_vars = factor_names,
     factor_names = all_factor_names
   )
 
