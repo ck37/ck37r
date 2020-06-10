@@ -6,7 +6,7 @@
 \usage{
 summarize_vars(
   df,
-  covars,
+  vars = names(df),
   few_uniq_vals = 10L,
   groups = NULL,
   integers = NULL,
@@ -16,13 +16,13 @@ summarize_vars(
 \arguments{
 \item{df}{Dataframe of variables}
 
+\item{vars}{Variable names to analyze in the dataframe}
+
 \item{groups}{TBD}
 
 \item{integers}{Explicitly note integer-valued variables}
 
 \item{ordinal}{Explicitly note ordinal variables}
-
-\item{vars}{Variable names to analyze in the dataframe}
 }
 \description{
 Generate a summary table of variables in a dataframe.

@@ -12,27 +12,27 @@
 #' @export
 summarize_vars =
   function(df,
-           covars,
+           vars = names(df),
            few_uniq_vals = 10L,
            groups = NULL,
            integers = NULL,
            ordinal = NULL) {
 
-  var_df = data.frame(matrix(nrow = length(covars),
+  var_df = data.frame(matrix(nrow = length(vars),
                              ncol = 13L))
   names(var_df) = c("var", "group", "class", "type",
                     "uniq_vals", "mode", "mean", "median",
                     "min", "pctile_0.1", "max", "pctile_99.9", "missingness")
 
 
-  var_df$var = covars
-  var_df$class = sapply(df[, covars], class)
-  var_df$mode = sapply(df[, covars], function(var) ck37r::Mode(var)[1])
+  var_df$var = vars
+  var_df$class = sapply(df[, vars], class)
+  var_df$mode = sapply(df[, vars], function(var) ck37r::Mode(var)[1])
 
   # Don't count NAs as a unique value.
-  var_df$uniq_vals = sapply(df[, covars], function(var) length(setdiff(unique(var), NA)))
+  var_df$uniq_vals = sapply(df[, vars], function(var) length(setdiff(unique(var), NA)))
 
-  summary_stats = lapply(df[, covars], function(var) {
+  summary_stats = lapply(df[, vars], function(var) {
     summ = summary(var)
     var_cdf = ecdf(var)
     summ["pctile_99.9"] = quantile(var_cdf, 0.999)
@@ -49,11 +49,19 @@ summarize_vars =
   var_df$pctile_99.9 = sapply(summary_stats, `[`, "pctile_99.9")
   var_df$pctile_0.1 = sapply(summary_stats, `[`, "pctile_0.1")
 
-  var_df$missingness = colMeans(is.na(df[, covars]))
+  var_df$missingness = colMeans(is.na(df[, vars]))
 
-  # TODO: support no groups.
+  # Put all variables into the same group.
+  if (is.null(names(groups))) {
+    groups = list("all" = vars)
+  }
+
   for (group in names(groups)) {
     var_df$group[var_df$var %in% groups[[group]]] = group
+  }
+
+  if (is.null(integers)) {
+    integers = names(which(sapply(df[, vars], is.integer)))
   }
 
   # Factor variables are category.
@@ -64,7 +72,7 @@ summarize_vars =
     var_df$min == 0 & var_df$max == 1 & var_df$uniq_vals == 2
 
   # Recode binary vars to integers.
-  for (binary_var in vars$covariates[binary_vars]) {
+  for (binary_var in vars$predictors[binary_vars]) {
     df[[binary_var]] = as.integer(df[[binary_var]])
   }
 
@@ -86,7 +94,7 @@ summarize_vars =
   var_df$type[var_df$var %in% ordinal] = "ordinal int."
 
   # Update class
-  var_df$class = sapply(df[, covars], class)
+  var_df$class = sapply(df[, vars], class)
 
   # Review numerics with few unique vals.
   few_unique_vals = var_df$class == "numeric" & var_df$uniq_vals <= few_uniq_vals
