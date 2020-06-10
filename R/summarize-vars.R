@@ -35,6 +35,7 @@ summarize_vars =
   summary_stats = lapply(df[, vars], function(var) {
     summ = summary(var)
     var_cdf = ecdf(var)
+    # TODO: set these as function arguments.
     summ["pctile_99.9"] = quantile(var_cdf, 0.999)
     summ["pctile_0.1"] = quantile(var_cdf, 0.001)
 
@@ -46,6 +47,7 @@ summarize_vars =
   var_df$max = sapply(summary_stats, `[`, "Max.")
   var_df$median = sapply(summary_stats, `[`, "Median")
 
+  # TODO: make these function arguments.
   var_df$pctile_99.9 = sapply(summary_stats, `[`, "pctile_99.9")
   var_df$pctile_0.1 = sapply(summary_stats, `[`, "pctile_0.1")
 
@@ -72,7 +74,7 @@ summarize_vars =
     var_df$min == 0 & var_df$max == 1 & var_df$uniq_vals == 2
 
   # Recode binary vars to integers.
-  for (binary_var in vars$predictors[binary_vars]) {
+  for (binary_var in vars[binary_vars]) {
     df[[binary_var]] = as.integer(df[[binary_var]])
   }
 
@@ -83,8 +85,9 @@ summarize_vars =
     df[[integer_var]] = as.integer(df[[integer_var]])
   }
 
+  # TODO: detect positive integers automatically.
   # These are all positive integers
-  var_df$type[var_df$var %in% integers] = "pos. int."
+  # var_df$type[var_df$var %in% integers] = "pos. int."
 
   for (ordinal_var in ordinal) {
     df[[ordinal_var]] = as.integer(df[[ordinal_var]])
