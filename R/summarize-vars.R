@@ -24,7 +24,6 @@ summarize_vars =
                     "uniq_vals", "mode", "mean", "median",
                     "min", "pctile_0.1", "max", "pctile_99.9", "missingness")
 
-
   var_df$var = vars
   var_df$class = sapply(df[, vars], class)
   var_df$mode = sapply(df[, vars], function(var) ck37r::Mode(var)[1])
@@ -86,8 +85,7 @@ summarize_vars =
   }
 
   # TODO: detect positive integers automatically.
-  # These are all positive integers
-  # var_df$type[var_df$var %in% integers] = "pos. int."
+  var_df$type[var_df$var %in% integers] = "integer"
 
   for (ordinal_var in ordinal) {
     df[[ordinal_var]] = as.integer(df[[ordinal_var]])
