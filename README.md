@@ -134,11 +134,17 @@ colSums(is.na(result$data))
 
 #### Impute with GLRM
 
+We are using default hyperparameters here, but it would be best to
+optimize the hyperparameters.
+
 ``` r
 
 #############
 # Generalized low-rank model imputation via h2o.
 result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm", skip_vars = "diabetes")
+#> Warning in h2o.clusterInfo(): 
+#> Your H2O cluster version is too old (4 months)!
+#> Please download and install the latest version from http://h2o.ai/download/
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))
@@ -161,10 +167,10 @@ load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TR
 #> Super Learner
 #> Version: 2.0-26
 #> Package created on 2019-10-27
-#> Loaded glmnet 3.0-2
-#> Welcome to the tmle package, version 1.4.0.1
+#> Loaded glmnet 4.0
+#> Welcome to the tmle package, version 1.5.0-1
 #> 
-#> Use tmleNews() to see details on changes and bug fixes
+#> Major changes since v1.3.x. Use tmleNews() to see details on changes and bug fixes
 ```
 
 ### Random Forest: count terminal nodes
@@ -187,6 +193,7 @@ set.seed(1)
 (sl = SuperLearner(Boston$medv, subset(Boston, select = -medv), family = gaussian(),
                   cvControl = list(V = 3L),
                   SL.library = c("SL.mean", "SL.glm", "SL.randomForest")))
+#> Loading required namespace: randomForest
 #> 
 #> Call:  
 #> SuperLearner(Y = Boston$medv, X = subset(Boston, select = -medv), family = gaussian(),  
@@ -501,6 +508,11 @@ prauc_table(cvsl)
 ```
 
 More examples to be added.
+
+## Acknowledgments
+
+The ROC plot is inspired by similar base plot functionality created by
+[Alan Hubbard](http://hubbard.berkeley.edu).
 
 ## References
 
