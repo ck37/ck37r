@@ -31,15 +31,27 @@ summarize_vars =
   # Don't count NAs as a unique value.
   var_df$uniq_vals = sapply(df[, vars], function(var) length(setdiff(unique(var), NA)))
 
-  summary_stats = lapply(df[, vars], function(var) {
+  summary_stats = lapply(vars, function(var_name, data) {
+    var = data[[var_name]]
     summ = summary(var)
-    var_cdf = ecdf(var)
-    # TODO: set these as function arguments.
-    summ["pctile_99.9"] = quantile(var_cdf, 0.999)
-    summ["pctile_0.1"] = quantile(var_cdf, 0.001)
+
+    # This will fail on string variables
+    # TODO: explicitly check for strings.
+    tryCatch({
+      var_cdf = ecdf(var)
+      # TODO: set these as function arguments.
+      summ["pctile_99.9"] = quantile(var_cdf, 0.999)
+      summ["pctile_0.1"] = quantile(var_cdf, 0.001)
+    },  error = function(e) {
+      cat("Error while processing", var_name, "\n")
+      print(e)
+      summ["pctile_99.9"] = NA
+      summ["pctile_0.1"] = NA
+
+    })
 
     summ
-  })
+  }, df)
 
   var_df$mean = sapply(summary_stats, `[`, "Mean")
   var_df$min = sapply(summary_stats, `[`, "Min.")
