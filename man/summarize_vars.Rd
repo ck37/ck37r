@@ -18,6 +18,9 @@ summarize_vars(
 
 \item{vars}{Variable names to analyze in the dataframe}
 
+\item{few_uniq_vals}{Number of values below which we display the numeric variable
+as a candidate to be an integer.}
+
 \item{groups}{TBD}
 
 \item{integers}{Explicitly note integer-valued variables}

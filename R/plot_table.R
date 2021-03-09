@@ -1,3 +1,4 @@
+if (getRversion() >= "2.15.1")  utils::globalVariables(c("learner", "ci_lower", "ci_upper"))
 #' Plot a table of values using ggplot
 #' @param x Table of ML results, assuming to have "learner", "ci_lower", and "ci_upper" columns.
 #' @param metric Column to plot
@@ -18,9 +19,10 @@ plot_table = function(x,
   rownames(tab) = NULL
   p =
     ggplot2::ggplot(tab,
-                    aes(x = learner, y = get(metric), ymin = ci_lower, ymax = ci_upper)) +
+                    ggplot::aes(x = learner, y = base::get(metric),
+                                ymin = ci_lower, ymax = ci_upper)) +
     ggplot2::geom_pointrange(fatten = 2) +
     ggplot2::coord_flip() +
-    ggplot2::labs(x = "Learner", y = metric) + theme_minimal()
+    ggplot2::labs(x = "Learner", y = metric) + ggplot2::theme_minimal()
   return(p)
 }

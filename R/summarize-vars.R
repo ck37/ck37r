@@ -4,6 +4,8 @@
 #'
 #' @param df Dataframe of variables
 #' @param vars Variable names to analyze in the dataframe
+#' @param few_uniq_vals Number of values below which we display the numeric variable
+#'   as a candidate to be an integer.
 #' @param groups TBD
 #' @param integers Explicitly note integer-valued variables
 #' @param ordinal Explicitly note ordinal variables
@@ -39,10 +41,10 @@ summarize_vars =
     # We use any() in case var has multiple classes, e.g. "labelled" and "factor".
     if (!(any(class(var) %in% c("factor", "character")))) {
       tryCatch({
-        var_cdf = ecdf(var)
+        var_cdf = stats::ecdf(var)
         # TODO: set these as function arguments.
-        summ["pctile_99.9"] = quantile(var_cdf, 0.999)
-        summ["pctile_0.1"] = quantile(var_cdf, 0.001)
+        summ["pctile_99.9"] = stats::quantile(var_cdf, 0.999)
+        summ["pctile_0.1"] = stats::quantile(var_cdf, 0.001)
       },  error = function(e) {
         cat("Error while processing", var_name, "\n")
         print(e)
