@@ -35,9 +35,9 @@ summarize_vars =
     var = data[[var_name]]
     summ = summary(var)
 
-    # This will fail on string variables
-    # TODO: explicitly check for strings.
-    if (!class(var) %in% c("factor", "character")) {
+    # This will fail on string variables, and no need to do it for factors.
+    # We use any() in case var has multiple classes, e.g. "labelled" and "factor".
+    if (!(any(class(var) %in% c("factor", "character")))) {
       tryCatch({
         var_cdf = ecdf(var)
         # TODO: set these as function arguments.
