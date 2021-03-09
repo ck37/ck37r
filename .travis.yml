@@ -69,7 +69,6 @@ addons:
 
 r_github_packages:
   - jimhester/covr
-  - hadley/pkgdown
 
 after_success:
   # Only check test coverage for R = release and OS = linux.
