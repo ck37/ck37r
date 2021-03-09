@@ -120,6 +120,10 @@ summarize_vars =
   # Make remaining numeric vars continuous type
   var_df$type[var_df$class == "numeric" & is.na(var_df$type)] = "continuous"
 
+  # Convert group to a factor with the original ordering, so that we order
+  # the results by the group ordering.
+  var_df$group = factor(var_df$group, levels = names(groups))
+
   # Sort by group and then variable name.
   var_df = var_df %>% dplyr::arrange(group, var) %>% as.data.frame()
 
