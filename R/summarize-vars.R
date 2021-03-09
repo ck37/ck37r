@@ -37,18 +37,24 @@ summarize_vars =
 
     # This will fail on string variables
     # TODO: explicitly check for strings.
-    tryCatch({
-      var_cdf = ecdf(var)
-      # TODO: set these as function arguments.
-      summ["pctile_99.9"] = quantile(var_cdf, 0.999)
-      summ["pctile_0.1"] = quantile(var_cdf, 0.001)
-    },  error = function(e) {
-      cat("Error while processing", var_name, "\n")
-      print(e)
+    if (!class(var) %in% c("factor", "character")) {
+      tryCatch({
+        var_cdf = ecdf(var)
+        # TODO: set these as function arguments.
+        summ["pctile_99.9"] = quantile(var_cdf, 0.999)
+        summ["pctile_0.1"] = quantile(var_cdf, 0.001)
+      },  error = function(e) {
+        cat("Error while processing", var_name, "\n")
+        print(e)
+        summ["pctile_99.9"] = NA
+        summ["pctile_0.1"] = NA
+
+      })
+    } else {
+      # No need to report these quantiles for strings/factors.
       summ["pctile_99.9"] = NA
       summ["pctile_0.1"] = NA
-
-    })
+    }
 
     summ
   }, df)
