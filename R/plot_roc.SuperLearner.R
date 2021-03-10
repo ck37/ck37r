@@ -50,7 +50,7 @@
 #'
 #' @importFrom methods slot
 #' @importFrom ROCR prediction performance
-#' @importFrom ggplot2 qplot theme_bw annotate geom_line
+#' @importFrom ggplot2 qplot labs theme_bw annotate
 #'
 #' @export
 plot_roc.SuperLearner =

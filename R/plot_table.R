@@ -3,7 +3,7 @@ if (getRversion() >= "2.15.1")  utils::globalVariables(c("learner", "ci_lower", 
 #' @param x Table of ML results, assuming to have "learner", "ci_lower", and "ci_upper" columns.
 #' @param metric Column to plot
 #' @param sort If TRUE (default), sort rows based on the metric.
-#'
+#' @importFrom ggplot2 ggplot geom_pointrange aes coord_flip labs theme_minimal
 #' @export
 plot_table = function(x,
                       metric = "auc",
@@ -19,7 +19,7 @@ plot_table = function(x,
   rownames(tab) = NULL
   p =
     ggplot2::ggplot(tab,
-                    ggplot::aes(x = learner, y = base::get(metric),
+                    ggplot2::aes(x = learner, y = base::get(metric),
                                 ymin = ci_lower, ymax = ci_upper)) +
     ggplot2::geom_pointrange(fatten = 2) +
     ggplot2::coord_flip() +

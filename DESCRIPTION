@@ -19,7 +19,6 @@ Depends:
     R (>= 3.1.0)
 Imports:
     caret,
-    checkmate,
     crayon,
     cvAUC,
     doParallel,
