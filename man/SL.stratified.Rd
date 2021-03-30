@@ -25,6 +25,8 @@ currently).}
 
 \item{stratify_on}{Vector of variables used to create stratification cells,
 e.g. c('age', 'gender').}
+
+\item{...}{Any other arguments, not used.}
 }
 \description{
 This estimator stratifies the dataset on the values of the

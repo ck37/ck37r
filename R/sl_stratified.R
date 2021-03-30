@@ -19,6 +19,7 @@
 #'   with proportional mean and variance, "cox".
 #' @param stratify_on Vector of variables used to create stratification cells,
 #'   e.g. c('age', 'gender').
+#' @param ... Any other arguments, not used.
 SL.stratified = function(Y, X, newX, family, obsWeights, id, stratify_on, ...) {
 
   # Take the mean of Y over specific strata of X.
