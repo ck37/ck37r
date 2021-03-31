@@ -1,6 +1,7 @@
 # TODO: PR for SuperLearner
 # Avoid a note about "no visible binding for global variable".
 utils::globalVariables(c("_pred", "_size"))
+
 #' @title Stratified estimator
 #'
 #' @description This estimator stratifies the dataset on the values of the
@@ -23,14 +24,15 @@ utils::globalVariables(c("_pred", "_size"))
 #' @param ... Any other arguments, not used.
 #'
 #' @importFrom stats weighted.mean
+#' @importFrom dplyr left_join
 SL.stratified = function(Y, X, newX, family, obsWeights, id, stratify_on, ...) {
 
-  # Take the mean of Y over specific strata of X.
+  # Take the (possibly weighted) mean of Y over specific strata of X.
   stratified_pred =
     cbind(Y, X, obsWeights) %>% dplyr::group_by_at(stratify_on) %>%
     # We prefix with an underscore to minimize any conflict with column names in X.
     dplyr::summarize(`_pred` = stats::weighted.mean(Y, w = obsWeights, na.rm = TRUE),
-                  `_size` = sum(!is.na(Y) * obsWeights, na.rm = TRUE)) %>%
+                     `_size` = sum(!is.na(Y) * obsWeights, na.rm = TRUE)) %>%
       as.data.frame()
 
   # Now left_join with newX to generate prediction.
