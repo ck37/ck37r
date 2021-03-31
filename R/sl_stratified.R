@@ -21,13 +21,15 @@ utils::globalVariables(c("_pred", "_size"))
 #' @param stratify_on Vector of variables used to create stratification cells,
 #'   e.g. c('age', 'gender').
 #' @param ... Any other arguments, not used.
+#'
+#' @importFrom stats weighted.mean
 SL.stratified = function(Y, X, newX, family, obsWeights, id, stratify_on, ...) {
 
   # Take the mean of Y over specific strata of X.
   stratified_pred =
     cbind(Y, X, obsWeights) %>% dplyr::group_by_at(stratify_on) %>%
     # We prefix with an underscore to minimize any conflict with column names in X.
-    dplyr::summarize(`_pred` = weighted.mean(Y, w = obsWeights, na.rm = TRUE),
+    dplyr::summarize(`_pred` = stats::weighted.mean(Y, w = obsWeights, na.rm = TRUE),
                   `_size` = sum(!is.na(Y) * obsWeights, na.rm = TRUE)) %>%
       as.data.frame()
 
@@ -38,7 +40,7 @@ SL.stratified = function(Y, X, newX, family, obsWeights, id, stratify_on, ...) {
   # TODO: remove the highest cardinality grouping variable and see if that stratification solves it.
   missing_pred = is.na(preds$`_pred`)
   if (any(missing_pred)) {
-    preds[missing_pred, "_pred"] = weighted.mean(Y, w = obsWeights, na.rm = TRUE)
+    preds[missing_pred, "_pred"] = stats::weighted.mean(Y, w = obsWeights, na.rm = TRUE)
   }
 
   # fit returns all objects needed for predict()
