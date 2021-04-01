@@ -24,6 +24,7 @@ utils::globalVariables(c("_pred", "_size"))
 #' @param ... Any other arguments, not used.
 #' @importFrom dplyr group_by_at summarize
 #' @importFrom stats weighted.mean
+#' @export
 SL.stratified = function(Y, X, newX, family, obsWeights, id, stratify_on, ...) {
 
   # Take the (possibly weighted) mean of Y over specific strata of X.
