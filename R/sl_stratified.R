@@ -22,9 +22,8 @@ utils::globalVariables(c("_pred", "_size"))
 #' @param stratify_on Vector of variables used to create stratification cells,
 #'   e.g. c('age', 'gender').
 #' @param ... Any other arguments, not used.
-#'
+#' @importFrom dplyr group_by_at summarize
 #' @importFrom stats weighted.mean
-#' @importFrom dplyr left_join
 SL.stratified = function(Y, X, newX, family, obsWeights, id, stratify_on, ...) {
 
   # Take the (possibly weighted) mean of Y over specific strata of X.

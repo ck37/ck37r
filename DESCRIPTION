@@ -22,6 +22,7 @@ Imports:
     crayon,
     cvAUC,
     doParallel,
+    dplyr,
     foreach,
     future.apply,
     ggplot2,
@@ -41,7 +42,6 @@ Imports:
     weights
 Suggests:
     data.table,
-    dplyr,
     glmnet,
     lintr,
     MASS,
