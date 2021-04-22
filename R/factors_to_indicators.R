@@ -101,7 +101,7 @@ factors_to_indicators =
                                    indicator_names, perl = TRUE))
 
     # Remove any parentheses, brackets, forward or backward slashes.
-    indicator_names = gsub(pattern = "[()\\[\\]\\/]", replacement = "",
+    indicator_names = gsub(pattern = "[()\\[\\]\\\\/]", replacement = "",
                            indicator_names, perl = TRUE)
 
     if (verbose) {
