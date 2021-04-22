@@ -100,9 +100,8 @@ factors_to_indicators =
     indicator_names = tolower(gsub(pattern = "[ -]", replacement = "_",
                                    indicator_names, perl = TRUE))
 
-    # Remove any parentheses or brackets, otherwise they will cause the indicator
-    # name to be blank.
-    indicator_names = gsub(pattern = "[()\\[\\]]", replacement = "",
+    # Remove any parentheses, brackets, forward or backward slashes.
+    indicator_names = gsub(pattern = "[()\\[\\]\\/]", replacement = "",
                            indicator_names, perl = TRUE)
 
     if (verbose) {
