@@ -99,6 +99,12 @@ factors_to_indicators =
     # Replace spaces and hyphens with underscores, and convert to lowercase.
     indicator_names = tolower(gsub(pattern = "[ -]", replacement = "_",
                                    indicator_names, perl = TRUE))
+
+    # Remove any parentheses or brackets, otherwise they will cause the indicator
+    # name to be blank.
+    indicator_names = gsub(pattern = "[()\\[\\]]", replacement = "",
+                           indicator_names, perl = TRUE)
+
     if (verbose) {
       cat(":", indicator_names, "\n")
     }
