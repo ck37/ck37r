@@ -93,7 +93,7 @@ factors_to_indicators =
     col_df = col_df[, -1, drop = FALSE]
 
     # Clean up indicator names.
-    indicator_names = gsub(pattern = "factor.*\\)",
+    indicator_names = gsub(pattern = "factor.*?\\)",
                            replacement = paste0(factor_i, "_"), colnames(col_df))
 
     # Replace spaces and hyphens with underscores, and convert to lowercase.
