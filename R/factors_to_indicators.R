@@ -22,7 +22,7 @@ factors_to_indicators =
 
   # Compile list of variables that are predictors.
   factor_names =
-    names(which(sapply(data[, names(data) %in% predictors], is.factor)))
+    names(which(sapply(data[, names(data) %in% predictors, drop = FALSE], is.factor)))
 
   cat(paste0("Converting factors (", length(factor_names), "): ",
              paste(factor_names, collapse = ", "), "\n"))
