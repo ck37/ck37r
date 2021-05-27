@@ -96,12 +96,13 @@ factors_to_indicators =
     indicator_names = gsub(pattern = "factor.*?\\)",
                            replacement = paste0(factor_i, "_"), colnames(col_df))
 
-    # Replace spaces and hyphens with underscores, and convert to lowercase.
-    indicator_names = tolower(gsub(pattern = "[ -]", replacement = "_",
+    # Replace spaces, plusses, and hyphens with underscores, and convert to lowercase.
+    indicator_names = tolower(gsub(pattern = "[- +]", replacement = "_",
                                    indicator_names, perl = TRUE))
 
-    # Remove any parentheses, brackets, forward or backward slashes.
-    indicator_names = gsub(pattern = "[()\\[\\]\\\\/]", replacement = "",
+    # Remove any parentheses, brackets, forward or backward slashes,
+    # greater-than or less-than signs.
+    indicator_names = gsub(pattern = "[()\\[\\]\\\\/<>]", replacement = "",
                            indicator_names, perl = TRUE)
 
     if (verbose) {
