@@ -65,9 +65,13 @@ summary(preds$pred)
 # Dynamic stratification example.
 
 # First see what a decision tree gives us.
-rpart = SL.rpart(Y = Y_gaus, X = X, newX = X, family = gaussian(), obsWeights = rep(1, length(Y_gaus)))
-(rpart_pruned = rpart::prune.rpart(rpart$fit$object,
-                                   cp = rpart$fit$object$cptable[4, "CP"]))
+if (requireNamespace("rpart", quietly = TRUE)) {
+  rpart = SL.rpart(Y = Y_gaus, X = X, newX = X, family = gaussian(), obsWeights = rep(1, length(Y_gaus)))
+  print(rpart)
+  rpart_pruned = rpart::prune.rpart(rpart$fit$object,
+                                   cp = rpart$fit$object$cptable[4, "CP"])
+  print(rpart_pruned)
+}
 
 # Function to make 4 custom strata given a dataframe with the appropriate variables
 make_strata = function(df, verbose = FALSE) {
@@ -172,8 +176,10 @@ data.frame(manual = as.vector(t(train_means[1, ])),
 
 # What is the AUC on the training set? 0.8406
 # Run the wrapper again but pass x_train as the test set.
-pROC::auc(y_train, SL.stratified.custom(y_train, x_train, x_train,
+if (requireNamespace("pROC", quietly = TRUE)) {
+  pROC::auc(y_train, SL.stratified.custom(y_train, x_train, x_train,
                                        obsWeights = rep(1, length(y_train)))$pred)
+}
 
 # Calculate the stratified outcome test means for comparison to the wrapper.
 (test_means =
