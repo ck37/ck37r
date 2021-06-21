@@ -40,13 +40,16 @@ SL.stratified = function(Y, X, newX, family, obsWeights, id, stratify_on, ...) {
 
   # Replace any empty cells with the sample mean.
   # TODO: remove the highest cardinality grouping variable and see if that stratification solves it.
+  sample_mean = stats::weighted.mean(Y, w = obsWeights, na.rm = TRUE)
   missing_pred = is.na(preds$`_pred`)
   if (any(missing_pred)) {
-    preds[missing_pred, "_pred"] = stats::weighted.mean(Y, w = obsWeights, na.rm = TRUE)
+    preds[missing_pred, "_pred"] = sample_mean
   }
 
   # fit returns all objects needed for predict()
-  fit = list(object = stratified_pred)
+  fit = list(object = stratified_pred,
+             stratify_on = stratify_on,
+             sample_mean = sample_mean)
 
   # Declare class of fit for predict()
   class(fit) = 'SL.stratified'
@@ -56,4 +59,32 @@ SL.stratified = function(Y, X, newX, family, obsWeights, id, stratify_on, ...) {
   return(out)
 }
 
-# TODO: make a predict() method for SL.stratified.
+#' @title predict() for SL.stratified
+#'
+#'
+#' @param object SuperLearner object
+#' @param newdata Dataframe to predict the outcome
+#' @param family "gaussian" for regression, "binomial" for binary
+#'   classification. (not useD)
+#' @param ... Additional arguments (not used)
+#'
+#' @export
+predict.SL.stratified =
+  function(object, newdata, family, ...) {
+
+    #stratify_on = setdiff(names(object$object), c("_pred", "_size"))
+
+    # Now left_join with newX to generate prediction.
+    preds = dplyr::left_join(newdata, object$object,
+                             by = object$stratify_on) %>% as.data.frame()
+
+    # Replace any empty cells with the sample mean.
+    # TODO: remove the highest cardinality grouping variable and see if that stratification solves it.
+    missing_pred = is.na(preds$`_pred`)
+    if (any(missing_pred)) {
+      preds[missing_pred, "_pred"] = object$sample_mean
+    }
+
+    return(preds$`_pred`)
+  }
+
