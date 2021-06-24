@@ -9,7 +9,7 @@ auc_inference(true, pred, alpha = 0.05)
 \arguments{
 \item{true}{Vector of true values, 0 or 1}
 
-\item{pred}{Vector of predicted value used to sort the data}
+\item{pred}{Vector of predicted values used to sort the data}
 
 \item{alpha}{Type I error rate of the statistical test}
 }

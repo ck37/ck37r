@@ -1,7 +1,7 @@
 #' Estimate AUC and 95 CI
 #'
 #' @param true Vector of true values, 0 or 1
-#' @param pred Vector of predicted value used to sort the data
+#' @param pred Vector of predicted values used to sort the data
 #' @param alpha Type I error rate of the statistical test
 #' @export
 # TODO: support observation weights
