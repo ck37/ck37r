@@ -27,6 +27,11 @@
 #'
 #' @references
 #'
+#' Boyd, K., Eng, K. H., & Page, C. D. (2013). Area under the precision-recall
+#' curve: point estimates and confidence intervals. In Joint European conference
+#' on machine learning and knowledge discovery in databases (pp. 451-466).
+#' Springer, Berlin, Heidelberg.
+#'
 #' Polley EC, van der Laan MJ (2010) Super Learner in Prediction. U.C. Berkeley
 #' Division of Biostatistics Working Paper Series. Paper 226.
 #' http://biostats.bepress.com/ucbbiostat/paper266/
@@ -34,6 +39,7 @@
 #' van der Laan, M. J., Polley, E. C. and Hubbard, A. E. (2007) Super Learner.
 #' Statistical Applications of Genetics and Molecular Biology, 6, article 25.
 #' http://www.degruyter.com/view/j/sagmb.2007.6.issue-1/sagmb.2007.6.1.1309/sagmb.2007.6.1.1309.xml
+#'
 #
 # TODO: add @seealso links.
 #' @importFrom stats pnorm
@@ -75,15 +81,18 @@ prauc_table.SuperLearner = function(x, y = x$Y, sort = TRUE,
     }, silent = TRUE)
     result_df[learner_i, "prauc"] = result$prauc
 
-    std_err = result$sd / sqrt(n_samples)
+    #std_err = result$sd / sqrt(n_samples)
 
     #result_df[learner_i, "sd"] = result$sd
-    result_df[learner_i, "stderr"] = std_err
+    result_df[learner_i, "stderr"] = result$std_err
 
-    ci = result$prauc + c(-1, 1) * 1.96 * std_err
+    # TODO: replace with CI from Boyd et al. (2013).
+    #ci = result$prauc + c(-1, 1) * 1.96 * result$std_err
 
-    result_df[learner_i, "ci_lower"] = ci[1]
-    result_df[learner_i, "ci_upper"] = ci[2]
+    #result_df[learner_i, "ci_lower"] = ci[1]
+    #result_df[learner_i, "ci_upper"] = ci[2]
+    result_df[learner_i, "ci_lower"] = result$ci[1]
+    result_df[learner_i, "ci_upper"] = result$ci[2]
 
   }
 
