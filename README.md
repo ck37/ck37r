@@ -8,7 +8,7 @@ Status](https://travis-ci.org/ck37/ck37r.svg?branch=master)](https://travis-ci.o
 [![Build Status:
 appveyor](https://ci.appveyor.com/api/projects/status/github/ck37/ck37r?branch=master&svg=true)](https://ci.appveyor.com/project/ck37/ck37r/history)
 [![codecov](https://codecov.io/gh/ck37/ck37r/branch/master/graph/badge.svg)](https://codecov.io/gh/ck37/ck37r)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ck37r)](https://cran.r-project.org/package=ck37r)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ck37r)](https://cran.r-project.org/package=ck37r)
 
 My R toolkit for organizing analysis projects, cleaning data for machine
 learning, parallelizing code for multiple cores or in a SLURM cluster,
@@ -35,70 +35,69 @@ remotes::install_github("ck37/ck37r")
 
 ## Functions
 
-  - **Project Utilities**
-      - `import_csvs` - import all CSV files in a given directory.
-      - `load_all_code` - source() all R files in a given directory.
-      - `load_packages` - load a list of packages; for the ones that
+-   **Project Utilities**
+    -   `import_csvs` - import all CSV files in a given directory.
+    -   `load_all_code` - source() all R files in a given directory.
+    -   `load_packages` - load a list of packages; for the ones that
         fail it can attempt to install them automatically from CRAN,
         then load them again.
-  - **Machine Learning**
-      - `categoricals_to_factors` - convert numeric categoricals into
+-   **Machine Learning**
+    -   `categoricals_to_factors` - convert numeric categoricals into
         factors.
-      - `factors_to_indicators` - convert all factors in a dataframe to
+    -   `factors_to_indicators` - convert all factors in a dataframe to
         series of indicators (one-hot encoding).
-      - `impute_missing_values` - impute missing values in a dataframe
+    -   `impute_missing_values` - impute missing values in a dataframe
         (median for numerics and mode for factors, GLRM, or k-nearest
         neighbors), add missingness indicators.
-      - `missingness_indicators` - return a matrix of missingness
+    -   `missingness_indicators` - return a matrix of missingness
         indicators for a dataframe, (optionally) omitting any constant
         or collinear columns.
-      - `rf_count_terminal_nodes` - count the number of terminal nodes
+    -   `rf_count_terminal_nodes` - count the number of terminal nodes
         in each tree in a random forest. That information can then be
         used to grid-search the maximum number of nodes allowed in a
         Random Forest (along with mtry).
-      - `standardize` - standardize a dataset (center, scale),
+    -   `standardize` - standardize a dataset (center, scale),
         optionally omitting certain variables.
-      - `vim_corr` - rudimentary variable importance based on
+    -   `vim_corr` - rudimentary variable importance based on
         correlation with an outcome.
-  - **Parallelization**
-      - `parallelize` - starts a multicore or multinode parallel
+-   **Parallelization**
+    -   `parallelize` - starts a multicore or multinode parallel
         cluster. Automatically detects parallel nodes in a SLURM
         environment, which makes code work seemlessly on a laptop or a
         cluster.
-      - `stop_cluster` - stops a cluster started by `parallelize()`.
-  - **SuperLearner**
-      - `auc_table` - table of cross-validated AUCs for each learner in
+    -   `stop_cluster` - stops a cluster started by `parallelize()`.
+-   **SuperLearner**
+    -   `auc_table` - table of cross-validated AUCs for each learner in
         an ensemble, including SE, CI, and p-value. Supports
         SuperLearner and CV.SuperLearner objects.
-      - `gen_superlearner` - create a SuperLearner and CV.SuperLearner
+    -   `gen_superlearner` - create a SuperLearner and CV.SuperLearner
         function setup to transparently use a certain parallelization
         configuration.
-      - `cvsl_weights` - table of the meta-weight distribution for each
+    -   `cvsl_weights` - table of the meta-weight distribution for each
         learner in a CV.SuperLearner analysis.
-      - `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
-      - `plot_roc` - ROC plot with AUC and CI for a SuperLearner or
+    -   `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
+    -   `plot_roc` - ROC plot with AUC and CI for a SuperLearner or
         CV.SuperLearner object.
-      - `plot.SuperLearner` - plot risk estimates and CIs for a
+    -   `plot.SuperLearner` - plot risk estimates and CIs for a
         SuperLearner, similar to CV.Superlearner except without SL or
         Discrete SL.
-      - `prauc_table` - table of cross-validated PR-AUCs for each
+    -   `prauc_table` - table of cross-validated PR-AUCs for each
         learner in an ensemble, including SE and CI. Supports
         SuperLearner and CV.SuperLearner objects.
-      - `sl_stderr` - calculate standard error for each learner’s risk
+    -   `sl_stderr` - calculate standard error for each learner’s risk
         in SL.
-      - `SL.h2o_auto()` - wrapper for h2o’s automatic machine learning
+    -   `SL.h2o_auto()` - wrapper for h2o’s automatic machine learning
         system, to be added to SuperLearner.
-      - `SL.bartMachine2()` - wrapper for bartMachine, to be added to
+    -   `SL.bartMachine2()` - wrapper for bartMachine, to be added to
         SuperLearner.
-  - **TMLE**
-      - `tmle_parallel` - allows the SuperLearner estimation in TMLE to
+-   **TMLE**
+    -   `tmle_parallel` - allows the SuperLearner estimation in TMLE to
         be customized, esp. to support parallel estimation via
         mcSuperLearner and snowSuperLearner.
-      - `setup_parallel_tmle` - helper function to start a cluster and
-        setup SuperLearner and tmle\_parallel to use the created
-        cluster.
-  - **h2o**
-      - `h2o_init_multinode()` - function to start an h2o cluster on
+    -   `setup_parallel_tmle` - helper function to start a cluster and
+        setup SuperLearner and tmle_parallel to use the created cluster.
+-   **h2o**
+    -   `h2o_init_multinode()` - function to start an h2o cluster on
         multiple nodes from within R, intended for use on SLURM or other
         multi-node clusters.
 
@@ -138,13 +137,9 @@ We are using default hyperparameters here, but it would be best to
 optimize the hyperparameters.
 
 ``` r
-
 #############
 # Generalized low-rank model imputation via h2o.
 result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm", skip_vars = "diabetes")
-#> Warning in h2o.clusterInfo(): 
-#> Your H2O cluster version is too old (4 months)!
-#> Please download and install the latest version from http://h2o.ai/download/
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))
@@ -164,11 +159,12 @@ that aren’t already installed.
 ``` r
 # Load these 4 packages and install them if necessary.
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
+#> Loaded gam 1.20
 #> Super Learner
-#> Version: 2.0-26
-#> Package created on 2019-10-27
-#> Loaded glmnet 4.0
-#> Welcome to the tmle package, version 1.5.0-1
+#> Version: 2.0-28
+#> Package created on 2021-05-04
+#> Loaded glmnet 4.1-3
+#> Welcome to the tmle package, version 1.5.0-1.1
 #> 
 #> Major changes since v1.3.x. Use tmleNews() to see details on changes and bug fixes
 ```
@@ -374,9 +370,9 @@ sl = SuperLearner(Y = y,
 
 prauc_table(sl, y = y)
 #>       learner     prauc     stderr  ci_lower  ci_upper
-#> 1 SL.mean_All 0.3754941 0.00000000 0.3754941 0.3754941
-#> 2   SL.lm_All 0.9008753 0.02077862 0.8601492 0.9416014
-#> 3  SL.glm_All 0.9041609 0.02879837 0.8477161 0.9606057
+#> 1 SL.mean_All 0.3754941 0.04968302 0.2841487 0.4766516
+#> 2   SL.lm_All 0.9008753 0.03058504 0.8205770 0.9475348
+#> 3  SL.glm_All 0.9041609 0.03005690 0.8221817 0.9506155
 ```
 
 ### CV.SuperLearner AUC
@@ -500,11 +496,11 @@ cvsl = CV.SuperLearner(Y = as.numeric(Boston$medv > 23),
                        SL.library = c("SL.mean", "SL.lm", "SL.glm"))
 prauc_table(cvsl)
 #>                  prauc     stderr  ci_lower  ci_upper
-#> SL.mean_All  0.3754941 0.00000000 0.3754941 0.3754941
-#> SL.lm_All    0.9008753 0.02077862 0.8601492 0.9416014
-#> SL.glm_All   0.9041609 0.02879837 0.8477161 0.9606057
-#> DiscreteSL   0.9041609 0.02879837 0.8477161 0.9606057
-#> SuperLearner 0.9102754 0.02273141 0.8657218 0.9548290
+#> SL.mean_All  0.3754941 0.04968302 0.2841487 0.4766516
+#> SL.lm_All    0.9008753 0.03058504 0.8205770 0.9475348
+#> SL.glm_All   0.9041609 0.03005690 0.8221817 0.9506155
+#> DiscreteSL   0.9041609 0.03005690 0.8221817 0.9506155
+#> SuperLearner 0.9102754 0.02922821 0.8308581 0.9544482
 ```
 
 More examples to be added.
