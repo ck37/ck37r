@@ -75,15 +75,12 @@ prauc_table.SuperLearner = function(x, y = x$Y, sort = TRUE,
   for (learner_i in 1:ncol(sl$Z)) {
     # Create a default in case there is an error. Will be overwritten
     # if successful.
-    result = list(prauc = NA, sd = NA, ci = c(NA, NA))
+    result = list(prauc = NA, std_err = NA, ci = c(NA, NA))
     try({
       result = prauc(sl$Z[, learner_i], y, test_folds = fold_ids)
     }, silent = TRUE)
     result_df[learner_i, "prauc"] = result$prauc
 
-    #std_err = result$sd / sqrt(n_samples)
-
-    #result_df[learner_i, "sd"] = result$sd
     result_df[learner_i, "stderr"] = result$std_err
 
     # TODO: replace with CI from Boyd et al. (2013).
@@ -97,7 +94,6 @@ prauc_table.SuperLearner = function(x, y = x$Y, sort = TRUE,
   }
 
   # TODO: implement p-value calculation.
-
 
   result_df$learner = names(sl$cvRisk)
 

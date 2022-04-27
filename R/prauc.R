@@ -6,7 +6,7 @@
 #' @param actual Known label value
 #' @param test_folds Length n vector assigning each vector to a given test fold
 #'
-#' @return Dataframe of results, including PR-AUC and standard deviation
+#' @return Dataframe of results, including PR-AUC and standard error.
 #'
 #' @references
 #'

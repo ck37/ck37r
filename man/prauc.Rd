@@ -14,7 +14,7 @@ prauc(preds, actual, test_folds)
 \item{test_folds}{Length n vector assigning each vector to a given test fold}
 }
 \value{
-Dataframe of results, including PR-AUC and standard deviation
+Dataframe of results, including PR-AUC and standard error.
 }
 \description{
 Uses the precrec package to calculate PR-AUC
