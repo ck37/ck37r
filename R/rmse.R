@@ -21,7 +21,8 @@ rmse = function(preds, actual, test_folds) {
   results = lapply(unique_folds, function(test_fold_i) {
     test_df = subset(df, test_folds == test_fold_i)
 
-    rmse = sqrt(mean((test_df$preds - test_df$actual)^2))
+    mse = mean((test_df$preds - test_df$actual)^2)
+    rmse = sqrt(mse)
 
     n = nrow(test_df)
 
@@ -31,6 +32,7 @@ rmse = function(preds, actual, test_folds) {
     std_err = rmse * sqrt(1 / (2 * n))
 
     result = list(rmse = rmse,
+                  mse = mse,
                   std_err = std_err,
                   var = std_err^2)
     result
@@ -40,7 +42,11 @@ rmse = function(preds, actual, test_folds) {
 
   df_results = do.call(rbind, lapply(results, data.frame))
 
-  rmse = mean(df_results$rmse)
+  #rmse = mean(df_results$rmse)
+  # We are averaging the MSEs and then taking the sqrt.
+  # This may be closer to the SL built-in MSE estimates.
+  rmse = sqrt(mean(df_results$mse))
+  # We are averaging the variances and then taking the sqrt.
   std_err = sqrt(mean(df_results$var))
 
   ci = c(rmse - std_err * qnorm(0.975),
