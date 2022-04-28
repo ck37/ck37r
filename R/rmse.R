@@ -21,7 +21,7 @@ rmse = function(preds, actual, test_folds) {
   results = lapply(unique_folds, function(test_fold_i) {
     test_df = subset(df, test_folds == test_fold_i)
 
-    rmse = sqrt(mean(test_df$preds - test_df$actual)^2)
+    rmse = sqrt(mean((test_df$preds - test_df$actual)^2))
 
     n = nrow(test_df)
 
