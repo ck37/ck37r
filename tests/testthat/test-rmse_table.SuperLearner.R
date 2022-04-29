@@ -25,5 +25,4 @@ sl = SuperLearner(Boston$age, X[, 1:3], family = gaussian(),
                   cvControl = list(V = 2L),
                   SL.library = c("SL.mean", "SL.glm"))
 
-debugonce(rmse)
 rmse_table(sl, y = Boston$age)
