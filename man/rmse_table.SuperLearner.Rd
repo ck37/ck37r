@@ -4,7 +4,7 @@
 \alias{rmse_table.SuperLearner}
 \title{Table of RMSEs from SuperLearner result}
 \usage{
-\method{rmse_table}{SuperLearner}(x, y = x$Y, sort = TRUE, ...)
+\method{rmse_table}{SuperLearner}(x, y = x$Y, sort = TRUE, version = 1, ...)
 }
 \arguments{
 \item{x}{SuperLearner object}
@@ -12,6 +12,9 @@
 \item{y}{Outcome vector, if not already added to SL object.}
 
 \item{sort}{Sort table by order of AUC.}
+
+\item{version}{1 (default) or 2. 1 averages the RMSE over folds; 2 averages
+the MSE and then takes the square root.}
 
 \item{...}{Any additional unused arguments, due to the prauc_table generic.}
 }

@@ -4,7 +4,7 @@
 \alias{rmse}
 \title{Calculate RMSE from cross-validation results}
 \usage{
-rmse(preds, actual, test_folds)
+rmse(preds, actual, test_folds, version = 1)
 }
 \arguments{
 \item{preds}{Predicted values or score}
@@ -12,6 +12,9 @@ rmse(preds, actual, test_folds)
 \item{actual}{Known value}
 
 \item{test_folds}{Length n vector assigning each vector to a given test fold}
+
+\item{version}{1 (default) or 2. 1 averages the RMSE over folds; 2 averages
+the MSE and then takes the square root.}
 }
 \value{
 Dataframe of results, including RMSE, standard error, and CI

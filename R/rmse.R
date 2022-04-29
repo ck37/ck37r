@@ -3,6 +3,8 @@
 #' @param preds Predicted values or score
 #' @param actual Known value
 #' @param test_folds Length n vector assigning each vector to a given test fold
+#' @param version 1 (default) or 2. 1 averages the RMSE over folds; 2 averages
+#' the MSE and then takes the square root.
 #'
 #' @return Dataframe of results, including RMSE, standard error, and CI
 #'
@@ -12,7 +14,7 @@
 #' adequate test set in multivariate calibration. Chemometrics and Intelligent
 #' Laboratory Systems, 49(1), 79-89.
 #'
-rmse = function(preds, actual, test_folds) {
+rmse = function(preds, actual, test_folds, version = 1) {
 
   df = na.omit(data.frame(preds, actual, test_folds))
 
@@ -42,10 +44,15 @@ rmse = function(preds, actual, test_folds) {
 
   df_results = do.call(rbind, lapply(results, data.frame))
 
-  #rmse = mean(df_results$rmse)
-  # We are averaging the MSEs and then taking the sqrt.
-  # This may be closer to the SL built-in MSE estimates.
-  rmse = sqrt(mean(df_results$mse))
+  if (version == 1) {
+    rmse = mean(df_results$rmse)
+  } else {
+    # Version 2.
+    # We are averaging the MSEs and then taking the sqrt.
+    # This may be closer to the SL built-in MSE estimates.
+    rmse = sqrt(mean(df_results$mse))
+  }
+
   # We are averaging the variances and then taking the sqrt.
   std_err = sqrt(mean(df_results$var))
 

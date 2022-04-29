@@ -8,6 +8,8 @@
 # @param null_hypothesis If NULL (default), use the highest observed AUC.
 # @param two_tailed Two-failed null hypothesis test? Default FALSE.
 # @param lower.tail Examine lower tail of test distribution? Default TRUE.
+#' @param version 1 (default) or 2. 1 averages the RMSE over folds; 2 averages
+#' the MSE and then takes the square root.
 #' @param ... Any additional unused arguments, due to the prauc_table generic.
 #'
 #' @return Dataframe table with RMSEs.
@@ -46,6 +48,7 @@
 #'
 #' @export
 rmse_table.SuperLearner = function(x, y = x$Y, sort = TRUE,
+                                   version = 1,
                                   #null_hypothesis = NULL,
                                   #two_tailed = FALSE,
                                   #lower.tail = TRUE,
@@ -76,7 +79,7 @@ rmse_table.SuperLearner = function(x, y = x$Y, sort = TRUE,
     # if successful.
     result = list(rmse = NA, std_err = NA, ci = c(NA, NA))
     try({
-      result = rmse(sl$Z[, learner_i], y, test_folds = fold_ids)
+      result = rmse(sl$Z[, learner_i], y, test_folds = fold_ids, version = version)
     }, silent = TRUE)
     result_df[learner_i, "rmse"] = result$rmse
 
