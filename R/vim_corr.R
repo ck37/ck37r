@@ -11,6 +11,8 @@
 #' @param verbose If TRUE display extra information.
 #' @export
 #' @importFrom stats model.matrix na.omit
+# TODO: remove avg case/con calculation when outcome is non-binary.
+# TODO: add test.
 vim_corr =
   function(covariates, data, outcome,
            weights = rep(1, nrow(data)),
@@ -86,9 +88,10 @@ vim_corr =
                     if ("try-error" %in% class(test)) {
                       test = list(estimate = NA,
                                   p.value = NA)
+                      note = paste0("Correlation test failed. Error: ",
+                                    attr(test, "condition")$message)
                       if (verbose) {
-                        note = "Correlation test failed"
-                        cat(note, "for", variable, "\n")
+                        cat("Note for", variable, ":\n", note)
                       }
                     } else {
                       test = list(estimate = test[1, "correlation"],
