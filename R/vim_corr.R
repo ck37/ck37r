@@ -91,7 +91,7 @@ vim_corr =
                       note = paste0("Correlation test failed. Error: ",
                                     attr(test, "condition")$message)
                       if (verbose) {
-                        cat("Note for", variable, ":\n", note)
+                        cat(paste0("Note for", variable, ":\n", note, "\n"))
                       }
                     } else {
                       test = list(estimate = test[1, "correlation"],
