@@ -11,11 +11,13 @@
 #' @param max_levels If a factor contains more than this many levels, issue
 #' a warning and don't convert it to indicators.
 #' @param verbose TBD
+#' @param data.table If TRUE, return a data.table (possibly faster).
 #' @importFrom stats model.matrix.lm
 #' @importFrom future.apply future_lapply
 #' @export
 factors_to_indicators =
-  function(data, predictors = colnames(data), max_levels = 200L, verbose = FALSE) {
+  function(data, predictors = colnames(data), max_levels = 200L, verbose = FALSE,
+           data.table = FALSE) {
 
   # TODO: Check type of data and stop() early to save time.
 
@@ -110,6 +112,12 @@ factors_to_indicators =
     }
     colnames(col_df)  = indicator_names
 
+    # Convert to data.table
+    if (data.table) {
+      col_df = as.data.frame(col_df)
+      data.table::setDT(col_df)
+    }
+
     # Return the dataframe for this factor.
     col_df
   })
@@ -119,17 +127,33 @@ factors_to_indicators =
   # many levels.
   predictors = setdiff(predictors, factor_names)
 
-  # Remove original factor columns from the dataframe.
-  data = subset(data, select = setdiff(colnames(data), factor_names))
-  #data = data[ , -c(factor_names), with = FALSE]
-
-  #browser()
-  if (verbose) {
-    cat("Combining factor matrices into a data frame.\n")
+  if (data.table)  {
+    new_data = copy(data)
+    data.table::setDT(new_data)
+  } else {
+    new_data = data
   }
 
-  # cbind all new columns into data frame; skip any elements that are NULL.
-  data = do.call(cbind, c(list(data), results[!sapply(results, is.null)]))
+  # If we actually made any conversions.
+  if (length(factor_names) > 0) {
+
+    # Remove original factor columns from the dataframe.
+    if (data.table) {
+      data.table::set(new_data, , factor_names, NULL)
+    } else {
+      new_data = subset(new_data, select = setdiff(colnames(new_data), factor_names))
+    }
+    #data = data[ , -c(factor_names), with = FALSE]
+
+    #browser()
+    if (verbose) {
+      cat("Combining factor matrices into a data frame.\n")
+    }
+
+    # cbind all new columns into data frame; skip any elements that are NULL.
+    # This should use data.table:::cbind.data.table if these are data tables.
+    new_data = do.call(cbind, c(list(new_data), results[!sapply(results, is.null)]))
+  }
 
   # Compile new factor names into a new vector (all_factor_names)
   all_factor_names = sapply(results, colnames)
@@ -138,7 +162,7 @@ factors_to_indicators =
   predictors = c(predictors, all_factor_names)
 
   result = list(
-    data = data,
+    data = new_data,
     predictors = predictors,
     factor_vars = factor_names,
     factor_names = all_factor_names

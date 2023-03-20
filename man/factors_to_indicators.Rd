@@ -8,7 +8,8 @@ factors_to_indicators(
   data,
   predictors = colnames(data),
   max_levels = 200L,
-  verbose = FALSE
+  verbose = FALSE,
+  data.table = FALSE
 )
 }
 \arguments{
@@ -20,6 +21,8 @@ factors_to_indicators(
 a warning and don't convert it to indicators.}
 
 \item{verbose}{TBD}
+
+\item{data.table}{If TRUE, return a data.table (possibly faster).}
 }
 \description{
 Turns factors into indicator variables with reasonable names.
