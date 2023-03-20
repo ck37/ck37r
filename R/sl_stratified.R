@@ -61,7 +61,6 @@ SL.stratified = function(Y, X, newX, family, obsWeights, id, stratify_on, ...) {
 
 #' @title predict() for SL.stratified
 #'
-#'
 #' @param object SuperLearner object
 #' @param newdata Dataframe to predict the outcome
 #' @param family "gaussian" for regression, "binomial" for binary
