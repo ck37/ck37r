@@ -26,6 +26,7 @@ vim_corr =
 
                     results = data.frame(
                       "variable" = variable,
+                      "type" = NA,
                       "corr" = NA,
                       "p_value" = NA,
                       "avg_con" = NA,
@@ -34,16 +35,18 @@ vim_corr =
 
                     var_class = class(data[[variable]])
 
-                    # Check if non-numeric.
-                    # TODO: add test case for integer covariates.
-                    # TODO: add test case for logical covariates.
-                    if (!var_class %in% c("numeric", "integer")) {
+                    # Check if non-numeric; we do set intersection to support
+                    # variables with multiple classes.
+                    # TODO: add test cases for integer, logical, and factor covariates.
+                    if (length(intersect(var_class, c("numeric", "integer", "factor"))) == 0L) {
 
                       results$note = paste("Class is", var_class)
 
                       # Stop early.
                       return(results)
                     }
+
+                    is_factor = "factor" %in% var_class
 
                     # Check if all missing values.
                     if (sum(is.na(data[[variable]])) == nrow(data)) {
@@ -53,8 +56,8 @@ vim_corr =
                       return(results)
                     }
 
-                    # Check if SD = 0.
-                    if (length(unique(na.omit(data[[variable]]))) == 1L) {
+                    # Check for lack of variation
+                    if (length(unique(na.omit(data[[variable]]))) <= 1L) {
                       results$note = paste("Variable has no variation")
 
                       # Stop early.
@@ -62,16 +65,16 @@ vim_corr =
                     }
 
                     # Raw mean difference.
-                    means = tapply(data[[variable]], data[[outcome]], mean, na.rm = TRUE)
+                    if (!is_factor) {
+                      means = tapply(data[[variable]], data[[outcome]], mean, na.rm = TRUE)
+                    } else {
+                      means = c(NA, NA)
+                    }
 
                     # TODO: check for cell size when stratifying by outcome.
                     # TODO: check for 0 standard deviation.
 
                     note = ""
-
-                    # Correlation analysis.
-                    #test = try(cor.test(data[[variable]], data[[outcome]],
-                    #                    method = "pearson", na.action = na.omit), silent = TRUE)
 
                     # Include weights so that our rows are consistent.
                     temp_data = na.omit(data.frame(weights, data[, c(variable, outcome)]))
@@ -82,30 +85,50 @@ vim_corr =
 
                     # TODO: apply to a full matrix, not a single variable at a time.
                     #browser()
-                    test = try(weights::wtd.cor(temp_data[[variable]], temp_data[[outcome]],
-                                                weight = temp_weights, bootse = bootse), silent = TRUE)
+                    if (!is_factor) {
+                      corr_type = "corr"
+                      # Weighted correlation.
+                      test = try(weights::wtd.cor(temp_data[[variable]], temp_data[[outcome]],
+                                                  weight = temp_weights, bootse = bootse), silent = TRUE)
 
-                    if ("try-error" %in% class(test)) {
-                      test = list(estimate = NA,
-                                  p.value = NA)
-                      note = paste0("Correlation test failed. Error: ",
-                                    attr(test, "condition")$message)
-                      if (verbose) {
-                        cat(paste0("Note for", variable, ":\n", note, "\n"))
+                      if ("try-error" %in% class(test)) {
+                        test = list(estimate = NA,
+                                    p.value = NA)
+                        note = paste0("Correlation test failed. Error: ",
+                                      attr(test, "condition")$message)
+                        if (verbose) {
+                          cat(paste0("Note for", variable, ":\n", note, "\n"))
+                        }
+                      } else {
+                        test = list(estimate = test[1, "correlation"],
+                                    p.value = test[1, "p.value"])
                       }
+
                     } else {
-                      test = list(estimate = test[1, "correlation"],
-                                  p.value = test[1, "p.value"])
+                      corr_type = "chisq"
+                      # Weighted chi-squared
+                      test = try(weights::wtd.chi.sq(temp_data[[variable]], temp_data[[outcome]],
+                                                     weight = temp_weights), silent = TRUE)
+                       if ("try-error" %in% class(test)) {
+                          test =
+                            list(estimate = NA,
+                                 p.value = NA)
+                          note = paste0("Chi-squared test failed. Error: ",
+                                      attr(test, "condition")$message)
+                        if (verbose) {
+                          cat(paste0("Note for", variable, ":\n", note, "\n"))
+                        }
+                      } else {
+                        test =
+                          list(estimate = NA, # not actually a correlation coefficient.
+                               p.value = test["p.value"])
+                      }
                     }
 
-
-                    # outcome_values = unique(data[[outcome]])
-
                     results = data.frame("variable" = variable,
+                                         "type" = corr_type,
                                          "corr" = unname(test$estimate),
-                                         #"corr" = test[1, "correlation"],
                                          "p_value" = test$p.value,
-                                         #"p_value" = test[1, "p.value"],
                                          "avg_con" = means[1],
                                          "avg_case" = means[2],
                                          "note" = note)
@@ -122,6 +145,7 @@ vim_corr =
   result$rank = as.integer(rank(order(result$p_value, -abs(result$corr))))
 
   # Re-order columns.
-  result = result[, c("rank", "variable", "corr", "p_value", "p_value_fdr", "avg_con", "avg_case", "note")]
+  result = result[, c("rank", "variable", "corr", "type", "p_value", "p_value_fdr", "avg_con", "avg_case", "note")]
+
   return(result)
 }
