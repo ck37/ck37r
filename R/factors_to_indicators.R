@@ -11,12 +11,14 @@
 #' @param max_levels If a factor contains more than this many levels, issue
 #' a warning and don't convert it to indicators.
 #' @param verbose TBD
+#' @param tolower If TRUE, lowercase new indicator names (FALSE by default).
 #' @param data.table If TRUE, return a data.table (possibly faster).
 #' @importFrom stats model.matrix.lm
 #' @importFrom future.apply future_lapply
 #' @export
 factors_to_indicators =
   function(data, predictors = colnames(data), max_levels = 200L, verbose = FALSE,
+           to_lower = FALSE,
            data.table = FALSE) {
 
   # TODO: Check type of data and stop() early to save time.
@@ -99,8 +101,13 @@ factors_to_indicators =
                            replacement = paste0(factor_i, "_"), colnames(col_df))
 
     # Replace spaces, plusses, and hyphens with underscores, and convert to lowercase.
-    indicator_names = tolower(gsub(pattern = "[- +]", replacement = "_",
-                                   indicator_names, perl = TRUE))
+    indicator_names = gsub(pattern = "[- +]", replacement = "_",
+                                   indicator_names, perl = TRUE)
+
+    # This is hard to reverse deterministically, so don't do by default.
+    if (to_lower) {
+      indicator_names = tolower(indicator_names)
+    }
 
     # Remove any parentheses, brackets, forward or backward slashes,
     # greater-than or less-than signs, question marks, or commas.

@@ -9,6 +9,7 @@ factors_to_indicators(
   predictors = colnames(data),
   max_levels = 200L,
   verbose = FALSE,
+  to_lower = FALSE,
   data.table = FALSE
 )
 }
@@ -23,6 +24,8 @@ a warning and don't convert it to indicators.}
 \item{verbose}{TBD}
 
 \item{data.table}{If TRUE, return a data.table (possibly faster).}
+
+\item{tolower}{If TRUE, lowercase new indicator names (FALSE by default).}
 }
 \description{
 Turns factors into indicator variables with reasonable names.
