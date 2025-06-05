@@ -1,6 +1,8 @@
 Package: ck37r
 Title: Chris Kennedy's R Toolkit
 Version: 1.0.3
+Author: Chris Kennedy <chrisken@gmail.com>
+Maintainer: Chris Kennedy <chrisken@gmail.com>
 Authors@R:
   person(given = "Chris",
          family = "Kennedy",
