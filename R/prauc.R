@@ -15,6 +15,8 @@
 #' on machine learning and knowledge discovery in databases (pp. 451-466).
 #' Springer, Berlin, Heidelberg.
 #'
+#' @importFrom stats plogis qnorm
+#'
 prauc = function(preds, actual, test_folds) {
 
   df = na.omit(data.frame(preds, actual, test_folds))

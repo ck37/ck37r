@@ -20,7 +20,7 @@ categoricals_to_factors = function(data, categoricals,
     }
 
     # Use [[]] to support tibbles.
-    if (class(data[[var_name]]) == "factor") {
+    if (inherits(data[[var_name]], "factor")) {
       if (verbose) {
         cat("Skipping", var_name, "- already a factor.\n")
       }
