@@ -1,11 +1,8 @@
-linters: linters_with_defaults(
+linters: with_defaults(
   line_length_linter(120),
   assignment_linter = NULL,
   object_name_linter = NULL,
   cyclocomp_linter = NULL,
   object_usage_linter = NULL
 )
-exclusions: list(
-  "R/RcppExports.R",
-  "tests/testthat.R"
-)
+exclusions: R/RcppExports.R, tests/testthat.R
