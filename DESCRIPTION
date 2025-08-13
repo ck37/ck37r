@@ -24,6 +24,7 @@ Imports:
     caret,
     crayon,
     cvAUC,
+    data.table,
     doParallel,
     dplyr,
     foreach,
@@ -45,7 +46,6 @@ Imports:
     tmle,
     weights
 Suggests:
-    data.table,
     glmnet,
     lintr,
     MASS,

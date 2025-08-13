@@ -73,7 +73,7 @@ plot_roc.SuperLearner =
     # Take the first learner if there are ties.
     learner_index = which(names(sl$cvRisk) == auc_table$learner[which.max(auc_table$auc)])[1]
   } else {
-    if (class(learner) == "character") {
+    if (inherits(learner, "character")) {
       # Select the first element in case of multiple learners having the same name.
       learner_index = which(names(sl$cvRisk) == learner)[1]
     } else {

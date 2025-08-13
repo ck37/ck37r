@@ -23,9 +23,9 @@ a warning and don't convert it to indicators.}
 
 \item{verbose}{TBD}
 
-\item{data.table}{If TRUE, return a data.table (possibly faster).}
+\item{to_lower}{If TRUE, lowercase new indicator names (FALSE by default).}
 
-\item{tolower}{If TRUE, lowercase new indicator names (FALSE by default).}
+\item{data.table}{If TRUE, return a data.table (possibly faster).}
 }
 \description{
 Turns factors into indicator variables with reasonable names.

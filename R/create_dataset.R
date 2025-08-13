@@ -177,7 +177,7 @@ create_dataset = function(data, varsX = "", varY = "",
   }
 
   # Make sure Y is numeric and not a factor.
-  if (class(Y) == "factor") {
+  if (inherits(Y, "factor")) {
     cat("Converting Y from a factor to numeric.\n")
     # Y should be 0/1
     newY = as.numeric(Y) - 1

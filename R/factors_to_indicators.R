@@ -11,10 +11,11 @@
 #' @param max_levels If a factor contains more than this many levels, issue
 #' a warning and don't convert it to indicators.
 #' @param verbose TBD
-#' @param tolower If TRUE, lowercase new indicator names (FALSE by default).
+#' @param to_lower If TRUE, lowercase new indicator names (FALSE by default).
 #' @param data.table If TRUE, return a data.table (possibly faster).
 #' @importFrom stats model.matrix.lm
 #' @importFrom future.apply future_lapply
+#' @importFrom data.table copy
 #' @export
 factors_to_indicators =
   function(data, predictors = colnames(data), max_levels = 200L, verbose = FALSE,
