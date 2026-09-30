@@ -70,7 +70,7 @@ obj = result$sl_Q
 # Smaller contributors: SL.predict, library.predict, Z
 for (name in names(obj)) {
   elm = obj[[name]]
-  cat("Element:", name, "Type:", pryr::sexp_type(elm), "Size:")
-  try(print(pryr::object_size(elm)))
+  cat("Element:", name, "Type:", typeof(elm), "Size:")
+  try(print(lobstr::obj_size(elm)))
   try(print(utils::object.size(elm), units = "MB"))
 }
