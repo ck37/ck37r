@@ -2,9 +2,9 @@ library(ck37r)
 library(microbenchmark)
 
 # Load a test dataset.
-data(PimaIndiansDiabetes2, package = "mlbench")
+data(SynthDiabetes2, package = "mlbench")
 
-data = PimaIndiansDiabetes2
+data = SynthDiabetes2
 
 # Check for missing values.
 colSums(is.na(data))

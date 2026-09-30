@@ -69,8 +69,8 @@ glmnet.
 library(SuperLearner)
 
 # Load a test dataset.
-data(PimaIndiansDiabetes2, package = "mlbench")
-data = PimaIndiansDiabetes2
+data(SynthDiabetes2, package = "mlbench")
+data = SynthDiabetes2
 
 # Omit observations with missing data.
 data = na.omit(data)
