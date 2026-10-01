@@ -32,71 +32,70 @@ remotes::install_github("ck37/ck37r")
 
 ## Functions
 
--   **Project Utilities**
-    -   `import_csvs` - import all CSV files in a given directory.
-    -   `load_all_code` - source() all R files in a given directory.
-    -   `load_packages` - load a list of packages; for the ones that
-        fail it can attempt to install them automatically from CRAN,
-        then load them again.
--   **Machine Learning**
-    -   `categoricals_to_factors` - convert numeric categoricals into
-        factors.
-    -   `factors_to_indicators` - convert all factors in a dataframe to
-        series of indicators (one-hot encoding).
-    -   `impute_missing_values` - impute missing values in a dataframe
-        (median for numerics and mode for factors, GLRM, or k-nearest
-        neighbors), add missingness indicators.
-    -   `missingness_indicators` - return a matrix of missingness
-        indicators for a dataframe, (optionally) omitting any constant
-        or collinear columns.
-    -   `rf_count_terminal_nodes` - count the number of terminal nodes
-        in each tree in a random forest. That information can then be
-        used to grid-search the maximum number of nodes allowed in a
-        Random Forest (along with mtry).
-    -   `standardize` - standardize a dataset (center, scale),
-        optionally omitting certain variables.
-    -   `vim_corr` - rudimentary variable importance based on
-        correlation with an outcome.
--   **Parallelization**
-    -   `parallelize` - starts a multicore or multinode parallel
-        cluster. Automatically detects parallel nodes in a SLURM
-        environment, which makes code work seemlessly on a laptop or a
-        cluster.
-    -   `stop_cluster` - stops a cluster started by `parallelize()`.
--   **SuperLearner**
-    -   `auc_table` - table of cross-validated AUCs for each learner in
-        an ensemble, including SE, CI, and p-value. Supports
-        SuperLearner and CV.SuperLearner objects.
-    -   `gen_superlearner` - create a SuperLearner and CV.SuperLearner
-        function setup to transparently use a certain parallelization
-        configuration.
-    -   `cvsl_weights` - table of the meta-weight distribution for each
-        learner in a CV.SuperLearner analysis.
-    -   `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
-    -   `plot_roc` - ROC plot with AUC and CI for a SuperLearner or
-        CV.SuperLearner object.
-    -   `plot.SuperLearner` - plot risk estimates and CIs for a
-        SuperLearner, similar to CV.Superlearner except without SL or
-        Discrete SL.
-    -   `prauc_table` - table of cross-validated PR-AUCs for each
-        learner in an ensemble, including SE and CI. Supports
-        SuperLearner and CV.SuperLearner objects.
-    -   `sl_stderr` - calculate standard error for each learner’s risk
-        in SL.
-    -   `SL.h2o_auto()` - wrapper for h2o’s automatic machine learning
-        system, to be added to SuperLearner.
-    -   `SL.bartMachine2()` - wrapper for bartMachine, to be added to
-        SuperLearner.
--   **TMLE**
-    -   `tmle_parallel` - allows the SuperLearner estimation in TMLE to
-        be customized, esp. to support parallel estimation via
-        mcSuperLearner and snowSuperLearner.
-    -   `setup_parallel_tmle` - helper function to start a cluster and
-        setup SuperLearner and tmle_parallel to use the created cluster.
--   **h2o**
-    -   `h2o_init_multinode()` - function to start an h2o cluster on
-        multiple nodes from within R, intended for use on SLURM or other
-        multi-node clusters.
+- **Project Utilities**
+  - `import_csvs` - import all CSV files in a given directory.
+  - `load_all_code` - source() all R files in a given directory.
+  - `load_packages` - load a list of packages; for the ones that fail it
+    can attempt to install them automatically from CRAN, then load them
+    again.
+- **Machine Learning**
+  - `categoricals_to_factors` - convert numeric categoricals into
+    factors.
+  - `factors_to_indicators` - convert all factors in a dataframe to
+    series of indicators (one-hot encoding).
+  - `impute_missing_values` - impute missing values in a dataframe
+    (median for numerics and mode for factors, GLRM, or k-nearest
+    neighbors), add missingness indicators.
+  - `missingness_indicators` - return a matrix of missingness indicators
+    for a dataframe, (optionally) omitting any constant or collinear
+    columns.
+  - `rf_count_terminal_nodes` - count the number of terminal nodes in
+    each tree in a random forest. That information can then be used to
+    grid-search the maximum number of nodes allowed in a Random Forest
+    (along with mtry).
+  - `standardize` - standardize a dataset (center, scale), optionally
+    omitting certain variables.
+  - `vim_corr` - rudimentary variable importance based on correlation
+    with an outcome.
+- **Parallelization**
+  - `parallelize` - starts a multicore or multinode parallel cluster.
+    Automatically detects parallel nodes in a SLURM environment, which
+    makes code work seemlessly on a laptop or a cluster.
+  - `stop_cluster` - stops a cluster started by `parallelize()`.
+- **SuperLearner**
+  - `auc_table` - table of cross-validated AUCs for each learner in an
+    ensemble, including SE, CI, and p-value. Supports SuperLearner and
+    CV.SuperLearner objects.
+  - `gen_superlearner` - create a SuperLearner and CV.SuperLearner
+    function setup to transparently use a certain parallelization
+    configuration.
+  - `cvsl_weights` - table of the meta-weight distribution for each
+    learner in a CV.SuperLearner analysis.
+  - `cvsl_auc` - cross-validated AUC for a CV.SuperLearner analysis.
+  - `plot_roc` - ROC plot with AUC and CI for a SuperLearner or
+    CV.SuperLearner object.
+  - `plot.SuperLearner` - plot risk estimates and CIs for a
+    SuperLearner, similar to CV.Superlearner except without SL or
+    Discrete SL.
+  - `prauc_table` - table of cross-validated PR-AUCs for each learner in
+    an ensemble, including SE and CI. Supports SuperLearner and
+    CV.SuperLearner objects.
+  - `sl_stderr` - calculate standard error for each learner’s risk in
+    SL.
+  - `SL.h2o_auto()` - wrapper for h2o’s automatic machine learning
+    system, to be added to SuperLearner.
+  - `SL.bartMachine2()` - wrapper for bartMachine, to be added to
+    SuperLearner.
+- **TMLE**
+  - `tmle_parallel` - allows the SuperLearner estimation in TMLE to be
+    customized, esp. to support parallel estimation via mcSuperLearner
+    and snowSuperLearner.
+  - `setup_parallel_tmle` - helper function to start a cluster and setup
+    SuperLearner and tmle_parallel to use the created cluster.
+- **h2o**
+  - `h2o_init_multinode()` - function to start an h2o cluster on
+    multiple nodes from within R, intended for use on SLURM or other
+    multi-node clusters.
 
 ## Examples
 
@@ -104,19 +103,18 @@ remotes::install_github("ck37/ck37r")
 
 ``` r
 # Load a test dataset.
-# TODO: need to switch to a different dataset.
-data(PimaIndiansDiabetes2, package = "mlbench")
+data(SynthDiabetes2, package = "mlbench")
 
 # Check for missing values.
-colSums(is.na(PimaIndiansDiabetes2))
+colSums(is.na(SynthDiabetes2))
 #> pregnant  glucose pressure  triceps  insulin     mass pedigree      age 
-#>        0        5       35      227      374       11        0        0 
+#>        0        5       35      251      405       13        0        0 
 #> diabetes 
 #>        0
 
 # Impute missing data and add missingness indicators.
 # Don't impute the outcome though.
-result = impute_missing_values(PimaIndiansDiabetes2, skip_vars = "diabetes")
+result = impute_missing_values(SynthDiabetes2, skip_vars = "diabetes")
 
 # Confirm we have no missing data.
 colSums(is.na(result$data))
@@ -134,9 +132,13 @@ We are using default hyperparameters here, but it would be best to
 optimize the hyperparameters.
 
 ``` r
+
 #############
 # Generalized low-rank model imputation via h2o.
-result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm", skip_vars = "diabetes")
+result2 = impute_missing_values(SynthDiabetes2, type = "glrm", skip_vars = "diabetes")
+#> Warning in h2o.clusterInfo(): 
+#> Your H2O cluster version is (2 years, 9 months and 10 days) old. There may be a newer version available.
+#> Please download and install the latest version from: https://h2o-release.s3.amazonaws.com/h2o/latest_stable.html
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))
@@ -156,14 +158,14 @@ that aren’t already installed.
 ``` r
 # Load these 4 packages and install them if necessary.
 load_packages(c("MASS", "SuperLearner", "tmle", "doParallel"), auto_install = TRUE)
-#> Loaded gam 1.20
+#> Loaded gam 1.22-7
 #> Super Learner
-#> Version: 2.0-28
-#> Package created on 2021-05-04
-#> Loaded glmnet 4.1-3
-#> Welcome to the tmle package, version 1.5.0-1.1
+#> Version: 2.0-42
+#> Package created on 2026-09-14
+#> Loaded glmnet 5.1
+#> Welcome to the tmle package, version 2.1.1
 #> 
-#> Major changes since v1.3.x. Use tmleNews() to see details on changes and bug fixes
+#> Use tmleNews() to see details on changes and bug fixes
 ```
 
 ### Random Forest: count terminal nodes
@@ -310,6 +312,13 @@ set.seed(1)
 #> SL.lm_All   24.95053 0.96358024
 
 plot(sl, y = Boston$medv)
+#> Warning: `aes_()` was deprecated in ggplot2 3.0.0.
+#> i Please use tidy evaluation idioms with `aes()`
+#> i The deprecated feature was likely used in the ck37r package.
+#>   Please report the issue at <https://github.com/ck37/ck37r/issues>.
+#> This warning is displayed once per session.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
 ![](images/README-plot_sl-1.png)<!-- -->
@@ -342,6 +351,12 @@ set.seed(1)
 #> SL.glm_All  0.0976933 0.8269582
 
 plot_roc(sl, y = y)
+#> Warning: `qplot()` was deprecated in ggplot2 3.4.0.
+#> i The deprecated feature was likely used in the ck37r package.
+#>   Please report the issue at <https://github.com/ck37/ck37r/issues>.
+#> This warning is displayed once per session.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
 ![](images/README-sl_plot_roc-1.png)<!-- -->
