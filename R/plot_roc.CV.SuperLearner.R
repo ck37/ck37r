@@ -129,11 +129,13 @@ plot_roc.CV.SuperLearner =
   perf1 = ROCR::performance(pred, "sens", "spec")
 
   # ggplot version.
-  p = ggplot2::qplot(1 - methods::slot(perf1, "x.values")[[1]],
-                     methods::slot(perf1, "y.values")[[1]],
-                     geom = "line",
-                     main = title) +
-          ggplot2::labs(subtitle = subtitle,
+  roc_df = data.frame(fpr = 1 - methods::slot(perf1, "x.values")[[1]],
+                      tpr = methods::slot(perf1, "y.values")[[1]])
+
+  p = ggplot2::ggplot(roc_df, ggplot2::aes(x = .data$fpr, y = .data$tpr)) +
+          ggplot2::geom_line() +
+          ggplot2::labs(title = title,
+                        subtitle = subtitle,
                         x = "False positive % (1 - specificity)",
                         y = "True positive % (sensitivity)") +
           ggplot2::theme_bw() +
