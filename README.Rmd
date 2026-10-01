@@ -84,15 +84,14 @@ library(ck37r)
 
 ```{r impute_missing_values}
 # Load a test dataset.
-# TODO: need to switch to a different dataset.
-data(PimaIndiansDiabetes2, package = "mlbench")
+data(SynthDiabetes2, package = "mlbench")
 
 # Check for missing values.
-colSums(is.na(PimaIndiansDiabetes2))
+colSums(is.na(SynthDiabetes2))
 
 # Impute missing data and add missingness indicators.
 # Don't impute the outcome though.
-result = impute_missing_values(PimaIndiansDiabetes2, skip_vars = "diabetes")
+result = impute_missing_values(SynthDiabetes2, skip_vars = "diabetes")
 
 # Confirm we have no missing data.
 colSums(is.na(result$data))
@@ -106,7 +105,7 @@ We are using default hyperparameters here, but it would be best to optimize the 
 
 #############
 # Generalized low-rank model imputation via h2o.
-result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm", skip_vars = "diabetes")
+result2 = impute_missing_values(SynthDiabetes2, type = "glrm", skip_vars = "diabetes")
 
 # Confirm we have no missing data.
 colSums(is.na(result2$data))
