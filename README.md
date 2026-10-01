@@ -5,7 +5,6 @@
 
 [![R-CMD-check](https://github.com/ck37/ck37r/actions/workflows/r-check.yml/badge.svg)](https://github.com/ck37/ck37r/actions/workflows/r-check.yml)
 [![codecov](https://codecov.io/gh/ck37/ck37r/branch/main/graph/badge.svg)](https://codecov.io/gh/ck37/ck37r)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/ck37r)](https://cran.r-project.org/package=ck37r)
 
 My R toolkit for organizing analysis projects, cleaning data for machine
 learning, parallelizing code for multiple cores or in a SLURM cluster,
@@ -16,14 +15,7 @@ eventually be migrated into the SuperLearner package.
 
 ## Installation
 
-Install the [latest release from
-CRAN](https://cran.r-project.org/package=ck37r):
-
-``` r
-install.packages("ck37r") 
-```
-
-Install the development version from github (recommended):
+Install from GitHub:
 
 ``` r
 # install.packages("remotes")
