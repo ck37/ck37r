@@ -312,13 +312,6 @@ set.seed(1)
 #> SL.lm_All   24.95053 0.96358024
 
 plot(sl, y = Boston$medv)
-#> Warning: `aes_()` was deprecated in ggplot2 3.0.0.
-#> i Please use tidy evaluation idioms with `aes()`
-#> i The deprecated feature was likely used in the ck37r package.
-#>   Please report the issue at <https://github.com/ck37/ck37r/issues>.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 ![](images/README-plot_sl-1.png)<!-- -->
@@ -351,12 +344,6 @@ set.seed(1)
 #> SL.glm_All  0.0976933 0.8269582
 
 plot_roc(sl, y = y)
-#> Warning: `qplot()` was deprecated in ggplot2 3.4.0.
-#> i The deprecated feature was likely used in the ck37r package.
-#>   Please report the issue at <https://github.com/ck37/ck37r/issues>.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 ![](images/README-sl_plot_roc-1.png)<!-- -->
