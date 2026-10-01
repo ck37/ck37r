@@ -29,7 +29,7 @@
 #' @param ... Remaining arguments are passed through to tmle::tmle().
 #'
 #' @importFrom stats predict
-#' @importFrom pryr object_size
+#' @importFrom lobstr obj_size
 #' @importFrom utils object.size
 #' @export
 #' @seealso setup_parallel_tmle
@@ -53,7 +53,7 @@ tmle_parallel = function(Y, A, W, family,
 
   if (verbose) {
     cat("X dataframe object size: ",
-        prettyNum(pryr::object_size(X) / 1024^2,
+        prettyNum(as.numeric(lobstr::obj_size(X)) / 1024^2,
                   big.mark = ",", digits = 1), " MB\n")
   }
 
@@ -67,7 +67,7 @@ tmle_parallel = function(Y, A, W, family,
     cat("Stacked df dimensions:",
         prettyNum(dim(stacked_df), big.mark = ","), "\n")
     cat("Stacked dataframe object size: ",
-        prettyNum(pryr::object_size(stacked_df) / 1024^2,
+        prettyNum(as.numeric(lobstr::obj_size(stacked_df)) / 1024^2,
                   big.mark = ",", digits = 1), " MB\n")
   }
 
@@ -84,7 +84,7 @@ tmle_parallel = function(Y, A, W, family,
     print(Q_init)
     cat("\nQ init times:\n")
     print(Q_init$times)
-    # pryr::object_size() fails on RF, so use object.size().
+    # Use object.size() here, which handles RF fits reliably.
     cat("\nQ object size: ")
     print(object.size(Q_init), units = "MB")
   }

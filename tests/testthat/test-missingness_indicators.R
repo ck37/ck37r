@@ -9,13 +9,13 @@ if (!all(suppressWarnings(sapply(pkg_suggests, require, quietly = TRUE,
 context("Missingness indicators")
 
 # Load a test dataset.
-data(PimaIndiansDiabetes2, package = "mlbench")
+data(SynthDiabetes2, package = "mlbench")
 
 # Check for missing values.
-colSums(is.na(PimaIndiansDiabetes2))
+colSums(is.na(SynthDiabetes2))
 
 # Generate missingness indicators; skip outcome variable.
-indicators = missingness_indicators(PimaIndiansDiabetes2,
+indicators = missingness_indicators(SynthDiabetes2,
                                     skip_vars = "diabetes", verbose = TRUE)
 
 # Check missingness.
@@ -23,7 +23,7 @@ colSums(indicators)
 
 # Test with a single-column dataframe (drop = F issue).
 # This also tests the case when no missingness indicators are needed.
-data = PimaIndiansDiabetes2
+data = SynthDiabetes2
 
 # 1 column, no missingness data.
 indicators = missingness_indicators(data[, 1, drop = FALSE], verbose = TRUE)

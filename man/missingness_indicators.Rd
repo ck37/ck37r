@@ -37,13 +37,13 @@ Return matrix of missingness indicators for a dataframe or
 \examples{
 
 # Load a test dataset.
-data(PimaIndiansDiabetes2, package = "mlbench")
+data(SynthDiabetes2, package = "mlbench")
 
 # Check for missing values.
-colSums(is.na(PimaIndiansDiabetes2))
+colSums(is.na(SynthDiabetes2))
 
 # Generate missingness indicators; skip outcome variable.
-indicators = missingness_indicators(PimaIndiansDiabetes2,
+indicators = missingness_indicators(SynthDiabetes2,
                                     skip_vars = "diabetes")
 
 # Check missingness.

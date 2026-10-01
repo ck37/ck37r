@@ -20,7 +20,7 @@ auc_inference =
   # Perhaps these could be weight sums for observation weights.
   num_neg = sum(true == 0)
   num_pos = sum(true)
-  se_auc = auctestr::se_auc(auc, num_pos, num_neg)
+  se_auc = se_auc(auc, num_pos, num_neg)
 
   ci = auc + c(-1, 1) * qnorm(1 - alpha / 2) * se_auc
 

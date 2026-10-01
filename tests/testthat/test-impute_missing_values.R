@@ -9,9 +9,9 @@ if (!all(suppressWarnings(sapply(pkg_suggests, require, quietly = TRUE,
 context("Impute missing values")
 
 # Load a test dataset.
-data(PimaIndiansDiabetes2, package = "mlbench")
+data(SynthDiabetes2, package = "mlbench")
 
-data = PimaIndiansDiabetes2
+data = SynthDiabetes2
 
 # Check for missing values.
 colSums(is.na(data))
@@ -66,7 +66,7 @@ suppressWarnings({
 #############
 # K-nearest neighbors imputation
 
-result2 = impute_missing_values(PimaIndiansDiabetes2, type = "knn",
+result2 = impute_missing_values(SynthDiabetes2, type = "knn",
                                 skip_vars = "diabetes")
 
 # Confirm we have no missing data.
@@ -76,7 +76,7 @@ colSums(is.na(result2$data))
 # GLRM imputation
 
 #result2 = impute_missing_values(data, type = "glrm",
-result2 = impute_missing_values(PimaIndiansDiabetes2, type = "glrm",
+result2 = impute_missing_values(SynthDiabetes2, type = "glrm",
                                 skip_vars = "diabetes", verbose = FALSE)
 
 # Confirm we have no missing data.
