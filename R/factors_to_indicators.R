@@ -15,7 +15,6 @@
 #' @param data.table If TRUE, return a data.table (possibly faster).
 #' @importFrom stats model.matrix.lm
 #' @importFrom future.apply future_lapply
-#' @importFrom data.table copy
 #' @export
 factors_to_indicators =
   function(data, predictors = colnames(data), max_levels = 200L, verbose = FALSE,
@@ -138,7 +137,11 @@ factors_to_indicators =
   predictors = setdiff(predictors, factor_names)
 
   if (data.table)  {
-    new_data = copy(data)
+    # Call data.table functions with data.table:: and do not import them. If
+    # ck37r imported anything from data.table, data.table would read the
+    # data[...] calls in ck37r as data.table syntax, and they would no longer
+    # select columns of a data.table.
+    new_data = data.table::copy(data)
     data.table::setDT(new_data)
   } else {
     new_data = data
